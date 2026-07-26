@@ -1390,3 +1390,373 @@ this result holds forever.
   when no separate one exists, which is correct here since both platforms
   should show the identical graphic; noted only so a future session doesn't
   wonder why one is missing.
+
+## M9 — Automation and launch (2026-07-26)
+
+Built spec §11's final milestone: scheduled ingestion with failure/staleness
+alerting, static export turned on, Sentry + Plausible wired in, CDN security
+headers, a real Vercel deployment, and a load-test sanity check. This is also
+the session that gave the project version control and a GitHub remote for the
+first time — there was no `.git` directory at all before this session.
+
+### Decisions made with the user before writing any code
+Four real infrastructure choices the spec deliberately left open, asked via
+`AskUserQuestion` rather than assumed: **git init + create a new GitHub repo
+now** (needed for the Action to actually run, not just exist as YAML);
+**Vercel** over Netlify/Cloudflare Pages for the CDN host; **Sentry wired
+with a placeholder `NEXT_PUBLIC_SENTRY_DSN`** (no-ops until the user creates
+a project and sets it) rather than blocking on a real DSN; **Plausible
+Cloud** over self-hosted Umami. Repo name/visibility (`nba-payroll-explorer`,
+public) was a fifth quick confirmation — public was the user's own call,
+reasoning that the site itself is already public and nothing secret is
+tracked.
+
+### What's here
+- `next.config.mjs` — `output: 'export'` finally turned on (M4's
+  long-carried gap). Needed two follow-on fixes to actually build:
+  `app/sitemap.ts` and `app/robots.ts` both needed `export const dynamic =
+  'force-static'` — Next's static-export check can't otherwise confirm a
+  file-convention route handler has no request-time dependency, even though
+  both were already pure/fs-only. Verified no other server-only feature
+  existed to conflict (`grep`ped for `next/image`, `route.ts`,
+  `middleware.ts`, `next/headers`, `dynamic = ...`, `revalidate` — none
+  found). Full rebuild produces a genuine static `out/` directory: 68 HTML
+  files, 60 binary OG-image files, `sitemap.xml`/`robots.txt` as plain
+  files — confirmed by listing the directory, not just trusting the build
+  log.
+- `.github/workflows/ingest.yml` — daily (`37 8 * * *`, deliberately off
+  the hour) `orchestrate.ts` run, gated by `verify.ts`, committing the
+  `data/` diff only if both succeed. Did **not** need to add any new
+  failure-detection logic: `scripts/orchestrate.ts` (M3 follow-up) already
+  exits non-zero on an `AbortRunError` (429/403) or any per-team parse/fetch
+  failure, and `scripts/verify.ts` already exits non-zero on a
+  reconciliation mismatch — so a failing step just fails the job, and
+  GitHub's own failed-workflow email is the alert, per the user's explicit
+  "don't over-build this."
+- `.github/workflows/staleness-check.yml` + `scripts/checkStaleness.ts` —
+  deliberately separate from the ingestion job (per spec §8: this exists to
+  catch the ingestion Action *silently no longer running*, which wouldn't
+  otherwise produce any failure). Runs every 6 hours, reads the same
+  `data/teams/*.json` files the site itself reads via the existing
+  `lastUpdatedFor()` helper (not git commit history — consistent with the
+  "last updated" timestamp on team pages already being sourced from the data
+  file, not build/commit time), and fails if the freshest `retrievedAt`
+  across all 30 teams is more than 72 hours old.
+- `vercel.json` — CSP, HSTS (`max-age=63072000; includeSubDomains`, no
+  `preload` yet since no real domain exists to submit), and
+  `X-Content-Type-Options: nosniff`, applied at the edge for every route.
+  Has to live here rather than in `next.config.js`'s `headers()` function
+  because that function isn't supported under `output: 'export'` — confirmed
+  by design, not by hitting the error, since the spec's CDN-edge framing
+  already pointed here.
+- `lib/sentry.ts` + `components/SentryInit.tsx` — `@sentry/react` (not
+  `@sentry/nextjs`): a plain static export has no server for `@sentry/nextjs`'s
+  server/edge instrumentation to attach to, and the spec explicitly asks for
+  client-side only, so the simpler browser SDK avoids fighting a Next.js
+  server-runtime plugin for zero benefit. Reads
+  `NEXT_PUBLIC_SENTRY_DSN` (must be `NEXT_PUBLIC_` — static export bakes env
+  vars in at build time), no-ops cleanly when unset, `sendDefaultPii: false`,
+  `tracesSampleRate: 0` (errors only, nothing fancier than what spec §4/§11
+  asked for).
+- `app/layout.tsx` — a `next/script` tag for Plausible
+  (`data-domain={SITE_HOST}`, `strategy="afterInteractive"`), cookie-free per
+  spec §4. Silently records nothing useful until `SITE_HOST` is a real
+  registered domain — same "wire it now, activate later" pattern as Sentry.
+- `app/privacy/page.tsx`, `app/corrections/page.tsx` — rewritten to honestly
+  reflect Plausible/Sentry now existing, replacing the earlier M7 "no
+  analytics or tracking" language. This was the actual moment those earlier
+  pages' own stated principle ("rewritten when it changes, not patched with
+  boilerplate written in advance") applied for real, not a hypothetical.
+  `/corrections`' "why email-only" reasoning was also corrected in passing —
+  it was never really about analytics, it's about there being no backend on
+  a static export to receive a form submission.
+
+### Git/GitHub/Vercel setup — real friction, worth recording
+- `gh` CLI wasn't installed; `brew install gh` worked cleanly in the
+  background (unlike Node in M1, no from-source compile needed).
+- `gh auth login`'s device-code flow doesn't work well backgrounded through
+  this tool: a first attempt got auto-backgrounded by the 120s timeout, and
+  the user completing a *different* `gh auth login` invocation elsewhere on
+  the same machine created an unrelated second device code rather than
+  satisfying the first — gh auth is per-invocation, not a global "is anyone
+  logged in" race. Resolved by killing both stale processes and having the
+  user run `gh auth login` themselves via this session's `!`-prefixed
+  passthrough, which puts the login in the same environment this tool
+  operates in.
+- `.claude/settings.local.json` (machine-specific absolute paths, local
+  Claude Code permission settings) was caught before the first commit and
+  added to `.gitignore` — it isn't secret, but it isn't repo content either.
+- First push was rejected: `refusing to allow a Personal Access Token to
+  create or update workflow .github/workflows/ingest.yml without workflow
+  scope`. `gh auth login`'s default scopes don't include `workflow`; fixed
+  with `gh auth refresh -s workflow` (its own device-code flow, same
+  in-session pattern). That alone wasn't sufficient — git's credential
+  helper for github.com was `osxkeychain`, caching the pre-refresh token, so
+  the push still failed identically until `gh auth setup-git` installed
+  `!gh auth git-credential` as the host-specific helper, which always reads
+  gh's current token rather than a cached one.
+- `vercel link` failed once on project naming: it derives a default name
+  from the directory (`NBA Payrolls`), which has a space and uppercase
+  letters and Vercel's project-name rules reject — fixed by passing
+  `--project nba-payroll-explorer` explicitly. It also couldn't
+  auto-connect the GitHub repo ("Failed to connect... Make sure you have
+  access") — that specific link needs the Vercel GitHub App authorized via
+  their web UI, not something the CLI can complete non-interactively. Left
+  unconnected for now: `vercel deploy` still works standalone and was used
+  for this session's actual deployment; connecting the repo for
+  automatic per-push deploys is a real follow-up, not done this session.
+- Both `gh` and `vercel` needed a genuine human-completed browser device-code
+  step; this session could detect what was needed and prepare everything
+  around it, but could not complete either login itself.
+
+### Live end-to-end verification, not just YAML review
+Rather than trust that the workflow files were merely syntactically valid,
+manually triggered both via `gh workflow run` and watched them run for real
+in GitHub's own runners (confirmed with the user first for the ingestion one
+specifically, since it makes real live requests against Basketball-Reference
+and pushes a real commit — the staleness check has no external side effects
+so didn't need to ask):
+- **Staleness check**: ran in ~31s, correctly read all 30 teams' data,
+  computed "15.0h ago", passed.
+- **Scheduled ingestion**: ran for real — fetched all 30 teams live from
+  Basketball-Reference (3s crawl-delay honored between requests, same as
+  every prior session's local runs), every season across all 30 teams
+  reconciled via `verify.ts`, detected a genuine diff (fresh `retrievedAt`
+  timestamps), committed as `github-actions[bot]`, and pushed —
+  `55c16c7..6cc7f3e`, 30 files changed. Pulled that commit back down locally
+  afterward to stay in sync. This is the single most convincing check in
+  this session: the automation doesn't just look right, it already worked,
+  once, for real, on GitHub's own infrastructure.
+
+### The load-test: a real finding, not a clean pass
+Deployed to Vercel (`vercel link --project nba-payroll-explorer` then
+`vercel deploy`; first deployment auto-promotes to production, aliased at
+`https://nba-payroll-explorer.vercel.app`). Confirmed correct before load
+testing at all: `/`, `/team/okc`, `/sitemap.xml`, `/robots.txt`,
+`/methodology`, and an OG image all returned 200, and `curl -I` confirmed
+CSP/HSTS/`X-Content-Type-Options` all present exactly as configured in
+`vercel.json`.
+
+First `autocannon -c 100 -d 20` run against the live URL produced 1,109
+non-2xx responses and 114 timeouts out of ~1,223 requests — but the
+non-2xx bodies were Vercel's own **"Vercel Security Checkpoint"** page
+(confirmed by reading the actual response body, not assumed from the status
+code alone), not an app error. This is Vercel's automatic system-level DDoS
+mitigation, which exists on the Hobby tier with no configurable bypass —
+confirmed directly via `vercel firewall overview` returning `"IP Bypass is
+unavailable for this plan (404)"`. A second, much gentler retry
+(`-c 10 -d 10`, after waiting for the block to clear) tripped the same
+protection again almost immediately (1,210 of ~1,247 requests non-2xx),
+and a single ordinary `curl` afterward also came back 403 — confirming this
+project's Hobby-tier plan cannot be meaningfully load-tested by hammering
+the live production URL from one source IP, at any concurrency, full stop.
+This is a real constraint of the hosting tier, not a bug to fix.
+
+**Pivoted to testing the actual static-export artifact directly**: served
+`out/` locally via `serve` and ran `autocannon` against `localhost` instead,
+where there's no third-party WAF in the way. `-c 100 -d 15` against `/`:
+4,000 requests in 15.29s, **zero errors, zero non-2xx**. `-c 100 -d 10`
+against `/team/mem` (heaviest real roster, 21 charges, per M8's LCP check):
+~3,000 requests, zero errors. `-c 200 -d 10` against `/`: throughput held
+around 310-320 req/s with latency degrading gracefully (median 739ms) under
+double the concurrency — still zero errors. This is the right signal for
+what spec §11 actually asked ("confirm the static export actually serves
+correctly under concurrent load"): the exported artifact is pure file I/O
+with no per-request server compute, which is exactly what makes it
+trivially horizontally scalable behind a real multi-region CDN edge — a
+real traffic spike is many *different* visitor IPs, nothing like the
+single-IP burst that tripped Vercel's abuse detection, so it wouldn't
+trigger the same mitigation in production. The takeaway for whoever reads
+this later: don't repeat the naive "autocannon the production URL" approach
+on Hobby tier; test the exported artifact directly, or upgrade to a plan
+with IP-bypass support first.
+
+### Final CLAUDE.md compliance pass (per the user's explicit request)
+Re-read every rule in CLAUDE.md's `## Rules` and `## Don't` sections against
+the actual current codebase (grepped and read the real files — did not rely
+on trusting each milestone's own "Verified" section). Most rules hold up:
+no `.append()` calls anywhere (D3/React boundary respected), no charting
+library in `package.json`, every real and synthetic `CapCharge` carries
+integer `capHit`/`taxHit`/`apronHit` and all four provenance fields
+(spot-checked all 30 real team files programmatically, not just OKC),
+two-way contracts are genuinely never emitted, `cheerio`/BR-specific parsing
+never leaks outside `scripts/ingest/basketball-reference/`, no live-scraping
+API route exists, no team/league logos or player photos anywhere. **Four
+real findings, all pre-existing and now confirmed rather than newly
+introduced:**
+
+1. **"Estimated values are visually distinct from sourced ones. No
+   exceptions" is violated in the chart itself.** Confirmed by reading
+   `PayrollChart.tsx`: `derivation` is used only in `aria-label`/`title`/the
+   sighted-user text readout — never in fill, opacity, or a pattern.
+   Flagged as a known gap in M4, M5, M6, and M7's own notes and never
+   fixed; M6's table view gives it a text channel, but the rule says "no
+   exceptions" and the chart itself is still one. This matters more today
+   than when first flagged: `/methodology`'s own live-computed stat says
+   386 of the real dataset's charges are currently `'estimated'`, all
+   rendering with full visual confidence.
+2. **"Projected thresholds render dashed" is unimplemented at the line
+   level.** `isProjected` only changes threshold label text
+   ("(projected)"/"(proj.)"); `strokeDasharray` is keyed by threshold
+   *type* (cap/tax/apron1/apron2), never by projected status. Dormant today
+   — `data/thresholds.ts` has no `isProjected: true` rows yet — but it's a
+   silent time bomb: the moment a future session adds a projected out-year
+   threshold, it will render exactly as solid and confident as a real one,
+   which is precisely what this CLAUDE.md rule and spec §2 exist to
+   prevent. Whoever extends `data/thresholds.ts` next should fix this
+   first, not after.
+3. **CLAUDE.md's own text is stale versus shipped, user-approved
+   behavior.** "Apron thresholds are compared against apronHit only" no
+   longer describes the code: M5's basis toggle (confirmed by reading
+   `lib/chart/toggles.ts`'s `selectAmount`) makes *all* threshold
+   comparisons use whichever of `capHit`/`taxHit`/`apronHit` is currently
+   selected, not `apronHit` unconditionally. This was a deliberate,
+   user-confirmed decision in M5 and is honestly described in
+   `/methodology` (M7 explicitly flagged the CLAUDE.md/code mismatch at the
+   time) — but CLAUDE.md's rule text itself was never updated to match, so
+   it will mislead any future session that trusts CLAUDE.md over the code.
+   Worth a one-line edit to CLAUDE.md itself, not just the methodology page.
+4. **"Don't encode meaning by color alone" is only fully satisfied with the
+   table view open.** Player identity is fine (paired with direct labels
+   regardless of color). A segment's contract *mechanism/tier* has no
+   non-color channel inside the chart itself — no hatch/pattern was ever
+   built (spec's own suggested alternative). M6 explicitly scoped this as a
+   judgment call (the table's `Mechanism` column is the real remedy) rather
+   than silently leaving it — recorded here as still open, not resolved.
+
+Two adjacent, non-rule items worth knowing about before calling this
+launch-ready: **no favicon exists at all** (not a rule violation — CLAUDE.md
+only bans NBA/team logos as favicons — but a real polish gap for a public
+launch); and **the CSP genuinely needs `script-src`/`style-src
+'unsafe-inline'`** (confirmed necessary: the built HTML has 7 inline
+`self.__next_f.push(...)` hydration scripts and one repeated inline `style=`
+attribute, and static export has no server to inject a per-request nonce).
+This is a real, disclosed weakening of CSP's XSS protection inherent to this
+hosting model — not a mistake, but not free either.
+
+### Verified
+- `npx tsc --noEmit` clean.
+- `npm test` — 42/42 Vitest tests pass, unchanged.
+- `npm run verify` — all 30 teams + the synthetic fixture reconcile,
+  unchanged in count, re-run after the live ingestion Action's real commit
+  landed locally too.
+- `npm run build` — now a genuine static export (confirmed via `out/`
+  directory contents, not just a clean exit code).
+- `npm run a11y` — **12/12 pass, 0 violations**, re-run twice this session
+  (once after `output: 'export'`, once after the Plausible/privacy-page
+  changes) to confirm neither regressed anything.
+- Both GitHub Actions triggered manually and watched to real completion
+  (see above) — not just YAML-validated.
+- Live production deployment spot-checked route-by-route before load
+  testing; security headers confirmed present via `curl -I` against the
+  real edge, not just read from `vercel.json`.
+- Local static-export load test: zero errors across ~10,000 combined
+  requests at 100-200 concurrent connections against three different
+  routes.
+
+### Known gaps (final, whole-project list — carried forward, not fixed this session)
+- The four CLAUDE.md compliance findings above (estimated/sourced visual
+  distinction, projected-threshold dashing, the apronHit rule-text/code
+  mismatch, in-chart color-alone for mechanism) are all real and still
+  open. None are new; all predate this session and were reasoned-through
+  judgment calls or scope decisions at the time, not oversights — but
+  "flagged before" isn't the same as "fixed," and the user asked
+  specifically to know before this goes public.
+- No favicon.
+- Vercel GitHub App isn't connected — `vercel deploy` from the CLI is the
+  only deploy path today; pushing to `main` does not auto-deploy. Connecting
+  it (via Vercel's dashboard, not the CLI) is a real, easy follow-up.
+- Vercel Hobby tier's automatic DDoS mitigation has no IP-bypass — worth
+  knowing before anyone tries to load-test the live URL again the naive way.
+- `NEXT_PUBLIC_SENTRY_DSN` and Plausible's site registration are both still
+  unset/unconfigured on the real Vercel project (no env vars exist there
+  yet, confirmed via `vercel env ls`) — both are wired to activate
+  automatically the moment the user sets them up, no code change needed.
+- `SITE_URL` is still the `nba-payroll-explorer.example` placeholder (M7/M8
+  gap, unchanged) — no real domain has been registered. Sitemap, canonical
+  tags, and JSON-LD are all correct *relative to* that placeholder today.
+- Vercel's HSTS header intentionally omits `preload` until a real domain
+  exists to actually submit to the browser preload list.
+- No commercial data licensing (Spotrac) was ever pursued — unchanged from
+  every prior session; the derive-from-primitives architecture (§3 option 3)
+  has been the actual, working approach since M3.
+- Cap holds, draft-rights holds, and incomplete-roster charges are still
+  unsourced for every team (M3's original gap, confirmed still true — no
+  session between M3 and M9 added a second source for these charge types).
+- `optionDecided` is still always conservatively `false` (M3's original
+  simplification, unchanged).
+
+## Project summary (M0–M9, end to end)
+
+A from-scratch public NBA payroll visualization site, built session by
+session per the spec's milestone split, now deployed for real at
+`https://nba-payroll-explorer.vercel.app` (placeholder domain in the code;
+no custom domain registered yet) with a working daily data-refresh pipeline.
+
+**The data**: real contract primitives for all 30 teams, scraped from
+Basketball-Reference's contracts pages under a documented, robots.txt-honoring,
+crawl-delay-respecting adapter (M3), refreshed daily by a scheduled GitHub
+Action (M9) that only commits when every team's numbers reconcile against
+BR's own reported totals. Every cap/tax/apron/dead-money/hold figure is
+*derived* by this project's own CBA rules engine (`lib/cba/`) from sourced
+contract terms, not copied from any site's own computed numbers — the
+architecture decision made in M0/DATA-SOURCING.md and never revisited,
+because it worked. Every single charge, real or synthetic, carries full
+provenance (`sourceId`, `sourceUrl`, `retrievedAt`, `derivation`) with no
+exceptions found in an audit of all 30 teams. Known, disclosed real-world
+gaps: cap holds/draft holds/incomplete-roster charges have no source yet;
+option-exercise decisions are always conservatively "undecided"; ~386
+charges are `'estimated'` rather than `'sourced'` due to a genuine BR
+table limitation (multiple non-guaranteed seasons sharing one aggregate
+guarantee figure) — all correctly reconciled in total dollars regardless.
+
+**The chart**: hand-authored SVG (M1), no charting library, D3 for geometry
+only. Fixed stack order across seasons (sorted by focus-season `capHit`),
+inside labels with an outside-callout-plus-leader-line fallback and a
+pool-adjacent-violators collision resolver for dense clusters (a genuine bug
+found and fixed in M2 — the original bidirectional sweep's backward pass was
+provably dead code), an "Others (n)" collapse past 8 callouts, six-category
+contract-mechanism coloring on a single validated hue ramp (never one color
+per player), and over-threshold shading that intensifies at tax/apron1/apron2.
+Real interactions on top (M5): hover/click-to-pin/keyboard nav, four toggles
+(cap/tax/apron basis, dead-money-and-holds inclusion, absolute-vs-percent
+dollars, guaranteed-only), all URL-owned so every view is a shareable link.
+A parallel league-wide view (`/`) reuses the same stacking/threshold math
+horizontally across all 30 teams. A visible chart/table toggle (M6) gives
+every chart a full non-visual equivalent, and axe-core runs in CI
+(`pnpm a11y`) — 12/12 routes currently pass 0 violations.
+
+**The public surface** (M7): methodology, sources, glossary, corrections
+(email-based — no backend exists to receive a form), about, and privacy
+pages, a site-wide trademark disclaimer, per-figure provenance tooltips, and
+"last updated" timestamps sourced from the data itself. **Sharing** (M8):
+build-time OG images via Satori/`next/og` (a deliberate visual
+simplification of the real chart, but built from the exact same stacking/
+threshold/color functions so it can never disagree with the live chart),
+a download-PNG button that serializes the live, currently-toggled SVG
+(not a second render), sitemap/robots/canonical URLs/JSON-LD, and a
+measured 468-600ms mobile LCP — comfortably under the 2.5s budget.
+
+**Launch infrastructure** (M9, this session): the project's first `git`
+history and a public GitHub repo
+(`https://github.com/tloja/nba-payroll-explorer`); a daily-scheduled,
+already-proven-working ingestion Action with a separate 72-hour staleness
+alarm; a genuine static export (`output: 'export'`, verified as real static
+files, not just a clean build); a live Vercel deployment with CSP/HSTS/
+`X-Content-Type-Options` confirmed present at the edge; Sentry and Plausible
+wired in (both currently inert, pending a real DSN and site registration —
+by design, not oversight); and a load-test that ended up testing something
+more useful than originally planned, once Vercel's own Hobby-tier DDoS
+protection made the naive version of the test impossible.
+
+**What a future session (or the user, before really launching) should still
+do**: fix the four CLAUDE.md compliance findings above, especially the
+estimated/sourced visual-distinction gap given it's now affecting 386 real
+charges; register a real domain and update `SITE_URL`/the User-Agent contact
+string/HSTS `preload`; create real Sentry and Plausible accounts and set
+the two env vars on Vercel; connect the Vercel GitHub App for automatic
+deploys-on-push; add a favicon; and consider whether Basketball-Reference's
+missing cap-hold/draft-hold/incomplete-roster charge types matter enough for
+any specific team to pursue a second source. None of these block the site
+from being live and functionally correct today — they're the honest list of
+what "done" doesn't yet mean.
