@@ -1686,6 +1686,112 @@ hosting model — not a mistake, but not free either.
 - `optionDecided` is still always conservatively `false` (M3's original
   simplification, unchanged).
 
+## M9 follow-up — CLAUDE.md compliance fixes (2026-07-26)
+
+A new session opened after M9 had already shipped (verified live: both GitHub
+Actions had real successful runs, `next.config.mjs` already had
+`output: 'export'`, `vercel.json`/`lib/sentry.ts` already existed, and the
+production URL already served the correct CSP/HSTS/`X-Content-Type-Options`
+headers — this wasn't redone). Instead, this session fixed the four
+CLAUDE.md compliance gaps M9's own final audit found and left open, per the
+user's choice when asked how to proceed.
+
+### 1. Stale apronHit rule text (CLAUDE.md)
+"Apron thresholds are compared against apronHit only" no longer matched the
+shipped M5 basis-toggle behavior (confirmed unchanged in
+`lib/chart/toggles.ts`'s `selectAmount`: whichever of cap/tax/apron Hit is
+selected drives all four threshold comparisons together). Rewrote the rule
+to state the toggle behavior directly, matching `/methodology` item 1's
+existing wording, with a note to update it again if the toggle behavior
+ever changes.
+
+### 2. Projected-threshold dashing at the line level
+`isProjected` only ever changed threshold label text
+("(projected)"/"(proj.)"); `strokeDasharray` was keyed by threshold *type*
+only. Added `projectedDash()` (`lib/chart/thresholds.ts`): scales up
+whatever dash a threshold line already has (or turns "solid" into an even
+`5,5` dash) when `isProjected` is true, rather than replacing it with one
+fixed pattern — a projected cap line and a projected apron line still read
+as different *types* by their dash's shape, just visibly looser than their
+real counterparts. Wired into both `PayrollChart.tsx`'s left/right margin
+lines and `LeagueOverview.tsx`'s legend swatches and vertical lines. Dormant
+today (no `data/thresholds.ts` row has `isProjected: true` yet, unchanged),
+but no longer a silent time bomb for whoever adds one.
+
+### 3. Chart-level estimated-vs-sourced visual distinction
+"Estimated values are visually distinct from sourced ones. No exceptions"
+(CLAUDE.md) was true everywhere except the chart's own rendering — the
+aria-label, `<title>`, sighted-user readout, and M6's table view all said
+so, but a segment's fill/opacity/stroke never did. Added a dashed outline
+(`stroke-dasharray: 3,2`, `SECONDARY_INK`) to any segment whose
+`charge.derivation === 'estimated'`, in both `PayrollChart.tsx` and
+`LeagueOverview.tsx`. The active/pinned solid black outline always takes
+priority over the dashed one — it's a stronger, temporary signal, not a
+confidence marker. A one-line caption under the legend explains what the
+dashed border means, linking to `/methodology`. Verified visually (see
+below): OKC's real minimum-tier estimated charges (Thomas Sorber, Kenrich
+Williams, Nikola Topić, Aday Mara) render with a visible dashed border;
+Caruso/Hartenstein/SGA/Jaylin Williams (sourced) don't.
+
+### 4. In-chart non-color channel for contract mechanism
+Player identity was already color-independent (direct labels), but a
+segment's *mechanism/tier* (max/rookie-scale/MLE/minimum/dead-money/hold)
+had no non-color channel inside the chart itself — only the table view's
+`Mechanism` column carried it, which M6 explicitly flagged as a partial
+remedy, not a fix to the chart. Added `mechanismPatternId()`
+(`lib/chart/colors.ts`) and a new `MechanismPatternDefs` component
+(`components/chart/MechanismPatternDefs.tsx`): one SVG `<pattern>` per
+mechanism, each reusing that mechanism's own already-WCAG-validated
+`textColor` as the pattern stroke (no new contrast check needed), with
+distinct *geometry* per tier — diagonal, reverse-diagonal, horizontal,
+dots, cross-hatch — so the encoding survives grayscale/CVD, not just
+"different densities of the same hatch." `minimum` (the most common tier)
+is the deliberate "plain" baseline every other pattern is distinguished
+from, not a sixth pattern. Rendered as a low-opacity overlay rect on top of
+each segment's solid fill (contrast for inside-label text is computed
+against the solid fill underneath, unaffected) in both `PayrollChart.tsx`
+and `LeagueOverview.tsx`; the team-page Legend's swatches now show the
+pattern too, so the color↔pattern↔label mapping is learnable in one place.
+League view got the patterns without a new legend of its own — a
+deliberate scope call, since it already had none (M4's own "no room for
+per-player labels at 30-row scale" decision) and the team page's legend is
+one click away.
+
+### Verified
+- `npx tsc --noEmit` clean.
+- `npm test` — 42/42 Vitest tests pass, unchanged (no pure-function logic
+  touched — this was purely a rendering/text change).
+- `npm run verify` — unchanged, all 30 teams + synthetic fixture reconcile.
+- `npm run build` — production build succeeds; same route/OG-image count as
+  before (68 HTML routes, 60 OG images).
+- `npm run a11y` — **12/12 pass, 0 violations**, re-run after all four
+  fixes. The new pattern-overlay/dashed-outline rects are `aria-hidden`/
+  `pointer-events: none` and don't add focusable elements, so they couldn't
+  regress the nested-interactive fix from M6.
+- Manual browser verification (claude-in-chrome) on a fresh `next dev`
+  instance: `/team/okc` — legend swatches show all five distinct patterns
+  plus the plain `minimum` baseline, the new caption line renders and links
+  to `/methodology`, and a zoomed screenshot of the small-contract region
+  confirms dashed borders on the real `'estimated'` segments (Sorber,
+  Kenrich Williams, Topić, Mara) and solid borders on `'sourced'` ones
+  (Caruso, Hartenstein) directly below them. `/` (league view) — patterns
+  and dashed outlines render across all 30 team rows with no layout
+  breakage or overlap.
+- Projected-threshold dashing has no live data to exercise
+  (`isProjected: true` still doesn't exist anywhere in `data/thresholds.ts`)
+  — verified by reading `projectedDash()`'s own logic and confirming it's
+  correctly wired into both call sites, not by seeing a projected line
+  render, since none currently exists to render.
+
+### Known gaps (updated)
+All four of M9's flagged CLAUDE.md compliance findings are now fixed. The
+whole-project "known gaps" list from M9 is otherwise unchanged: no
+favicon, Vercel GitHub App still not connected, `NEXT_PUBLIC_SENTRY_DSN`/
+Plausible site registration still unset, `SITE_URL` still a placeholder
+domain, no commercial data licensing pursued, cap/draft holds and
+incomplete-roster charges still unsourced, `optionDecided` still always
+conservative. None of those were in scope for this session.
+
 ## Project summary (M0–M9, end to end)
 
 A from-scratch public NBA payroll visualization site, built session by
@@ -1749,10 +1855,14 @@ by design, not oversight); and a load-test that ended up testing something
 more useful than originally planned, once Vercel's own Hobby-tier DDoS
 protection made the naive version of the test impossible.
 
+**Update, same day — M9 follow-up session**: the four CLAUDE.md compliance
+findings below were fixed (stale apronHit rule text, projected-threshold
+dashing, chart-level estimated-vs-sourced visual distinction, and an
+in-chart non-color channel for contract mechanism) — see the "M9
+follow-up" section above for what changed and how it was verified.
+
 **What a future session (or the user, before really launching) should still
-do**: fix the four CLAUDE.md compliance findings above, especially the
-estimated/sourced visual-distinction gap given it's now affecting 386 real
-charges; register a real domain and update `SITE_URL`/the User-Agent contact
+do**: register a real domain and update `SITE_URL`/the User-Agent contact
 string/HSTS `preload`; create real Sentry and Plausible accounts and set
 the two env vars on Vercel; connect the Vercel GitHub App for automatic
 deploys-on-push; add a favicon; and consider whether Basketball-Reference's

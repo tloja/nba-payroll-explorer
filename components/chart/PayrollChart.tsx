@@ -14,8 +14,9 @@ import {
   type ResolvedCallout,
   type SegmentGeometry,
 } from '../../lib/chart/labels';
-import { bandOverages } from '../../lib/chart/thresholds';
-import { MECHANISM_COLORS, MECHANISM_LEGEND_ORDER } from '../../lib/chart/colors';
+import { bandOverages, projectedDash } from '../../lib/chart/thresholds';
+import { MECHANISM_COLORS, MECHANISM_LEGEND_ORDER, mechanismPatternId } from '../../lib/chart/colors';
+import { MechanismPatternDefs } from './MechanismPatternDefs';
 import { formatAbbreviated, formatExact, formatPercent, formatRetrievedAt } from '../../lib/format';
 import { useContainerWidth } from '../../lib/chart/useContainerWidth';
 import { SITE_HOST } from '../../lib/site';
@@ -527,6 +528,7 @@ export function PayrollChart({
         className="font-mono"
         onClick={() => onPinChange?.(null)}
       >
+        <MechanismPatternDefs />
         <g transform={`translate(${marginLeft},${MARGIN.top})`}>
           {yTicks.map((tick) => (
             <g key={tick}>
@@ -563,48 +565,77 @@ export function PayrollChart({
                 const isActive = activeEntityId === seg.entityId;
                 const isDimmed = activeEntityId !== null && !isActive;
                 const dollarAmount = getAmount(seg.charge);
+                // "Estimated values are visually distinct from sourced ones. No
+                // exceptions" (CLAUDE.md) — previously only the aria-label/title/
+                // table view expressed this; the chart's own fill/opacity never did.
+                // A dashed outline is a separate visual channel from the mechanism
+                // fill pattern below (which encodes tier, not confidence), so the
+                // two facts can't be conflated. The active/pinned solid outline
+                // always wins — it's a stronger, temporary signal.
+                const isEstimated = seg.charge.derivation === 'estimated';
+                const patternId = mechanismPatternId(mechanismFor(seg.charge));
+
+                const segH = Math.max(0, rawHeight - gap);
+                const segY = topPx + gap / 2;
 
                 return (
-                  <rect
-                    key={seg.entityId}
-                    x={r.barX}
-                    y={topPx + gap / 2}
-                    width={r.barWidth}
-                    height={Math.max(0, rawHeight - gap)}
-                    fill={colors.fill}
-                    opacity={isDimmed ? DIMMED_OPACITY : 1}
-                    stroke={isActive ? PRIMARY_INK : 'none'}
-                    strokeWidth={isActive ? 2 : 0}
-                    tabIndex={0}
-                    role="graphics-symbol"
-                    aria-label={`${seg.charge.label}, ${formatExact(dollarAmount)}, ${r.season}, ${derivationPhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}
-                    className="outline-none focus-visible:stroke-black focus-visible:stroke-2 cursor-pointer"
-                    onMouseEnter={() => setHoveredSegment(segmentInfoFor(seg, r.season, getAmount))}
-                    onMouseLeave={() => setHoveredSegment(null)}
-                    onMouseDown={() => {
-                      suppressNextFocusRef.current = true;
-                    }}
-                    onFocus={() => {
-                      if (suppressNextFocusRef.current) {
-                        suppressNextFocusRef.current = false;
-                        return;
-                      }
-                      setFocusedSegment(segmentInfoFor(seg, r.season, getAmount));
-                    }}
-                    onBlur={() => setFocusedSegment(null)}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      togglePin(seg.entityId);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
+                  <g key={seg.entityId}>
+                    <rect
+                      x={r.barX}
+                      y={segY}
+                      width={r.barWidth}
+                      height={segH}
+                      fill={colors.fill}
+                      opacity={isDimmed ? DIMMED_OPACITY : 1}
+                      stroke={isActive ? PRIMARY_INK : isEstimated ? SECONDARY_INK : 'none'}
+                      strokeWidth={isActive ? 2 : isEstimated ? 1.25 : 0}
+                      strokeDasharray={!isActive && isEstimated ? '3,2' : undefined}
+                      tabIndex={0}
+                      role="graphics-symbol"
+                      aria-label={`${seg.charge.label}, ${formatExact(dollarAmount)}, ${r.season}, ${derivationPhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}
+                      className="outline-none focus-visible:stroke-black focus-visible:stroke-2 cursor-pointer"
+                      onMouseEnter={() => setHoveredSegment(segmentInfoFor(seg, r.season, getAmount))}
+                      onMouseLeave={() => setHoveredSegment(null)}
+                      onMouseDown={() => {
+                        suppressNextFocusRef.current = true;
+                      }}
+                      onFocus={() => {
+                        if (suppressNextFocusRef.current) {
+                          suppressNextFocusRef.current = false;
+                          return;
+                        }
+                        setFocusedSegment(segmentInfoFor(seg, r.season, getAmount));
+                      }}
+                      onBlur={() => setFocusedSegment(null)}
+                      onClick={(e) => {
+                        e.stopPropagation();
                         togglePin(seg.entityId);
-                      }
-                    }}
-                  >
-                    <title>{`${seg.charge.label} — ${formatExact(dollarAmount)} (${r.season}) — ${derivationPhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}</title>
-                  </rect>
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          togglePin(seg.entityId);
+                        }
+                      }}
+                    >
+                      <title>{`${seg.charge.label} — ${formatExact(dollarAmount)} (${r.season}) — ${derivationPhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}</title>
+                    </rect>
+                    {/* Non-color channel for contract mechanism/tier (CLAUDE.md:
+                        "don't encode meaning by color alone") — independent of the
+                        estimated-outline above, which encodes confidence, not tier. */}
+                    {patternId && (
+                      <rect
+                        x={r.barX}
+                        y={segY}
+                        width={r.barWidth}
+                        height={segH}
+                        fill={`url(#${patternId})`}
+                        opacity={isDimmed ? DIMMED_OPACITY : 1}
+                        pointerEvents="none"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </g>
                 );
               })}
 
@@ -646,7 +677,7 @@ export function PayrollChart({
                 title={`${firstSeason} ${style.name}: ${formatExact(firstRender.thresholds[key])}${firstRender.thresholds.isProjected ? ' (projected)' : ''}`}
                 stroke={SECONDARY_INK}
                 strokeWidth={style.width}
-                dash={style.dash === 'none' ? undefined : style.dash}
+                dash={projectedDash(style.dash === 'none' ? undefined : style.dash, firstRender.thresholds.isProjected)}
               />
             );
           })}
@@ -677,7 +708,11 @@ export function PayrollChart({
                 }
                 stroke={isThreshold ? SECONDARY_INK : MUTED_INK}
                 strokeWidth={isThreshold ? style!.width : 1}
-                dash={isThreshold && style!.dash !== 'none' ? style!.dash : undefined}
+                dash={
+                  isThreshold
+                    ? projectedDash(style!.dash === 'none' ? undefined : style!.dash, lastRender.thresholds.isProjected)
+                    : undefined
+                }
                 onActivate={
                   isOthers ? () => setExpandedOthers((s) => ({ ...s, [lastSeason]: true })) : undefined
                 }
@@ -892,17 +927,29 @@ function calloutText(label: string, amount: number, maxWidth: number, formatValu
 
 function Legend() {
   return (
-    <ul className="mb-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#52514e]" aria-label="Color legend">
-      {MECHANISM_LEGEND_ORDER.map((mechanism) => (
-        <li key={mechanism} className="flex items-center gap-1.5">
-          <span
-            className="inline-block h-3 w-3 rounded-sm"
-            style={{ backgroundColor: MECHANISM_COLORS[mechanism].fill }}
-            aria-hidden="true"
-          />
-          {MECHANISM_COLORS[mechanism].label}
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#52514e]" aria-label="Contract mechanism legend">
+        {MECHANISM_LEGEND_ORDER.map((mechanism) => {
+          const patternId = mechanismPatternId(mechanism);
+          return (
+            <li key={mechanism} className="flex items-center gap-1.5">
+              <svg width={14} height={14} aria-hidden="true">
+                <rect width={14} height={14} rx={2} fill={MECHANISM_COLORS[mechanism].fill} />
+                {patternId && <rect width={14} height={14} rx={2} fill={`url(#${patternId})`} />}
+              </svg>
+              {MECHANISM_COLORS[mechanism].label}
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mb-3 text-xs text-[#52514e]">
+        Fill pattern also marks each segment&apos;s tier (not color alone). A dashed border
+        marks a figure that&apos;s <em>estimated</em> rather than sourced — see{' '}
+        <a href="/methodology" className="underline">
+          methodology
+        </a>
+        .
+      </p>
+    </>
   );
 }

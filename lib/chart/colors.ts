@@ -35,6 +35,18 @@ export function mechanismColor(mechanism: ContractMechanism): { fill: string; te
   return MECHANISM_COLORS[mechanism];
 }
 
+// Non-color channel for contract mechanism/tier (CLAUDE.md: "don't encode
+// meaning by color alone"). Only the mechanism's own fill hue distinguished
+// tiers before this — a real gap for colorblind users flagged in M6/M9's
+// audits but never fixed. `minimum` (the most common tier) is deliberately
+// left as the "plain" baseline every other pattern is visually distinguished
+// from, rather than every one of the six needing its own pattern.
+// `MechanismPatternDefs` (components/chart/MechanismPatternDefs.tsx) renders
+// the actual <pattern> elements this id resolves to.
+export function mechanismPatternId(mechanism: ContractMechanism): string | null {
+  return mechanism === 'minimum' ? null : `mechanism-pattern-${mechanism}`;
+}
+
 // Legend order: the ordinal ramp low-to-high, then the two off-hues.
 export const MECHANISM_LEGEND_ORDER: ContractMechanism[] = [
   'minimum',

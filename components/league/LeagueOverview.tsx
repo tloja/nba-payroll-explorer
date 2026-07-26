@@ -6,9 +6,10 @@ import type { Season } from '../../lib/types';
 import { mechanismFor } from '../../lib/types';
 import type { TeamCapChargesFile } from '../../lib/verify/teamFile';
 import { buildStackOrder, stackSeason } from '../../lib/chart/stack';
-import { bandOverages } from '../../lib/chart/thresholds';
+import { bandOverages, projectedDash } from '../../lib/chart/thresholds';
 import { dollarDomainCeiling } from '../../lib/chart/scales';
-import { MECHANISM_COLORS } from '../../lib/chart/colors';
+import { MECHANISM_COLORS, mechanismPatternId } from '../../lib/chart/colors';
+import { MechanismPatternDefs } from '../chart/MechanismPatternDefs';
 import { formatAbbreviated, formatExact } from '../../lib/format';
 import { thresholdsForSeason } from '../../data/thresholds';
 import { useContainerWidth } from '../../lib/chart/useContainerWidth';
@@ -122,7 +123,7 @@ export function LeagueOverview({
                 y2={1}
                 stroke={SECONDARY_INK}
                 strokeWidth={THRESHOLD_STYLE[key].width}
-                strokeDasharray={THRESHOLD_STYLE[key].dash}
+                strokeDasharray={projectedDash(THRESHOLD_STYLE[key].dash, thresholds.isProjected)}
               />
             </svg>
             {THRESHOLD_STYLE[key].name} {formatAbbreviated(thresholds[key])}
@@ -140,6 +141,7 @@ export function LeagueOverview({
         aria-label={`League-wide payroll, ${season}, sorted by total payroll`}
         className="font-mono"
       >
+        <MechanismPatternDefs />
         <g transform={`translate(${nameColumn},0)`}>
           {THRESHOLD_KEYS.map((key) => {
             const x = xScale(thresholds[key]);
@@ -153,7 +155,7 @@ export function LeagueOverview({
                 y2={plotBottom}
                 stroke={SECONDARY_INK}
                 strokeWidth={style.width}
-                strokeDasharray={style.dash}
+                strokeDasharray={projectedDash(style.dash, thresholds.isProjected)}
               />
             );
           })}
@@ -205,24 +207,44 @@ export function LeagueOverview({
                 </a>
 
                 {row.stack.segments.map((seg) => {
-                  const colors = MECHANISM_COLORS[mechanismFor(seg.charge)];
+                  const mechanism = mechanismFor(seg.charge);
+                  const colors = MECHANISM_COLORS[mechanism];
+                  const patternId = mechanismPatternId(mechanism);
+                  const isEstimated = seg.charge.derivation === 'estimated';
                   const x = xScale(seg.bottom);
                   const segWidth = Math.max(0, xScale(seg.top) - x);
                   return (
-                    <rect
-                      key={seg.entityId}
-                      x={x}
-                      y={barY}
-                      width={segWidth}
-                      height={BAR_HEIGHT}
-                      fill={colors.fill}
-                      tabIndex={0}
-                      role="graphics-symbol"
-                      aria-label={`${row.teamLabel}: ${seg.charge.label}, ${formatExact(seg.charge.capHit)}`}
-                      className="outline-none focus-visible:stroke-black focus-visible:stroke-2"
-                    >
-                      <title>{`${row.teamLabel} — ${seg.charge.label}: ${formatExact(seg.charge.capHit)}`}</title>
-                    </rect>
+                    <g key={seg.entityId}>
+                      <rect
+                        x={x}
+                        y={barY}
+                        width={segWidth}
+                        height={BAR_HEIGHT}
+                        fill={colors.fill}
+                        stroke={isEstimated ? SECONDARY_INK : 'none'}
+                        strokeWidth={isEstimated ? 1 : 0}
+                        strokeDasharray={isEstimated ? '3,2' : undefined}
+                        tabIndex={0}
+                        role="graphics-symbol"
+                        aria-label={`${row.teamLabel}: ${seg.charge.label}, ${formatExact(seg.charge.capHit)}, ${
+                          isEstimated ? 'estimated' : seg.charge.derivation
+                        }`}
+                        className="outline-none focus-visible:stroke-black focus-visible:stroke-2"
+                      >
+                        <title>{`${row.teamLabel} — ${seg.charge.label}: ${formatExact(seg.charge.capHit)} (${seg.charge.derivation})`}</title>
+                      </rect>
+                      {patternId && (
+                        <rect
+                          x={x}
+                          y={barY}
+                          width={segWidth}
+                          height={BAR_HEIGHT}
+                          fill={`url(#${patternId})`}
+                          pointerEvents="none"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </g>
                   );
                 })}
 

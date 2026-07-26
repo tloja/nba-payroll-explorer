@@ -23,3 +23,23 @@ export function bandOverages(total: number, t: SeasonThresholds): ThresholdBand[
     { key: 'apron2', overage: Math.max(0, total - t.secondApron) },
   ];
 }
+
+/**
+ * A threshold flagged `isProjected` must never render with the same visual
+ * confidence as a real one (CLAUDE.md, spec §2: "render dashed... never
+ * present a guess at full confidence"). This loosens whatever dash pattern a
+ * threshold line already uses — including `undefined` (solid), which becomes
+ * an even dash — by scaling it up, rather than replacing it with one fixed
+ * "projected" pattern. That keeps a projected line identifiable by *type*
+ * (cap vs. tax vs. apron) via its dash's shape, just visibly looser than its
+ * real counterpart, instead of making every projected line indistinguishable
+ * from every other projected line.
+ */
+export function projectedDash(dash: string | undefined, isProjected: boolean): string | undefined {
+  if (!isProjected) return dash;
+  if (!dash) return '5,5';
+  return dash
+    .split(',')
+    .map((n) => Number(n) * 2.5)
+    .join(',');
+}

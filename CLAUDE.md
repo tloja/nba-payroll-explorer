@@ -9,8 +9,11 @@ Read nba-payroll-site-spec.md for full context. Work one milestone per session.
 - D3 computes geometry; React renders the DOM. Never call .append() on a node React owns.
 - No charting libraries. The chart is hand-authored SVG.
 - All money is integer cents-free dollars. Never floats. Never strings.
-- Every cap charge carries capHit, taxHit, and apronHit. Apron thresholds are compared
-  against apronHit only.
+- Every cap charge carries capHit, taxHit, and apronHit. All four threshold lines (cap,
+  tax, first apron, second apron) are compared against whichever of capHit/taxHit/apronHit
+  the chart's Basis toggle currently selects — coupled across the whole chart, not
+  apronHit unconditionally (see /methodology item 1). This was a deliberate M5 choice;
+  update this line again if the toggle behavior ever changes.
 - Every cap charge carries sourceId, sourceUrl, retrievedAt, and derivation
   ('sourced' | 'computed' | 'estimated'). No exceptions — provenance is a public feature.
 - Two-way contracts do not count against team salary. Exclude them from stacks.
