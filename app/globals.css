@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The only animation in the app is Tailwind's animate-pulse, used on the two
+   chart loading skeletons (app/team/[slug]/page.tsx, [season]/page.tsx).
+   Nothing else transitions — hover/focus/pin highlighting swaps SVG
+   attributes (opacity, stroke) instantly, with no CSS transition applied. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none;
+  }
+}

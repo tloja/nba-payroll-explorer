@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# testing / e2e
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# misc
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# local Claude Code settings (machine-specific absolute paths)
+.claude/settings.local.json
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+.cache/
