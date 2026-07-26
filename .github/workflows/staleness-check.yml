@@ -1,0 +1,33 @@
+name: Data staleness check
+
+# Deliberately separate from ingest.yml (spec §8): this exists specifically
+# to catch the ingestion Action silently failing to run at all — a disabled
+# workflow, a deleted schedule, a billing/runner outage — which wouldn't
+# otherwise produce any failure notification. Runs every 6 hours so the
+# 72-hour boundary is caught within a few hours of being crossed, not once
+# a day late. Reads the same data/teams/ files the site itself reads, not
+# git history, via scripts/checkStaleness.ts.
+on:
+  schedule:
+    - cron: '15 */6 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  staleness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check data freshness (fails if > 72h old)
+        run: npm run check-staleness

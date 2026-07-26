@@ -45,11 +45,12 @@ export default function CorrectionsPage() {
         for what it should be instead. The link above pre-fills a template with those fields.
       </p>
       <p className="mt-2 text-sm leading-relaxed text-[#52514e]">
-        This site has no analytics or tracking (see{' '}
+        This site is a static export with no server or database behind it (see{' '}
         <Link href="/privacy" className="underline">
           privacy
         </Link>
-        ), so email is the only way to reach us right now.
+        ), so there's nowhere for an in-page submission form to send data &mdash; email is the only way to reach
+        us right now.
       </p>
 
       <h2 className="mt-8 text-lg font-semibold">Correction log</h2>

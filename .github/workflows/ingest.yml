@@ -1,0 +1,63 @@
+name: Scheduled ingestion
+
+# Daily is the right cadence here (spec §9/§11): payroll changes on the order
+# of days (signings, trades, waivers), not hours. 37 past the hour, not on
+# the hour, per GitHub's own guidance to avoid herd load at :00.
+on:
+  schedule:
+    - cron: '37 8 * * *'
+  workflow_dispatch: {}
+
+# Needed to push the data/ diff back to main with the default GITHUB_TOKEN.
+permissions:
+  contents: write
+
+# Never let two ingestion runs race each other's commits.
+concurrency:
+  group: scheduled-ingestion
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Aborts non-zero on a 429/403 (AbortRunError) or on any per-team parse
+      # failure — scripts/orchestrate.ts already treats both as run failures.
+      # This step failing fails the job; no later step runs, and nothing
+      # gets committed. GitHub's own failed-workflow notification is the
+      # alert (per the session's explicit "don't over-build this").
+      - name: Run ingestion (orchestrate.ts, all 30 teams)
+        run: npm run orchestrate
+
+      # Second, independent gate: every team file on disk must reconcile
+      # against its own source-reported total, ±$1. Catches a rules-engine
+      # or parser regression that produced plausible-but-wrong numbers even
+      # though orchestrate.ts's own per-team check above already passed.
+      - name: Verify reconciliation
+        run: npm run verify
+
+      - name: Commit and push data/ changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No data changes — nothing to commit."
+            exit 0
+          fi
+          git commit -m "chore(data): scheduled ingestion $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"
