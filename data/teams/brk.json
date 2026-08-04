@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -71,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +89,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -107,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -125,8 +125,44 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
+    },
+    {
+      "id": "player:BRK-wagnemo01:2026-27",
+      "teamId": "BRK",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Moritz Wagner",
+      "playerId": "wagnemo01",
+      "capHit": 9268293,
+      "taxHit": 9268293,
+      "apronHit": 9268293,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 9268293,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:BRK-wagnemo01:2027-28",
+      "teamId": "BRK",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Moritz Wagner",
+      "playerId": "wagnemo01",
+      "capHit": 9731707,
+      "taxHit": 9731707,
+      "apronHit": 9731707,
+      "guaranteeStatus": "none",
+      "guaranteedAmount": 0,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
+      "derivation": "sourced"
     },
     {
       "id": "player:BRK-brownmi02:2026-27",
@@ -143,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +215,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -197,7 +233,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -215,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +287,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -269,7 +305,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -287,7 +323,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -305,7 +341,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -323,7 +359,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -341,7 +377,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -359,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +413,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -395,7 +431,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -413,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -431,7 +467,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -449,7 +485,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -467,7 +503,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -485,7 +521,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -503,7 +539,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -521,7 +557,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -539,7 +575,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -557,7 +593,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -575,7 +611,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -593,7 +629,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "sourced"
     },
     {
@@ -611,7 +647,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     },
     {
@@ -629,18 +665,18 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/BRK.html",
-      "retrievedAt": "2026-08-03T12:00:18.211Z",
+      "retrievedAt": "2026-08-04T11:06:59.617Z",
       "derivation": "estimated"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 150836846
+      "total": 160105139
     },
     {
       "season": "2027-28",
-      "total": 109602340
+      "total": 119334047
     },
     {
       "season": "2028-29",
