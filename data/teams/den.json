@@ -3,42 +3,6 @@
   "teamLabel": "Denver Nuggets",
   "capCharges": [
     {
-      "id": "player:DEN-jonessp01:2026-27",
-      "teamId": "DEN",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Spencer Jones",
-      "playerId": "jonessp01",
-      "capHit": 11853659,
-      "taxHit": 11853659,
-      "apronHit": 11853659,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 11853659,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:DEN-jonessp01:2027-28",
-      "teamId": "DEN",
-      "season": "2027-28",
-      "chargeType": "player",
-      "label": "Spencer Jones",
-      "playerId": "jonessp01",
-      "capHit": 11896341,
-      "taxHit": 11896341,
-      "apronHit": 11896341,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 11896341,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
-      "derivation": "sourced"
-    },
-    {
       "id": "player:DEN-jokicni01:2026-27",
       "teamId": "DEN",
       "season": "2026-27",
@@ -53,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +35,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "estimated"
     },
     {
@@ -89,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -107,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +89,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +143,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "estimated"
     },
     {
@@ -197,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +215,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -269,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -287,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -305,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -323,8 +287,44 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "estimated"
+    },
+    {
+      "id": "player:DEN-jonessp01:2026-27",
+      "teamId": "DEN",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Spencer Jones",
+      "playerId": "jonessp01",
+      "capHit": 6000000,
+      "taxHit": 6000000,
+      "apronHit": 6000000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 6000000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:DEN-jonessp01:2027-28",
+      "teamId": "DEN",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Spencer Jones",
+      "playerId": "jonessp01",
+      "capHit": 5750000,
+      "taxHit": 5750000,
+      "apronHit": 5750000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 5750000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
+      "derivation": "sourced"
     },
     {
       "id": "player:DEN-strawju01:2026-27",
@@ -341,7 +341,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "estimated"
     },
     {
@@ -359,7 +359,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "estimated"
     },
     {
@@ -377,7 +377,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "estimated"
     },
     {
@@ -395,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -413,7 +413,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     },
     {
@@ -431,7 +431,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "estimated"
     },
     {
@@ -449,18 +449,18 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DEN.html",
-      "retrievedAt": "2026-08-04T11:07:14.894Z",
+      "retrievedAt": "2026-08-05T11:03:16.923Z",
       "derivation": "sourced"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 223593192
+      "total": 217739533
     },
     {
       "season": "2027-28",
-      "total": 201195547
+      "total": 195049206
     },
     {
       "season": "2028-29",

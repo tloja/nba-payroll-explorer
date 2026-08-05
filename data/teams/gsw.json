@@ -3,42 +3,6 @@
   "teamLabel": "Golden State Warriors",
   "capCharges": [
     {
-      "id": "player:GSW-meltode01:2026-27",
-      "teamId": "GSW",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "De'Anthony Melton",
-      "playerId": "meltode01",
-      "capHit": 8928779,
-      "taxHit": 8928779,
-      "apronHit": 8928779,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 8928779,
-      "optionType": "player",
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
-      "derivation": "estimated"
-    },
-    {
-      "id": "player:GSW-meltode01:2027-28",
-      "teamId": "GSW",
-      "season": "2027-28",
-      "chargeType": "player",
-      "label": "De'Anthony Melton",
-      "playerId": "meltode01",
-      "capHit": 5750850,
-      "taxHit": 5750850,
-      "apronHit": 5750850,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 5750850,
-      "optionType": "player",
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
-      "derivation": "estimated"
-    },
-    {
       "id": "player:GSW-curryst01:2026-27",
       "teamId": "GSW",
       "season": "2026-27",
@@ -53,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -107,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +89,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "estimated"
     },
     {
@@ -143,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +143,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +215,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "estimated"
     },
     {
@@ -269,7 +233,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "estimated"
     },
     {
@@ -287,7 +251,43 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
+      "derivation": "estimated"
+    },
+    {
+      "id": "player:GSW-meltode01:2026-27",
+      "teamId": "GSW",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "De'Anthony Melton",
+      "playerId": "meltode01",
+      "capHit": 5477000,
+      "taxHit": 5477000,
+      "apronHit": 5477000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 5477000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:GSW-meltode01:2027-28",
+      "teamId": "GSW",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "De'Anthony Melton",
+      "playerId": "meltode01",
+      "capHit": 5750850,
+      "taxHit": 5750850,
+      "apronHit": 5750850,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 5750850,
+      "optionType": "player",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "estimated"
     },
     {
@@ -305,7 +305,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -323,7 +323,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -341,7 +341,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "estimated"
     },
     {
@@ -359,7 +359,25 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:GSW-paytoga02:2026-27",
+      "teamId": "GSW",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Gary Payton II",
+      "playerId": "paytoga02",
+      "capHit": 2449421,
+      "taxHit": 2449421,
+      "apronHit": 2449421,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2449421,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -395,7 +413,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "sourced"
     },
     {
@@ -413,14 +431,14 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-08-04T11:07:20.937Z",
+      "retrievedAt": "2026-08-05T11:03:22.971Z",
       "derivation": "estimated"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 215867143
+      "total": 214864785
     },
     {
       "season": "2027-28",
