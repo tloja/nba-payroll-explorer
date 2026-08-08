@@ -9,6 +9,7 @@ import {
   classifySegments,
   collapseSmallToOthers,
   resolveCallouts,
+  LABEL_LINE_HEIGHT,
   type Callout,
   type InsideLabel,
   type ResolvedCallout,
@@ -221,14 +222,12 @@ type SeasonRender = {
 
 export function PayrollChart({
   fixture,
-  focusSeason,
   seasons: seasonsFilter,
   toggles = DEFAULT_TOGGLES,
   pinnedEntityId = null,
   onPinChange,
 }: {
   fixture: TeamPayrollData;
-  focusSeason?: Season;
   /** Restrict rendering to this subset of `fixture`'s seasons (e.g. a season
    * range picked on /team/[slug], or a single season for /team/[slug]/[season]).
    * Defaults to every season in `fixture.thresholds`. */
@@ -271,8 +270,10 @@ export function PayrollChart({
     return all.filter((s) => allowed.has(s));
   }, [fixture.thresholds, seasonsFilter]);
   const firstSeason = seasons[0];
+  // Stack order (spec §5) always sorts by the most recent season's capHit —
+  // no user-facing control for this (removed; see NOTES.md and
+  // TeamPageClient's own comment for why).
   const lastSeason = seasons[seasons.length - 1];
-  const resolvedFocusSeason = focusSeason && seasons.includes(focusSeason) ? focusSeason : lastSeason;
   const thresholdsBySeason = useMemo(
     () => new Map(fixture.thresholds.map((t) => [t.season, t])),
     [fixture.thresholds],
@@ -288,8 +289,8 @@ export function PayrollChart({
   const getAmount = useMemo(() => (charge: CapCharge) => selectAmount(charge, toggles), [toggles]);
 
   const order = useMemo(
-    () => buildStackOrder(eligibleCharges, resolvedFocusSeason, getAmount),
-    [eligibleCharges, resolvedFocusSeason, getAmount],
+    () => buildStackOrder(eligibleCharges, getAmount),
+    [eligibleCharges, getAmount],
   );
   // Real-dollar stacks (basis + guaranteed-only applied, never percent-scaled)
   // — the ground truth for tooltips and for whether a total actually crosses
@@ -479,6 +480,25 @@ export function PayrollChart({
 
   const svgHeight = MARGIN.top + PLOT_HEIGHT + MARGIN.bottom;
   const yTicks = yScale.ticks(6);
+  // A y-axis tick's own numeric label lives at the same x as the left
+  // margin's threshold labels (both near the plot's left edge), but the
+  // two were never collision-checked against each other — only within
+  // their own group. A tick that happens to land within a few dollars of
+  // a real threshold value (e.g. a season's tax level landing almost
+  // exactly on the "$200M" gridline) rendered its own text directly on
+  // top of that threshold's label, both independently believing they had
+  // the row to themselves. Found via a real bug report — Denver's
+  // 2026-27 tax level, $200,428,000, sitting 2px from the $200M tick.
+  // Fix: suppress a tick's *label* (not its gridline — removing the line
+  // itself would read as a gap in the grid, and the threshold's own line
+  // still needs the gridline for visual continuity) whenever it lands
+  // within one line-height of any of the first season's four threshold
+  // lines' true position — the only ones sharing this side of the plot.
+  // The threshold's own label already conveys almost the same number, so
+  // nothing is lost by not repeating it a few pixels away.
+  const firstSeasonThresholdYs = THRESHOLD_KEYS.map((key) => yScale(firstRender.displayThresholds[key]));
+  const tickCollidesWithThreshold = (tick: number) =>
+    firstSeasonThresholdYs.some((y) => Math.abs(yScale(tick) - y) < LABEL_LINE_HEIGHT / 2);
 
   // Non-last seasons keep their own gap-based callouts (existing behavior,
   // unchanged); the last season's callouts move into rightMarginResolved
@@ -492,20 +512,20 @@ export function PayrollChart({
   // info readout, so the two can never disagree (see NOTES.md M5 entry).
   const pinnedInfo = useMemo(() => {
     if (!pinnedEntityId) return null;
-    // Prefer the focus season's own instance of the pinned entity; fall back
+    // Prefer the last season's own instance of the pinned entity; fall back
     // to the first season (chronological, since `stacks` follows `seasons`)
     // it appears in otherwise — e.g. a player pinned in a season range that
-    // doesn't include the current focus season.
-    const focusStack = stacks.find((s) => s.season === resolvedFocusSeason);
-    const focusSeg = focusStack?.segments.find((s) => s.entityId === pinnedEntityId);
-    if (focusSeg) return segmentInfoFor(focusSeg, resolvedFocusSeason, getAmount);
+    // doesn't include the last season (already unpinned themselves by then).
+    const lastSeasonStack = stacks.find((s) => s.season === lastSeason);
+    const lastSeasonSeg = lastSeasonStack?.segments.find((s) => s.entityId === pinnedEntityId);
+    if (lastSeasonSeg) return segmentInfoFor(lastSeasonSeg, lastSeason, getAmount);
 
     for (const s of stacks) {
       const seg = s.segments.find((sg) => sg.entityId === pinnedEntityId);
       if (seg) return segmentInfoFor(seg, s.season, getAmount);
     }
     return null;
-  }, [pinnedEntityId, stacks, resolvedFocusSeason, getAmount]);
+  }, [pinnedEntityId, stacks, lastSeason, getAmount]);
 
   const activeInfo = hoveredSegment ?? focusedSegment ?? pinnedInfo;
   const activeEntityId = activeInfo?.entityId ?? null;
@@ -520,14 +540,14 @@ export function PayrollChart({
           responsiveness) — legend + view/download controls. Stays a plain
           block-level sibling of the chart column below rather than a nested
           wrapper, so DOM/reading/tab order (legend controls, then the chart
-          itself) is identical at every width; `lg:w-[320px]` (matching
+          itself) is identical at every width; `lg:w-[290px]` (matching
           page.tsx's header block and TeamPageClient's controls block) sits
           as a plain left-aligned 320px column (a block element's default
           position — no margin trick needed), leaving the chart's
           absolutely-positioned space (100% - 360px, a 40px gap) free on
           the right — see app/team/[slug]/page.tsx for why this isn't a CSS
           grid. */}
-      <div className="min-w-0 lg:w-[320px]">
+      <div className="min-w-0 lg:w-[290px]">
         <Legend />
         <div className="mb-3 flex flex-wrap gap-2">
           <button
@@ -558,7 +578,7 @@ export function PayrollChart({
           app/team/[slug]/page.tsx for the full rationale. At mobile (no
           lg: styles apply) this is just a plain block div, identical to
           before. */}
-      <div ref={ref} className="min-w-0 lg:absolute lg:right-0 lg:top-0 lg:w-[calc(100%-360px)]">
+      <div ref={ref} className="min-w-0 lg:absolute lg:right-0 lg:top-0 lg:w-[calc(100%-330px)]">
       {viewMode === 'table' ? (
         <PayrollTable
           teamLabel={fixture.teamLabel}
@@ -603,6 +623,7 @@ export function PayrollChart({
           {yTicks.map((tick) => (
             <g key={tick}>
               <line x1={0} x2={plotWidth} y1={yScale(tick)} y2={yScale(tick)} stroke={GRIDLINE} strokeWidth={1} />
+              {!tickCollidesWithThreshold(tick) && (
               <text
                 x={-10}
                 y={yScale(tick)}
@@ -613,6 +634,7 @@ export function PayrollChart({
               >
                 {formatValue(tick)}
               </text>
+              )}
             </g>
           ))}
 

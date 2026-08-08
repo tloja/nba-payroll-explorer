@@ -25,8 +25,8 @@ export async function generateMetadata({
   const title = `${teamLabel} — ${SITE_NAME}`;
 
   // The hub always describes the most recent season it currently renders
-  // (TeamPageClient defaults `to`/`focus` to the last available season) —
-  // same reasoning `pickLeagueSeason` (app/page.tsx) already uses.
+  // (TeamPageClient defaults `to` to the last available season) — same
+  // reasoning `pickLeagueSeason` (app/page.tsx) already uses.
   const seasons = result.ok ? availableSeasonsFor(result.data) : [];
   const latestSeason = seasons[seasons.length - 1];
   const summary = result.ok && latestSeason ? summarizeTeamSeason(result.data, latestSeason) : null;
@@ -62,7 +62,7 @@ export async function generateMetadata({
 function PayrollChartFallback() {
   return (
     <div
-      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-360px)]"
+      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-330px)]"
       aria-hidden="true"
     />
   );
@@ -75,7 +75,7 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
   const result = loadTeamFile(slug);
 
   return (
-    <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1290px] px-4 py-8">
       <Link href="/" className="text-sm text-[#52514e] underline">
         &larr; All teams
       </Link>
@@ -92,7 +92,7 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
           <TeamStructuredData teamLabel={result.data.teamLabel} slug={slug} />
           {/* Responsive header layout: a plain stack (unchanged from before)
               below the lg breakpoint. At lg+, everything here sits as a
-              plain 320px-wide left-aligned column (`lg:w-[320px]` — a block
+              plain 320px-wide left-aligned column (`lg:w-[290px]` — a block
               element's default position is flush-left, no margin trick
               needed; vertical spacing between these blocks is completely
               unaffected) while the chart itself (deep inside
@@ -109,7 +109,7 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
               content below it) tall enough for the chart even though the
               chart no longer contributes to normal flow height. */}
           <div className="lg:relative lg:min-h-[980px]">
-            <div className="min-w-0 lg:w-[320px]">
+            <div className="min-w-0 lg:w-[290px]">
               <h1 className="mt-2 text-xl font-semibold">{result.data.teamLabel}</h1>
               {(() => {
                 const lastUpdated = lastUpdatedFor(result.data);
@@ -131,11 +131,11 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
             {(() => {
               const seasons = availableSeasonsFor(result.data);
               return seasons.length === 0 ? (
-                <p className="mt-4 text-sm text-[#52514e] lg:w-[320px]">
+                <p className="mt-4 text-sm text-[#52514e] lg:w-[290px]">
                   No season currently has both sourced cap charges and a published threshold table to draw against.
                 </p>
               ) : (
-                // useSearchParams (read inside TeamPageClient, for the season-range/focus
+                // useSearchParams (read inside TeamPageClient, for the season-range
                 // state in the URL — spec §10) opts the page out of static prerendering
                 // unless wrapped in Suspense; this fallback only ever flashes during
                 // client-side navigation, not on first load. Kept scoped to just the

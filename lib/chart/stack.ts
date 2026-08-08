@@ -25,11 +25,28 @@ function entityKey(charge: CapCharge): string {
  * occupies the same band across bars and horizontal tracking is possible
  * (spec §5 — never re-sort per season).
  *
- * Ordered by the focus season's amount descending (capHit by default — see
- * `getAmount`). Entities that don't appear in the focus season (left before
- * it / arrive after it) are appended, ordered by their own largest amount
- * across whatever seasons they do appear in, so every entity still gets a
- * defined, stable slot.
+ * Ordered by each entity's own largest amount (capHit by default — see
+ * `getAmount`) across whichever seasons it actually appears in — no
+ * favoritism toward presence in any one particular season. An earlier
+ * version anchored the sort to a single "focus" season (originally a
+ * user-facing selector, spec §5's literal reading; removed as a control —
+ * see NOTES.md) and treated every entity absent from *that* season as a
+ * second-class group appended after everyone present in it, regardless of
+ * amount. That silently broke as soon as the focus season was hardcoded to
+ * the range's last season: a player whose contract simply ends before the
+ * last season (e.g. an expiring deal) would get shoved into the "absent"
+ * group and rendered above cheaper players still active in that season,
+ * even on a bar where the expiring player was clearly present and clearly
+ * the largest amount on the roster (found via a real bug report — Golden
+ * State's Stephen Curry, Jimmy Butler, and Draymond Green, its three
+ * biggest 2026-27 cap hits, none of them extending to 2027-28, all three
+ * rendering in the middle of the 2026-27 bar instead of the bottom). Global
+ * max-amount sorting isn't a perfect guarantee for every season either —
+ * two entities both present in some season could theoretically still swap
+ * relative order if one has a much larger amount in a *different* season —
+ * but it's a strictly better default with no dedicated season to favor,
+ * and it fixes exactly the failure mode above (the common case: someone's
+ * deal simply doesn't reach the last season shown).
  *
  * `getAmount` defaults to `capHit` so every existing caller/test is
  * unaffected; M5's toggle set (payroll basis, guaranteed-only) passes a
@@ -37,7 +54,6 @@ function entityKey(charge: CapCharge): string {
  */
 export function buildStackOrder(
   charges: CapCharge[],
-  focusSeason: Season,
   getAmount: (charge: CapCharge) => number = (c) => c.capHit,
 ): string[] {
   const byEntity = new Map<string, CapCharge[]>();
@@ -48,21 +64,10 @@ export function buildStackOrder(
     else byEntity.set(key, [charge]);
   }
 
-  const inFocus: string[] = [];
-  const outOfFocus: string[] = [];
-  for (const [key, entityCharges] of byEntity) {
-    const focusCharge = entityCharges.find((c) => c.season === focusSeason);
-    if (focusCharge) inFocus.push(key);
-    else outOfFocus.push(key);
-  }
-
   const maxAmount = (key: string) =>
     Math.max(...(byEntity.get(key) ?? []).map(getAmount));
 
-  inFocus.sort((a, b) => maxAmount(b) - maxAmount(a));
-  outOfFocus.sort((a, b) => maxAmount(b) - maxAmount(a));
-
-  return [...inFocus, ...outOfFocus];
+  return [...byEntity.keys()].sort((a, b) => maxAmount(b) - maxAmount(a));
 }
 
 /**

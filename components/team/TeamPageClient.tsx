@@ -12,24 +12,31 @@ const BASIS_VALUES: PayrollBasis[] = ['cap', 'tax', 'apron'];
 const DOLLAR_MODE_VALUES: DollarMode[] = ['absolute', 'percent'];
 
 /**
- * Reads the season range + focus season from the URL (spec §10: every view
- * shareable), clamps them to what this team actually has, and renders
- * PayrollChart against that sub-range. The range/focus selects only appear
- * when there's more than one season to pick from — right now every team's
- * `availableSeasons` (lib/data/teams.ts) is a single season, since
- * data/thresholds.ts only covers 2025-26/2026-27, so this UI is mostly
- * dormant until a later session extends that table with projected out-years.
+ * Reads the season range from the URL (spec §10: every view shareable),
+ * clamps it to what this team actually has, and renders PayrollChart
+ * against that sub-range. The range select only appears when there's more
+ * than one season to pick from.
+ *
+ * Stack order (spec §5) always sorts by the range's last/most recent
+ * season's capHit, applied to every season's bar — no user-facing "sort
+ * by" control for this. One used to exist (a `focus` URL param + a select
+ * next to From/To) but was removed as not worth exposing: picking which
+ * season's dollar amounts determine top-to-bottom order didn't change the
+ * underlying data, only the visual arrangement, and users found it
+ * confusing rather than useful. PayrollChart's own `lastSeason` fallback
+ * (used whenever no `focusSeason` prop is passed) already does exactly
+ * this, so removing the control needed no change there.
  *
  * M5: also owns the pinned segment and the toggle set (spec §6), both in the
  * URL, both passed to PayrollChart as controlled props — this is the single
  * place URL state and chart state are translated into each other, same
- * pattern as from/to/focus above, so pin/toggles can't drift out of sync
- * with what's actually rendered (see NOTES.md M5 entry). Hover and keyboard
+ * pattern as from/to above, so pin/toggles can't drift out of sync with
+ * what's actually rendered (see NOTES.md M5 entry). Hover and keyboard
  * focus are NOT here — they're PayrollChart's own ephemeral local state,
  * since neither belongs in a shareable link.
  *
  * Reused for /team/[slug]/[season] too: that route passes
- * `availableSeasons={[season]}`, which makes the range/focus selector below
+ * `availableSeasons={[season]}`, which makes the range selector below
  * auto-hide (`availableSeasons.length > 1` is false) while pin/toggle URL
  * handling still applies — one implementation instead of a second,
  * divergent one for the deep-link route.
@@ -56,7 +63,6 @@ export function TeamPageClient({
 
   const fromParam = searchParams.get('from');
   const toParam = searchParams.get('to');
-  const focusParam = searchParams.get('focus');
   const pinParam = searchParams.get('pin');
   const basisParam = searchParams.get('basis');
   const holdsParam = searchParams.get('holds');
@@ -66,9 +72,6 @@ export function TeamPageClient({
   const from = fromParam && availableSeasons.includes(fromParam as Season) ? (fromParam as Season) : first;
   const toRequested = toParam && availableSeasons.includes(toParam as Season) ? (toParam as Season) : last;
   const to = toRequested < from ? from : toRequested;
-  const focus = focusParam && availableSeasons.includes(focusParam as Season) && focusParam >= from && focusParam <= to
-    ? (focusParam as Season)
-    : to;
 
   const pinnedEntityId = pinParam || null;
   const toggles: ChartToggles = {
@@ -87,7 +90,7 @@ export function TeamPageClient({
   );
   const payrollData = useMemo(() => toPayrollData(data, availableSeasons), [data, availableSeasons]);
 
-  function updateParams(next: Partial<Record<'from' | 'to' | 'focus' | 'pin' | 'basis' | 'holds' | 'dollars' | 'guarantee', string>>) {
+  function updateParams(next: Partial<Record<'from' | 'to' | 'pin' | 'basis' | 'holds' | 'dollars' | 'guarantee', string>>) {
     const params = new URLSearchParams(searchParams.toString());
     for (const [key, value] of Object.entries(next)) {
       if (value) params.set(key, value);
@@ -104,7 +107,7 @@ export function TeamPageClient({
           absolute-positioned chart rather than a CSS grid). Below lg, this
           is a plain div with no effect at all — same stacked layout as
           before. */}
-      <div className="min-w-0 lg:w-[320px]">
+      <div className="min-w-0 lg:w-[290px]">
       {availableSeasons.length > 1 && (
         <div className="my-4 flex flex-wrap items-center gap-4 text-sm">
           <label className="flex items-center gap-1.5">
@@ -130,20 +133,6 @@ export function TeamPageClient({
             >
               {availableSeasons.map((s) => (
                 <option key={s} value={s} disabled={s < from}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex items-center gap-1.5">
-            Sort by
-            <select
-              value={focus}
-              onChange={(e) => updateParams({ focus: e.target.value })}
-              className="rounded border border-[#d8d6cf] bg-white px-1.5 py-0.5"
-            >
-              {rangeSeasons.map((s) => (
-                <option key={s} value={s}>
                   {s}
                 </option>
               ))}
@@ -195,7 +184,6 @@ export function TeamPageClient({
       <PayrollChart
         fixture={payrollData}
         seasons={rangeSeasons}
-        focusSeason={focus}
         toggles={toggles}
         pinnedEntityId={pinnedEntityId}
         onPinChange={(id) => updateParams({ pin: id ?? undefined })}

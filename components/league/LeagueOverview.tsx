@@ -71,7 +71,7 @@ export function LeagueOverview({
     return teams
       .map(({ slug, data }) => {
         const charges = data.capCharges.filter((c) => c.season === season);
-        const order = buildStackOrder(charges, season);
+        const order = buildStackOrder(charges);
         const stack = stackSeason(charges, season, order);
         return { slug, teamId: data.teamId, teamLabel: data.teamLabel, stack };
       })

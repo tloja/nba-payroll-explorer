@@ -95,7 +95,7 @@ export function renderTeamOgImage(fixture: TeamPayrollData, seasonsToRender: Sea
 
   const focusSeason = seasons[seasons.length - 1];
   const charges = selectableCharges(fixture.capCharges, DEFAULT_TOGGLES);
-  const order = buildStackOrder(charges, focusSeason);
+  const order = buildStackOrder(charges);
   const stacks: SeasonStack[] = seasons.map((season) => stackSeason(charges, season, order));
   const thresholdsList = seasons.map((s) => thresholdsBySeason.get(s)!);
   const yScale = buildYScale(stacks, thresholdsList, PLOT_HEIGHT);

@@ -183,7 +183,7 @@ Axis and labels abbreviated (`$55.8M`), tooltips exact (`$55,761,216`). Use tabu
 | Route | Content |
 |---|---|
 | `/` | All 30 teams, sorted by payroll, as thin horizontal bars against shared threshold lines. The league-wide "who's in the aprons" view. |
-| `/team/[slug]` | The main chart. Season range selector, focus-season selector, toggles. |
+| `/team/[slug]` | The main chart. Season range selector, toggles. (A separate user-facing focus-season selector — letting the viewer pick which season's dollar amounts set stack order — existed briefly and was removed: it didn't change the underlying data, only the visual arrangement, and users found it confusing rather than useful. Stack order still always sorts by the range's most recent season, per the rule below, just without a control to override it.) |
 | `/team/[slug]/[season]` | Deep link to a single season, shareable. |
 | `/compare?teams=okc,bos,nyk` | Same y-scale, bars side by side. |
 | `/player/[slug]` | Optional. Cap hit across seasons, guarantee structure. |

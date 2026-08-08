@@ -2691,3 +2691,275 @@ deliberate choice, not an oversight.
 ### Verified
 `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
 `npm run a11y` (14/14, 0 violations) all clean.
+
+### Seventh follow-up, same day: removed the "Sort by" control
+User asked to remove it outright — "seems irrelevant to the data." It let
+a viewer pick which season's `capHit` values determined stack order (spec
+§5's "focus season"), but never changed any underlying number, only the
+segments' vertical arrangement — a real but apparently not-useful degree
+of freedom once several other passes had already improved on-chart
+legibility today.
+
+**Removed, not hidden**: `components/team/TeamPageClient.tsx` — the
+`<select>` itself, the `focus` URL param (`focusParam`, its resolution
+logic, its slot in `updateParams`'s type) — rather than just hiding the
+control while leaving dead param-handling behind it.
+`components/chart/PayrollChart.tsx` — dropped the now-unused `focusSeason`
+prop entirely from the component's API (confirmed via grep it had exactly
+one caller, `TeamPageClient`, and `lib/og/renderTeamChart.tsx`'s OG-image
+renderer already independently always used the last season for the same
+purpose, never exposing a control) and collapsed the `resolvedFocusSeason`
+variable into the existing `lastSeason` it always equaled once the prop
+was gone — stack order still always sorts by the range's most recent
+season, just without a param that could override it. `nba-payroll-site-
+spec.md`'s routes table updated to record the removal and why, rather than
+silently drifting from what the code actually does (same standing
+practice this repo already had for the apronHit rule text, M9 follow-up).
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+  `npm run a11y` (14/14, 0 violations) all clean.
+- Confirmed rather than assumed nothing else broke: scripted a check that
+  "Sort by" no longer appears anywhere in the rendered page; pin-to-URL
+  still works on a real segment (`?pin=johnsja05`) with no `focus` param
+  ever appearing; the single-season deep link route still correctly hides
+  the range selector entirely, unchanged from before.
+
+### Eighth follow-up, same day: real bug from the "Sort by" removal, found via user report
+User checked `?focus=2026-27` (the old URL param, now dead) on Golden
+State and found the stack visibly wrong: Stephen Curry ($62.6M), Jimmy
+Butler ($56.8M), and Draymond Green ($27.7M) — GSW's three largest
+2026-27 cap hits by a wide margin — rendered in the *middle* of the
+2026-27 bar instead of the bottom.
+
+**Root cause, traced through the actual algorithm, not guessed**:
+`buildStackOrder` (`lib/chart/stack.ts`) never sorted by amount alone —
+it split entities into two buckets, "present in the focus season" and
+"absent from it," sorted each bucket separately by amount, then
+concatenated present-bucket-first. That was fine when a user-facing
+"Sort by" control let someone pick the focus season deliberately. Once
+that control was removed (same day, prior entry) and focus got hardcoded
+to the range's last season, anyone whose contract doesn't reach that last
+season — confirmed via the raw data: Curry, Butler, and Green all have
+*only* a 2026-27 charge, nothing in 2027-28 — falls into the "absent"
+bucket and renders above every dollar amount in the "present" bucket,
+regardless of how large their own number actually is.
+
+**Real fix, not a reintroduced selector**: removed the two-bucket split
+entirely. `buildStackOrder` now takes no season argument at all — every
+entity sorts by its own single largest amount across whichever seasons it
+appears in, full stop. This isn't a perfect guarantee for every season
+individually (two entities both present in some season could still swap
+order if one has a larger amount in a *different* season the chart also
+shows — confirmed this actually happens, harmlessly: OKC's Cason Wallace
+[$7.42M, 2026-27 only] renders one slot above Nikola Topić [$5.43M in
+2026-27, $7.48M in 2027-28] because Topić's cross-season max edges
+Wallace's — a ~$60K/0.8% swap between similarly-priced role players, nothing
+like the Curry-in-the-middle failure mode), but it fixes exactly the
+common, severe case: someone's deal simply not reaching the last season
+shown no longer demotes them regardless of size.
+- Updated all four call sites (`components/chart/PayrollChart.tsx`,
+  `components/league/LeagueOverview.tsx`, `lib/og/renderTeamChart.tsx`,
+  `lib/seo/teamSummary.ts`) to the new no-season signature. The latter
+  three were trivially unaffected in practice (each already only ever
+  passed charges pre-filtered to one season, so their own "focus" bucket
+  was always everyone) — only `PayrollChart.tsx`'s genuinely multi-season
+  call site could ever have hit the bug, and did.
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+  `npm run a11y` (14/14, 0 violations) all clean.
+- Re-ran the exact GSW reproduction after the fix: Curry, Butler, and
+  Green now sort correctly at the bottom of the 2026-27 bar, in strict
+  descending order by their real 2026-27 amount. Spot-checked OKC too
+  (the Wallace/Topić case above) to confirm the known residual edge case
+  is real but minor, not evidence of a broader regression.
+
+### Ninth follow-up, same day: grew the container so callouts stop trading against bar width
+User asked what it would take to get 95% of real player names un-truncated
+*as callouts* (not the inside-bar-width target from two entries ago).
+Measured first, same method as every width pass today: across all 1,055
+real player charges, the abbreviated `"F. Lastname · $XX.XM"` callout text
+needs ≥132px of usable text space to cover 95% of them — which, after the
+callout gutter's fixed ~32px of stub/elbow overhead, means the *gap*
+between bars and the *right margin* both need to reach ~164px. Current
+values (~95px gap, ~139px margin) were nowhere close, and — this was the
+real finding — there wasn't room to get there without giving back most of
+the 90%-inside-bar-width win from two entries ago: the whole plot area was
+fixed at ~367px, and `2×115px bars + 164px gap` alone is 394px, more than
+the entire budget with zero left for outer padding. Presented this as a
+three-way choice (trade bar width back down / grow the container / accept
+a lower callout target) and the user picked **grow the container**.
+
+**What actually grew, and by how much**: `app/team/[slug]/page.tsx` and
+`app/team/[slug]/[season]/page.tsx` — `max-w-5xl` (1024px) → `max-w-6xl`
+(1152px), and the sidebar reservation `320px` (+ 40px gap) → `290px` (+
+same 40px gap) across all four files that encode it
+(`app/team/[slug]/page.tsx`, `app/team/[slug]/[season]/page.tsx`,
+`components/team/TeamPageClient.tsx`, `components/chart/PayrollChart.tsx`
+— the header block, controls block, and legend block each independently
+carry the sidebar width, plus the two `PayrollChartFallback` skeletons and
+the real chart div carry the matching `calc(100% - Npx)` chart-column
+width). Deliberately touched only the team-page files, not
+`app/page.tsx` (league view) or the `max-w-3xl` prose pages
+(`/methodology` etc.) — no reason for either of those to also get wider,
+and widening prose specifically would hurt line-length readability.
+
+30px off the sidebar was chosen, not an arbitrary round number — checked
+visually first (a real render at 290px) that none of the sidebar's actual
+content (the longest line, "Exclude dead money & holds") wrapped badly
+before locking it in, rather than assuming a smaller number would still
+look fine.
+
+Net effect on the chart column, measured live: 632px → 790px. Re-solved
+`lib/chart/scales.ts`'s `paddingInner` against this new, real plotWidth
+(458.2px, up from 366.56px) the same way as every prior pass — targeting
+the *same* 115px bandwidth (not giving that up) — 0.5979 (was 0.4514).
+This time the resulting gap (171px) and marginRight (173.8px) both clear
+the 164px callout target with room to spare, without touching bandwidth
+at all: growing the container instead of reallocating a fixed pot is
+exactly why this pass didn't have to re-litigate the bar-width tradeoff
+the last several passes kept running into.
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+  `npm run a11y` (14/14, 0 violations) all clean.
+- Live-measured the actual result rather than trusting the algebra alone:
+  a real render's bar `rect` came back `width="115.0004"` (bandwidth
+  target held), gap and marginRight both computed exactly as solved.
+- **Empirical, not just theoretical, coverage check**: scripted a check
+  across all 30 teams' real rendered charts (both seasons each, 370 total
+  callouts) counting how many contain the truncation ellipsis — **95.9%
+  render fully untruncated**, meeting the 95% target for real, not just on
+  paper.
+- Visual spot-check, Atlanta and Memphis (deepest roster in the league):
+  every callout on Atlanta's chart rendered in full; Memphis had exactly
+  one remaining truncated name ("K. Caldwell-P…", a long hyphenated
+  surname), everything else — including previously single-letter-reduced
+  bench names — fully legible.
+- 768px/390px re-checked for regressions: no horizontal overflow at
+  either width, confirmed the container/sidebar changes are correctly
+  `lg:`-scoped (390px screenshot pixel-identical in structure to before —
+  these changes are inert below the 1024px breakpoint by construction).
+
+### Tenth follow-up, same day: fixed the axis-tick/threshold-label collision
+The one pre-existing bug flagged and left open across several earlier
+entries today ("Tax $200M" vs. the y-axis's own "$200M" gridline label,
+first spotted rendering as garbled "Tax$200MM") — user found it
+independently on Denver (`/team/den`: 2026-27's tax level, $200,428,000,
+sits $428K — about 2px at this chart's scale — from the $200M gridline)
+and asked for it fixed.
+
+**Root cause**: the y-axis's tick labels (`yTicks.map(...)`,
+`components/chart/PayrollChart.tsx`) and the left margin's threshold
+labels (Cap/Tax/Apron1/Apron2 for the first season, via
+`resolveCallouts`) both render text in the same horizontal band — near
+the plot's left edge — but were two entirely independent
+collision-resolution systems that never checked against each other, only
+within their own group. A tick landing within a few dollars of a real
+threshold value had no way to know that, and both rendered their own text
+believing they had the row to themselves.
+
+**Fix**: added `tickCollidesWithThreshold()` — for each y-axis tick,
+checks whether its true pixel position lands within half a line-height
+(`LABEL_LINE_HEIGHT / 2`, 8px) of any of the *first* season's four
+threshold lines' true position (the only ones sharing this side of the
+plot; the last season's threshold labels live in the right margin, far
+from the y-axis text, so were never at risk). When it collides, the
+tick's *text* is suppressed — the gridline itself stays, so the axis
+doesn't read as having a gap — since the threshold's own label already
+conveys almost the same number a few pixels away; nothing is lost by not
+repeating it. Chose to suppress the generic axis tick rather than the
+more specific threshold label, the reverse of what a "last-writer-wins"
+approach might do by accident.
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+  `npm run a11y` (14/14, 0 violations) all clean.
+- Denver re-checked directly: "Tax $200.4M" now renders as one clean
+  label, no more garbled overlap.
+- **Scanned all 30 teams' real rendered charts**, not just Denver — a
+  script comparing every pair of same-chart `<text>` elements' actual
+  bounding rects (`getBoundingClientRect()`, not just y-coordinates, so it
+  catches genuine visual overlap rather than a coarse heuristic) for
+  overlapping-but-different-content collisions: **zero collisions found
+  across all 30 teams**, confirming the fix generalizes rather than just
+  patching the one reported case.
+
+### Eleventh follow-up, same day: widened bars for the single longest common name
+User asked specifically for "Karl-Anthony Towns" (New York, 18 characters
+— the longest name on any real current roster this session's earlier
+90%/95% analyses didn't specifically target) to fit inside its own bar,
+growing the chart's total width if needed rather than trading against
+what the last two passes had just achieved.
+
+**Required width**: `18*6.6+8 = 126.8px`, per the same inside-label width
+formula every pass in this series has used. Targeted 130px (a few px of
+headroom, same convention as always).
+
+**Grew the container again, didn't trade**: `app/team/[slug]/page.tsx`
+and `.../[season]/page.tsx` — `max-w-6xl` (1152px) → the arbitrary
+`max-w-[1220px]`, solved backwards from the plotWidth this bandwidth
+needs (same method as choosing the sidebar width two entries ago), not
+picked from Tailwind's preset steps — `7xl` would have overshot by
+~130px for no real reason. Sidebar/gap (290px + 40px) left alone this
+time; the container alone had enough room to give.
+
+Chart column grew from 790px to 858px (live-measured). Re-solved
+`paddingInner` the same way as every pass in this series: 0.5775 (was
+0.5979), against the real new plotWidth (499.24px — and marginLeft
+clamped at `MARGIN.leftMax` [170px] for the first time in this series,
+since 0.2× the new chart-column width crossed that cap). Targeted 130px
+bandwidth; the resulting gap (177.7px) and marginRight (188.76px) both
+still clear the 164px callout-text target from two entries ago with room
+to spare, so that tradeoff didn't need re-litigating either.
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+  `npm run a11y` (14/14, 0 violations) all clean.
+- Live-measured: bar `rect` came back `width="130.002"` (target held),
+  and confirmed directly (not just inferred from width) that a `<text>`
+  element with the exact content "Karl-Anthony Towns" exists in the
+  rendered SVG.
+- **Re-ran both of this session's standing 30-team scans after the
+  change**, not just spot-checked NYK: the callout-truncation scan
+  actually *improved*, from 95.9% to **98.0%** non-truncated (347 real
+  callouts checked) — growing the container gave the callouts more room
+  too, not just the bars — and the axis-tick/threshold-label overlap scan
+  from the entry above still found zero collisions across all 30 teams.
+- 768px/390px re-checked: no horizontal overflow at either width, same
+  `lg:`-only scope as the prior container-growth pass.
+
+### Twelfth follow-up, same day: same ask, now for Shai Gilgeous-Alexander
+Same request pattern as the previous entry, one name longer: "Shai
+Gilgeous-Alexander" (OKC), 23 characters, needs `23*6.6+8 = 159.8px`.
+Targeted 163px, same few-px-of-headroom convention. Noted but didn't
+chase: the actual longest name in the dataset is "Nickeil
+Alexander-Walker" at 24 characters — one longer than SGA — not what was
+asked this round.
+
+Grew the container again rather than trading gap/margin width, identical
+method to the last two passes: `max-w-[1220px]` → `max-w-[1290px]`.
+Sidebar/gap (290px + 40px) untouched a third time. Chart column grew
+858px → 928px (live-measured). Both `marginLeft` and `marginRight` are
+now pinned at their caps (`MARGIN.leftMax` 170px, `MARGIN.rightMax`
+190px) rather than their usual 0.2/0.22 fractions — past this container
+width, further growth stops feeding the margins at all and goes entirely
+into plotWidth (bar + gap), which is exactly what let this pass hit a
+much bigger bandwidth jump (130px → 163px) without the margins needing
+to move. Re-solved `paddingInner` the same way as every pass in this
+series: 0.5170, against the real new plotWidth (568px = 928 − 170 − 190).
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+  `npm run a11y` (14/14, 0 violations) all clean.
+- Live-measured: bar `rect` came back `width="163.009"` (target held),
+  and confirmed a `<text>` element with the exact content "Shai
+  Gilgeous-Alexander" exists in the rendered SVG — not inferred from
+  width alone.
+- Re-ran both standing 30-team scans again: callout-truncation improved
+  further, 98.0% → **98.5%** non-truncated (339 real callouts checked,
+  down from 347 as more borderline segments crossed into full inside
+  labels and stopped needing a callout at all); the overlap scan still
+  found zero collisions across all 30 teams.
+- 768px/390px re-checked: no horizontal overflow at either width.

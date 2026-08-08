@@ -14,7 +14,7 @@ import { SITE_NAME, SITE_URL } from '../../../../lib/site';
 function PayrollChartFallback() {
   return (
     <div
-      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-360px)]"
+      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-330px)]"
       aria-hidden="true"
     />
   );
@@ -71,7 +71,7 @@ export default async function TeamSeasonPage({
   const result = loadTeamFile(slug);
   if (!result.ok) {
     return (
-      <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1290px] px-4 py-8">
         <Link href="/" className="text-sm text-[#52514e] underline">
           &larr; All teams
         </Link>
@@ -86,7 +86,7 @@ export default async function TeamSeasonPage({
   if (!seasons.includes(season as Season)) notFound();
 
   return (
-    <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8">
+    <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1290px] px-4 py-8">
       <TeamStructuredData teamLabel={result.data.teamLabel} slug={slug} />
       <Link href={`/team/${slug}`} className="text-sm text-[#52514e] underline">
         &larr; {result.data.teamLabel}, all seasons
@@ -95,7 +95,7 @@ export default async function TeamSeasonPage({
           for the full explanation (relative container + absolute chart +
           margin-reserved sidebar, not a CSS grid). */}
       <div className="lg:relative lg:min-h-[980px]">
-        <div className="min-w-0 lg:w-[320px]">
+        <div className="min-w-0 lg:w-[290px]">
           <h1 className="mt-2 text-xl font-semibold">
             {result.data.teamLabel} — {season}
           </h1>
@@ -117,7 +117,7 @@ export default async function TeamSeasonPage({
           })()}
         </div>
         {/* availableSeasons={[season]} locks TeamPageClient to this one season —
-            its range/focus selector auto-hides (length > 1 is false) while pin
+            its range selector auto-hides (length > 1 is false) while pin
             + toggle URL handling (M5) still applies, so this deep link stays
             fully shareable per spec §10 without a second implementation. */}
         <Suspense fallback={<PayrollChartFallback />}>

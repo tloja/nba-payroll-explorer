@@ -36,7 +36,7 @@ export function summarizeTeamSeason(data: TeamCapChargesFile, season: Season): T
     data.capCharges.filter((c) => c.season === season),
     DEFAULT_TOGGLES,
   );
-  const order = buildStackOrder(charges, season);
+  const order = buildStackOrder(charges);
   const stack = stackSeason(charges, season, order);
   const overages = bandOverages(stack.total, thresholds);
   const apron2Overage = overages.find((o) => o.key === 'apron2')!.overage;
