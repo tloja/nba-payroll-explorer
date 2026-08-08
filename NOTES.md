@@ -2620,3 +2620,74 @@ holds up, still legible, no worse than before this change.
 ### Verified
 `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
 `npm run a11y` (14/14, 0 violations) all clean.
+
+### Fifth follow-up, same day: bar width sized to fit a majority of real player names
+The previous "10% wider" bump was arbitrary — this ask was specific: size
+bars so a majority of real NBA player names clear `lib/chart/labels.ts`'s
+inside-label *width* check (`label.length * APPROX_CHAR_WIDTH +
+INSIDE_LABEL_HORIZONTAL_PADDING`), independent of the separate height
+check the same function applies.
+
+**Measured against the real dataset, not guessed**: pulled every unique
+player's label across all 30 teams' `data/teams/*.json` (455 players),
+sorted by length. Name length turned out to be a step function, not a
+smooth curve — 12 characters or fewer covers only 41.8% of players; 13 or
+fewer jumps to 59.3%. So 93.8px (`13*6.6+8`) is the *exact* breakeven
+where a majority first clears, and there's no width between there and the
+next real breakpoint (100.4px, 74.3%) that buys anything more. Targeted
+95px (a few px of headroom over the breakeven, same 59.3% bracket) rather
+than jumping to the next bracket, which isn't what was asked and would
+cost more inter-bar gap than this specific ask calls for.
+
+Solved `paddingInner` algebraically from the standard d3 `scaleBand`
+formulas for this chart's real `plotWidth` (366.56px, measured at a
+1440px-viewport render) → 0.5802 (was 0.6151). Verified the algebra
+matched reality, not just trusted it: a live render's bar `rect` came back
+`width="95.0005"`.
+
+**Visual effect, both teams re-checked**: a real jump, not marginal —
+Atlanta's "Luguentz Dort," "Aaron Wiggins," and "Corey Kispert" all moved
+from truncated/abbreviated callouts to full inside labels; Memphis's "Ty
+Jerome," "Quinten Post," and "Zach Edey" (in the seasons where their
+segment is also tall enough) did too. The tradeoff is the same shape as
+the last two follow-ups: less horizontal room for callouts and the left
+margin's "Tax $200M"/axis-tick collision (still open, unrelated, unchanged)
+— a couple of names that fit their callout's width budget before (e.g.
+"J. Kuminga · $24.3M") now truncate slightly further ("J. Kum… · $24.3M")
+because the gap shrank to pay for the wider bars. Net legibility is up
+(most names moved to the strictly-better inside-label state), but this
+specific edge case is a real, disclosed cost of the tradeoff, not free.
+
+### Verified
+`npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+`npm run a11y` (14/14, 0 violations) all clean.
+
+### Sixth follow-up, same day: raised the width target from a majority to 90%
+User asked to push the same width-fit target from a bare majority (59.3%)
+to 90% of real player names. Same measured dataset, same method: 16
+characters or fewer covers 90.5% of the 455 unique players, the first
+bracket to clear 90% (113.6px breakeven, `16*6.6+8`). Targeted 115px (a
+few px of headroom, same bracket). Re-solved `paddingInner` the same way
+— 0.4514 (was 0.5802) — and reverified against a live render:
+`width="115.003"`, matching.
+
+**Flagged the real cost before shipping, not after**: showed the user an
+actual screenshot (Atlanta) rather than describe it. At 115px bars the
+gap between the two bars drops to ~95px (was ~131px at the 59.3% target),
+and several bench-player callouts — the ones whose *segment* is too short
+in height to ever qualify for an inside label, independent of this
+change — got crowded down to a single-letter label (e.g. "R… · $2.2M").
+Checked Memphis too, same pattern, more pronounced (deeper bench). Gave
+the user three options (keep as-is / dial back to somewhere between 59%
+and 90% / keep 90% and separately fix the crowded callouts). **User chose
+keep as-is** — inside-label coverage on tall segments matters more than
+the short-segment callouts' legibility for this site. Noted here as an
+explicit, confirmed tradeoff rather than a silently-accepted regression:
+a future session revisiting callout crowding (e.g. collapsing more
+aggressively into "Others (n)", currently only triggered by *count* > 8,
+not by how narrow individual callouts render) should know this was a
+deliberate choice, not an oversight.
+
+### Verified
+`npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+`npm run a11y` (14/14, 0 violations) all clean.
