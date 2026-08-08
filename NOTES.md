@@ -2558,3 +2558,65 @@ loading state, which is the honest tradeoff, not a regression). This is a
 `next dev`-only cost: the actual static-export production build was
 already fast enough pre- and post-fix that the skeleton is not normally
 perceptible there.
+
+### Third follow-up, same day: abbreviate names instead of truncating them
+After the spacing fix shipped (and was manually deployed, then verified
+live via `vercel inspect` + a direct Playwright comparison against the
+production URL — geometry matched exactly), user flagged that several
+player-name callouts were still cut down hard, e.g. "Jonathan K…" for
+Jonathan Kuminga. Real, but not the spacing fix regressing — it's the
+residual truncation flagged as a known limitation when that fix shipped
+(some names are simply too long for the available width, even widened).
+
+**Fix, not more spacing**: `calloutText()` (`components/chart/PayrollChart.tsx`)
+now tries abbreviating a plain player name's given name(s) to initials —
+`abbreviateName()`, "Jonathan Kuminga" → "J. Kuminga" — before falling back
+to the old hard ellipsis truncation, once the full name is confirmed not to
+fit. The previous behavior truncated from the end, which threw away the
+surname (almost always the more identifying part of a name on a roster)
+while keeping the full given name intact — backwards from what's actually
+useful. Only applied to plain names: dead-money/cap-hold labels ("Dead
+money: T. Sorrento (stretched)", confirmed via `data/fixtures/synthetic.json`,
+the only place those chargeTypes currently exist in this dataset — real
+data has none right now) always carry a colon a real player name never
+does, so they're detected and left as full text rather than being mangled
+into something like "D. m. T. Sorrento (stretched)".
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+  `npm run a11y` (14/14, 0 violations) all clean.
+- Visual check (Atlanta — the specific team/screenshot the user flagged —
+  and Memphis, the deepest roster in the league) at 1440px: nearly every
+  previously-truncated name now either fits in full ("O. Okongwu · $16.1M",
+  was "Onyeka Oko…") or shows a recognizable abbreviated form ("N.
+  Alexand… · $14.4M", was "Nickeil Al…") instead of losing the surname
+  outright. A few genuinely long hyphenated/multi-word names still
+  truncate even abbreviated (there's a hard floor on how much text fits in
+  ~100-120px) — the full name remains on the callout's own `<title>`
+  tooltip regardless.
+
+### Fourth follow-up, same day: 10% wider bars
+User asked for the bars themselves 10% wider, on top of the abbreviation
+fix above. `lib/chart/scales.ts`'s `buildXScale`: solved for the
+`paddingInner` value that gives exactly 1.1× the previous bandwidth while
+holding `paddingOuter` fixed at 0.1 (algebra in the file's own comment) —
+0.66 → 0.6151. Verified precisely, not just eyeballed: measured the live
+bar `rect`'s `width` attribute before (80.93px) and after (89.02px) via
+Playwright against a real render — exactly ×1.1002.
+
+This necessarily narrows the inter-bar gap by ~9% (the two are in direct
+tension: same `plotWidth` split three ways), which would normally cut
+against the earlier gap-widening fix — but landed fine in practice for two
+reasons visible in the same before/after screenshots: (1) several
+mid-size segments that were outside callouts before (Jock Landale, Devin
+Carter, Zach Edey, Quinten Post) are now wide enough to clear the
+inside-label fit check and render as full names directly on the bar,
+which is strictly better than any callout, abbreviated or not, and (2) the
+callouts that remain lean on the same-day abbreviation fix rather than
+raw truncation width, so they degrade more gracefully than before this
+whole sequence of fixes started. Re-checked Memphis (deepest roster) too —
+holds up, still legible, no worse than before this change.
+
+### Verified
+`npx tsc --noEmit`, `npm test` (42/42), `npm run verify`, `npm run build`,
+`npm run a11y` (14/14, 0 violations) all clean.

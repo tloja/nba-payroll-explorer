@@ -9,7 +9,13 @@ export type PlotDimensions = {
 
 /** Band scale across seasons, left to right in season order. */
 export function buildXScale(seasons: Season[], width: number) {
-  return scaleBand<Season>().domain(seasons).range([0, width]).paddingInner(0.66).paddingOuter(0.1);
+  // paddingInner 0.6151 (not a round number): solved to give each bar ~10%
+  // more width than the previous 0.66, holding paddingOuter fixed — see
+  // NOTES.md for the derivation. Trades back part of the inter-bar gap
+  // that same NOTES.md entry just widened (~9% narrower), which is an
+  // acceptable tradeoff now that calloutText() abbreviates long names to
+  // initials instead of needing raw truncation width to fall back on.
+  return scaleBand<Season>().domain(seasons).range([0, width]).paddingInner(0.6151).paddingOuter(0.1);
 }
 
 /**

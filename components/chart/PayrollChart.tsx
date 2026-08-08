@@ -1005,6 +1005,25 @@ function truncateToWidth(text: string, maxWidth: number): string {
   return text.slice(0, Math.max(1, maxChars - 1)) + '…';
 }
 
+// "Jonathan Kuminga" -> "J. Kuminga". Only ever called once the full name
+// is already known not to fit — the last name is almost always the more
+// identifying part of a player's name (surnames are far less ambiguous
+// across a roster than given names), so it's worth keeping intact and
+// abbreviating everything before it, rather than truncating from the end
+// and keeping the full first name while cutting the surname down to a
+// single letter. A no-op for single-word labels ("Others").
+function abbreviateName(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length <= 1) return name;
+  const last = parts[parts.length - 1];
+  const initials = parts
+    .slice(0, -1)
+    .map((p) => (p[0] ? `${p[0]}.` : ''))
+    .filter(Boolean)
+    .join(' ');
+  return initials ? `${initials} ${last}` : last;
+}
+
 // Builds the compact "Label · $XM" (or "Label · 132%") callout string,
 // stripping a trailing parenthetical ("(stretched)", "(pending FA)") and
 // then truncating with an ellipsis if it still won't fit the available
@@ -1013,14 +1032,25 @@ function truncateToWidth(text: string, maxWidth: number): string {
 // formatPercent) so callouts stay consistent with the axis/threshold labels.
 function calloutText(label: string, amount: number, maxWidth: number, formatValue: (n: number) => string): string {
   const suffix = ` · ${formatValue(amount)}`;
-  const stripped = label.replace(/\s*\([^)]*\)\s*$/, '');
+  let stripped = label.replace(/\s*\([^)]*\)\s*$/, '');
   const maxChars = Math.max(1, Math.floor(maxWidth / CALLOUT_CHAR_WIDTH));
 
   const full = stripped + suffix;
-  if (full.length <= maxChars) return full;
+  // Abbreviate a plain player name's first name(s) to initials before
+  // falling back to a hard ellipsis truncation. Only for plain names —
+  // the other two chargeTypes that ever reach a callout, dead money and
+  // cap holds, always carry a "Dead money: " / "Cap hold: " prefix (see
+  // the CBA engine / ingestion adapters), which a real player name never
+  // does, so a colon is a safe, cheap way to leave those alone.
+  if (full.length > maxChars && !stripped.includes(':')) {
+    stripped = abbreviateName(stripped);
+  }
+
+  const abbreviatedFull = stripped + suffix;
+  if (abbreviatedFull.length <= maxChars) return abbreviatedFull;
 
   const room = maxChars - suffix.length - 1; // 1 for the ellipsis
-  if (room <= 0) return full.slice(0, Math.max(1, maxChars - 1)) + '…';
+  if (room <= 0) return abbreviatedFull.slice(0, Math.max(1, maxChars - 1)) + '…';
   return stripped.slice(0, room) + '…' + suffix;
 }
 
