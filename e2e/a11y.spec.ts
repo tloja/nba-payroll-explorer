@@ -6,7 +6,11 @@ import AxeBuilder from '@axe-core/playwright';
 // styles and layout. One route per distinct page shape: the league overview,
 // a team page (season selector dormant today, single-season data), and the
 // season deep link.
-const ROUTES = ['/', '/team/okc', '/team/okc/2026-27'];
+// M11 added /team/okc/2027-28 (a projected, sparser season with real
+// unresolved-option segments — see PayrollChart's dotted-outline overlay)
+// as its own route: worth its own axe pass since it's genuinely new
+// surface, not just a re-render of the 2026-27 deep link with different data.
+const ROUTES = ['/', '/team/okc', '/team/okc/2026-27', '/team/okc/2027-28'];
 
 // M7's public-surface pages (spec §7/§8/§11): static prose/table content,
 // no chart or view-mode toggle, so these get one axe pass each rather than

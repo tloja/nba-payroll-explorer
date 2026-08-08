@@ -115,7 +115,11 @@ export function PayrollTable({
                   <td className="py-1 pr-3 text-right align-top font-mono">{formatExact(amount)}</td>
                   <td className="py-1 pr-3 align-top capitalize">{seg.charge.guaranteeStatus}</td>
                   <td className="py-1 pr-3 align-top">
-                    {seg.charge.optionType ? seg.charge.optionType.toUpperCase() : '—'}
+                    {/* Every option-bearing charge this site ingests is conservatively
+                        unresolved (lib/cba/engine.ts never sets optionDecided: true — BR's
+                        exercise-date notes aren't parsed), so any non-null optionType here
+                        always means "not yet decided," not just "this season has an option." */}
+                    {seg.charge.optionType ? `${seg.charge.optionType.toUpperCase()} (not yet decided)` : '—'}
                   </td>
                   <td className="py-1 pr-3 align-top capitalize">{seg.charge.derivation}</td>
                   <td className="py-1 pr-3 align-top">

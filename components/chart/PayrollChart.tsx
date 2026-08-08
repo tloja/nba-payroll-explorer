@@ -38,7 +38,7 @@ import {
 // MAX.
 const MARGIN = { top: 32, bottom: 40, leftMax: 170, leftMin: 64, rightMax: 190, rightMin: 56 };
 const MIN_PLOT_WIDTH = 140;
-const PLOT_HEIGHT = 520;
+const PLOT_HEIGHT = 860;
 const CALLOUT_STUB = 10;
 const CALLOUT_ELBOW = 12;
 const SEGMENT_GAP = 2;
@@ -83,6 +83,7 @@ type ActiveSegmentInfo = {
   derivation: CapCharge['derivation'];
   sourceId: string;
   retrievedAt: string;
+  optionType: CapCharge['optionType'];
 };
 
 // Per-figure provenance (spec §8), in one place so the segment's <title>,
@@ -99,6 +100,31 @@ function derivationPhrase(charge: Pick<CapCharge, 'derivation' | 'sourceId'>): s
     case 'synthetic':
       return 'synthetic placeholder data';
   }
+}
+
+// M11: a season whose charge only exists because a player or team option
+// gets exercised is a fundamentally different kind of uncertainty than
+// `derivation: 'estimated'` (which is about confidence in a dollar figure
+// that's already on the books). Every option-bearing charge this adapter
+// emits is conservatively `optionDecided: false` (lib/cba/engine.ts — BR's
+// exercise-date notes aren't parsed), so `optionType !== null` here always
+// means "this segment might not exist at all," not just "the number might be
+// a little off." Kept as its own function (not folded into
+// derivationPhrase) since a charge can be estimated for an unrelated reason
+// (the multi-season-guarantee-split case) without being option-contingent,
+// and vice versa isn't possible today but shouldn't be assumed permanent.
+function optionPhrase(charge: Pick<CapCharge, 'optionType'>): string | null {
+  if (!charge.optionType) return null;
+  const kind = charge.optionType === 'eto' ? 'ETO' : charge.optionType;
+  return `${kind} option not yet decided`;
+}
+
+// Shared by the segment's aria-label, its <title>, and the sighted-user
+// readout so all three describe provenance identically (same reasoning as
+// derivationPhrase's own comment).
+function provenancePhrase(charge: Pick<CapCharge, 'derivation' | 'sourceId' | 'optionType'>): string {
+  const option = optionPhrase(charge);
+  return option ? `${derivationPhrase(charge)}, ${option}` : derivationPhrase(charge);
 }
 
 const MONO_FONT_STACK = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace';
@@ -216,7 +242,7 @@ export function PayrollChart({
   pinnedEntityId?: string | null;
   onPinChange?: (entityId: string | null) => void;
 }) {
-  const { ref, width } = useContainerWidth<HTMLDivElement>(960);
+  const { ref, width, hasMeasured } = useContainerWidth<HTMLDivElement>(960);
   // The chart's non-visual equivalent (spec §9 / CLAUDE.md: "every chart
   // ships with a table equivalent"): a visible toggle that swaps the whole
   // SVG for an accessible <table> of the same (toggle-filtered) data, rather
@@ -412,10 +438,18 @@ export function PayrollChart({
   // like a player Callout so they can share the same collision-resolution
   // pass as real player labels where the two coexist (the right margin,
   // where the last season's small-segment callouts also live).
+  // No inline "(proj.)" suffix here even when isProjected — that's exactly
+  // the extra width that was pushing these labels into truncation (found
+  // while widening the inter-bar gap). The season's own axis label already
+  // says "(projected)" once for the whole bar, the threshold line renders
+  // with a visibly looser dash (projectedDash), and the full "(projected)"
+  // still appears in this label's own <title> tooltip below — so the short
+  // margin label dropping the suffix loses no information, just the
+  // redundant repeat of it four times per projected season.
   const thresholdCallouts = (r: SeasonRender): Callout[] =>
     THRESHOLD_KEYS.map((key) => ({
       id: `threshold-${key}`,
-      label: `${THRESHOLD_STYLE[key].name} ${formatValue(r.displayThresholds[key])}${r.thresholds.isProjected ? ' (proj.)' : ''}`,
+      label: `${THRESHOLD_STYLE[key].name} ${formatValue(r.displayThresholds[key])}`,
       idealY: yScale(r.displayThresholds[key]),
       capHit: Number.MAX_SAFE_INTEGER,
     }));
@@ -481,28 +515,50 @@ export function PayrollChart({
   }
 
   return (
-    <div ref={ref} className="w-full">
-      <Legend />
-      <div className="mb-3 flex flex-wrap gap-2">
-        <button
-          type="button"
-          aria-pressed={viewMode === 'table'}
-          onClick={() => setViewMode((m) => (m === 'chart' ? 'table' : 'chart'))}
-          className="rounded border border-[#d8d6cf] bg-white px-2.5 py-1 text-xs text-[#0b0b0b] hover:bg-[#f0efe9]"
-        >
-          {viewMode === 'chart' ? 'View as table' : 'View as chart'}
-        </button>
-        {viewMode === 'chart' && (
+    <>
+      {/* Sidebar column at desktop widths (spec follow-up: team-page header
+          responsiveness) — legend + view/download controls. Stays a plain
+          block-level sibling of the chart column below rather than a nested
+          wrapper, so DOM/reading/tab order (legend controls, then the chart
+          itself) is identical at every width; `lg:w-[320px]` (matching
+          page.tsx's header block and TeamPageClient's controls block) sits
+          as a plain left-aligned 320px column (a block element's default
+          position — no margin trick needed), leaving the chart's
+          absolutely-positioned space (100% - 360px, a 40px gap) free on
+          the right — see app/team/[slug]/page.tsx for why this isn't a CSS
+          grid. */}
+      <div className="min-w-0 lg:w-[320px]">
+        <Legend />
+        <div className="mb-3 flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={() => svgRef.current && downloadChartAsPng(svgRef.current, `${fixture.teamId}-payroll-${seasons.join('-')}.png`)}
+            aria-pressed={viewMode === 'table'}
+            onClick={() => setViewMode((m) => (m === 'chart' ? 'table' : 'chart'))}
             className="rounded border border-[#d8d6cf] bg-white px-2.5 py-1 text-xs text-[#0b0b0b] hover:bg-[#f0efe9]"
           >
-            Download PNG
+            {viewMode === 'chart' ? 'View as table' : 'View as chart'}
           </button>
-        )}
+          {viewMode === 'chart' && (
+            <button
+              type="button"
+              onClick={() => svgRef.current && downloadChartAsPng(svgRef.current, `${fixture.teamId}-payroll-${seasons.join('-')}.png`)}
+              className="rounded border border-[#d8d6cf] bg-white px-2.5 py-1 text-xs text-[#0b0b0b] hover:bg-[#f0efe9]"
+            >
+              Download PNG
+            </button>
+          )}
+        </div>
       </div>
 
+      {/* Chart column — the width `ref` measures must be this element's own
+          width, not the sidebar's, so it stays here. `lg:absolute` lifts it
+          out of normal flow entirely (relative to page.tsx's `lg:relative`
+          container), floating right into the space left of the sidebar's
+          320px column (a 40px gap between them) — see
+          app/team/[slug]/page.tsx for the full rationale. At mobile (no
+          lg: styles apply) this is just a plain block div, identical to
+          before. */}
+      <div ref={ref} className="min-w-0 lg:absolute lg:right-0 lg:top-0 lg:w-[calc(100%-360px)]">
       {viewMode === 'table' ? (
         <PayrollTable
           teamLabel={fixture.teamLabel}
@@ -510,6 +566,20 @@ export function PayrollChart({
           stacks={stacks}
           thresholdsBySeason={thresholdsBySeason}
           toggles={toggles}
+        />
+      ) : !hasMeasured ? (
+        // Real width isn't known yet (server render, or the client's very
+        // first pre-effect render) — chart geometry (scales, band padding,
+        // margins) all depend on it, so render a neutral placeholder rather
+        // than guess with `fallback` and risk painting the wrong layout for
+        // real (see useContainerWidth's comment for why that's a genuine
+        // risk in `next dev` specifically, not just theoretical). Same
+        // height as the real SVG so nothing below this reflows once it
+        // swaps in.
+        <div
+          className="animate-pulse rounded bg-[#f0efe9]"
+          style={{ height: svgHeight }}
+          aria-hidden="true"
         />
       ) : (
         <>
@@ -574,9 +644,21 @@ export function PayrollChart({
                 // always wins — it's a stronger, temporary signal.
                 const isEstimated = seg.charge.derivation === 'estimated';
                 const patternId = mechanismPatternId(mechanismFor(seg.charge));
+                // M11: "will this segment even happen" (contingent on an
+                // undecided option) is a distinct fact from "how confident
+                // are we in this number" (isEstimated above) — see
+                // optionPhrase's comment. Rendered as an inset dotted
+                // outline (spec §5's "outlined = option year" idea) so it
+                // reads as a second, independent signal from the estimated
+                // dashed border, not a restyling of it — both can and often
+                // do apply to the same segment at once.
+                const hasUnresolvedOption = seg.charge.optionType !== null;
 
                 const segH = Math.max(0, rawHeight - gap);
                 const segY = topPx + gap / 2;
+                const OPTION_INSET = 3;
+                const optionInsetX = Math.min(OPTION_INSET, r.barWidth / 3);
+                const optionInsetY = Math.min(OPTION_INSET, segH / 3);
 
                 return (
                   <g key={seg.entityId}>
@@ -592,7 +674,7 @@ export function PayrollChart({
                       strokeDasharray={!isActive && isEstimated ? '3,2' : undefined}
                       tabIndex={0}
                       role="graphics-symbol"
-                      aria-label={`${seg.charge.label}, ${formatExact(dollarAmount)}, ${r.season}, ${derivationPhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}
+                      aria-label={`${seg.charge.label}, ${formatExact(dollarAmount)}, ${r.season}, ${provenancePhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}
                       className="outline-none focus-visible:stroke-black focus-visible:stroke-2 cursor-pointer"
                       onMouseEnter={() => setHoveredSegment(segmentInfoFor(seg, r.season, getAmount))}
                       onMouseLeave={() => setHoveredSegment(null)}
@@ -618,7 +700,7 @@ export function PayrollChart({
                         }
                       }}
                     >
-                      <title>{`${seg.charge.label} — ${formatExact(dollarAmount)} (${r.season}) — ${derivationPhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}</title>
+                      <title>{`${seg.charge.label} — ${formatExact(dollarAmount)} (${r.season}) — ${provenancePhrase(seg.charge)}, retrieved ${formatRetrievedAt(seg.charge.retrievedAt)}`}</title>
                     </rect>
                     {/* Non-color channel for contract mechanism/tier (CLAUDE.md:
                         "don't encode meaning by color alone") — independent of the
@@ -631,6 +713,21 @@ export function PayrollChart({
                         height={segH}
                         fill={`url(#${patternId})`}
                         opacity={isDimmed ? DIMMED_OPACITY : 1}
+                        pointerEvents="none"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {hasUnresolvedOption && segH > 4 && r.barWidth > 4 && (
+                      <rect
+                        x={r.barX + optionInsetX}
+                        y={segY + optionInsetY}
+                        width={Math.max(0, r.barWidth - optionInsetX * 2)}
+                        height={Math.max(0, segH - optionInsetY * 2)}
+                        fill="none"
+                        stroke={PRIMARY_INK}
+                        strokeWidth={1.5}
+                        strokeDasharray="1,3"
+                        strokeOpacity={isDimmed ? DIMMED_OPACITY : 0.85}
                         pointerEvents="none"
                         aria-hidden="true"
                       />
@@ -789,7 +886,8 @@ export function PayrollChart({
           </svg>
         </>
       )}
-    </div>
+      </div>
+    </>
   );
 }
 
@@ -806,6 +904,7 @@ function segmentInfoFor(
     derivation: seg.charge.derivation,
     sourceId: seg.charge.sourceId,
     retrievedAt: seg.charge.retrievedAt,
+    optionType: seg.charge.optionType,
   };
 }
 
@@ -819,7 +918,7 @@ function ActiveSegmentReadout({ info }: { info: ActiveSegmentInfo | null }) {
   return (
     <div className="mb-2 min-h-[1.25rem] text-sm text-[#0b0b0b]" aria-hidden="true">
       {info
-        ? `${info.label} — ${formatExact(info.amount)} (${info.season}) · ${derivationPhrase(info)} · retrieved ${formatRetrievedAt(info.retrievedAt)}`
+        ? `${info.label} — ${formatExact(info.amount)} (${info.season}) · ${provenancePhrase(info)} · retrieved ${formatRetrievedAt(info.retrievedAt)}`
         : ' '}
     </div>
   );
@@ -944,7 +1043,9 @@ function Legend() {
       </ul>
       <p className="mb-3 text-xs text-[#52514e]">
         Fill pattern also marks each segment&apos;s tier (not color alone). A dashed border
-        marks a figure that&apos;s <em>estimated</em> rather than sourced — see{' '}
+        marks a figure that&apos;s <em>estimated</em> rather than sourced, and a dotted inner
+        outline marks a season that depends on a player/team option that hasn&apos;t been
+        decided yet — see{' '}
         <a href="/methodology" className="underline">
           methodology
         </a>

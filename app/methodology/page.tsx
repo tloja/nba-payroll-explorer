@@ -123,6 +123,14 @@ export default function MethodologyPage() {
         not an error: an undecided option always downgrades that season to <strong>estimated</strong> rather than
         risk stating an outcome as fact before it&apos;s confirmed.
       </p>
+      <p className="mt-2 text-sm leading-relaxed">
+        On the chart itself, an option-bearing segment gets a dotted inner outline &mdash; a separate signal from the
+        dashed outline in item 6. The dashed border answers &ldquo;how confident are we in this dollar figure&rdquo;;
+        the dotted one answers &ldquo;will this segment even happen.&rdquo; A segment can carry either, both, or
+        neither: an option year is <em>always</em> at least dotted (since an undecided option is always estimated,
+        per above), but an estimated segment isn&apos;t necessarily an option year &mdash; it might instead be the
+        unrecoverable multi-season guarantee split described in item 4.
+      </p>
 
       <h2 className="mt-8 text-lg font-semibold">6. What &ldquo;derivation&rdquo; means on this site</h2>
       <p className="mt-2 text-sm leading-relaxed">Every dollar figure on this site is labeled with one of four derivations:</p>
@@ -142,10 +150,9 @@ export default function MethodologyPage() {
         live from the underlying data, not a fixed snapshot, so it will track forward as data is refreshed.
       </p>
       <p className="mt-2 text-sm leading-relaxed text-[#52514e]">
-        Known display gap: the chart itself doesn&apos;t yet visually distinguish estimated segments from sourced
-        ones &mdash; that distinction currently only appears in each team page&apos;s table view (the
-        &ldquo;Derivation&rdquo; column) and in each segment&apos;s own tooltip/accessible label. We&apos;re stating
-        this plainly rather than letting the chart imply a confidence it doesn&apos;t visually show yet.
+        On the chart, an estimated segment gets a dashed border (distinct from the dotted option-year outline in item
+        5, and from the fill pattern that separately marks contract tier); the table view&apos;s
+        &ldquo;Derivation&rdquo; column and every segment&apos;s tooltip/accessible label say so as well.
       </p>
 
       <h2 className="mt-8 text-lg font-semibold">7. How totals are checked</h2>
@@ -166,11 +173,33 @@ export default function MethodologyPage() {
 
       <h2 className="mt-8 text-lg font-semibold">8. Projected seasons</h2>
       <p className="mt-2 text-sm leading-relaxed">
-        The salary cap, tax level, and both aprons are announced by the league one season at a time. Any season
-        this site hasn&apos;t seen an official figure for yet would be rendered as a dashed, labeled
-        &ldquo;projected&rdquo; line rather than a solid one. As of today, every season on this site uses real,
-        announced figures &mdash; nothing currently on the site is a projection, though the mechanism exists and
-        will apply automatically the moment a future season is added ahead of its official announcement.
+        The salary cap, tax level, and both aprons are announced by the league one season at a time. Any season this
+        site hasn&apos;t seen an official figure for yet is rendered as a dashed, more loosely dashed than a real
+        line, and labeled &ldquo;projected&rdquo;. <strong>2027-28 is currently the one projected season on this
+        site</strong>: its four threshold lines are each the corresponding 2026-27 figure grown by 10% &mdash; the
+        same rough year-over-year growth the cap has tracked recently &mdash; rounded to the nearest dollar. This is
+        a modeling assumption, not a league announcement; treat 2027-28&apos;s lines as illustrative until the NBA
+        actually announces them, at which point this site will swap in the real figures and the line will render
+        solid.
+      </p>
+      <p className="mt-2 text-sm leading-relaxed">
+        2027-28&apos;s <em>charges</em> are a different, and more important, kind of uncertain. Every dollar figure
+        in that season&apos;s bar is real, sourced contract data &mdash; nothing is invented to fill it out &mdash;
+        but the bar is honestly sparser than 2026-27&apos;s for reasons that have nothing to do with our data
+        pipeline: a good share of any roster&apos;s 2027-28 money depends on a team or player option that hasn&apos;t
+        been decided yet (item 5, shown dotted on the chart), and any player whose contract simply ends after
+        2026-27 with no signed successor has no 2027-28 segment at all &mdash; they&apos;re not omitted, there is
+        genuinely nothing to show yet. We deliberately don&apos;t backfill that gap with a guess at who re-signs or
+        assume an option gets exercised; a sparse, honest 2027-28 bar is the correct one.
+      </p>
+      <p className="mt-2 text-sm leading-relaxed text-[#52514e]">
+        Two related notes: this site&apos;s earliest season is 2026-27, not 2025-26, because our source&apos;s
+        contracts page only lists a team&apos;s current and future seasons &mdash; 2025-26 had already been played
+        by the time this project started sourcing data, so no real figures exist for it here, and none are
+        reconstructed from memory to fill the gap. And the league-wide overview on the home page deliberately stays
+        on 2026-27 rather than following the team page to 2027-28 &mdash; comparing all 30 teams against the aprons
+        on a season where rosters are still this incomplete would understate real payrolls and misrepresent who&apos;s
+        actually close to which line.
       </p>
 
       <h2 className="mt-8 text-lg font-semibold">9. The toggles, briefly</h2>

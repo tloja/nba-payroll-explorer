@@ -9,7 +9,7 @@ export type PlotDimensions = {
 
 /** Band scale across seasons, left to right in season order. */
 export function buildXScale(seasons: Season[], width: number) {
-  return scaleBand<Season>().domain(seasons).range([0, width]).paddingInner(0.55).paddingOuter(0.12);
+  return scaleBand<Season>().domain(seasons).range([0, width]).paddingInner(0.66).paddingOuter(0.1);
 }
 
 /**

@@ -8,8 +8,9 @@ import type { TeamCapChargesFile } from '../../lib/verify/teamFile';
 import { buildStackOrder, stackSeason } from '../../lib/chart/stack';
 import { bandOverages, projectedDash } from '../../lib/chart/thresholds';
 import { dollarDomainCeiling } from '../../lib/chart/scales';
-import { MECHANISM_COLORS, mechanismPatternId } from '../../lib/chart/colors';
+import { mechanismPatternId } from '../../lib/chart/colors';
 import { MechanismPatternDefs } from '../chart/MechanismPatternDefs';
+import { resolveTeamBarColor } from '../../lib/team-colors';
 import { formatAbbreviated, formatExact } from '../../lib/format';
 import { thresholdsForSeason } from '../../data/thresholds';
 import { useContainerWidth } from '../../lib/chart/useContainerWidth';
@@ -21,8 +22,15 @@ import { LeagueTable } from './LeagueTable';
 // instead of one band per season, and there's no room for per-player labels
 // at 30-row scale. What's reused is the same math PayrollChart uses —
 // buildStackOrder/stackSeason for the per-team segments, bandOverages for the
-// over-threshold shading, dollarDomainCeiling for the axis ceiling, the same
-// MECHANISM_COLORS encoding — so there's one place that logic lives, not two.
+// over-threshold shading, dollarDomainCeiling for the axis ceiling.
+//
+// M10: bar fill is each team's own resolved brand color (lib/team-colors.ts),
+// not the shared MECHANISM_COLORS ramp — that ramp (and its patterns) stays
+// exactly as-is on the team-page chart (PayrollChart.tsx), untouched by this
+// milestone. The mechanism pattern overlay is kept here too: it's the
+// non-color channel for a segment's contract mechanism/tier, and that
+// information didn't stop existing just because color now encodes team
+// identity instead.
 const ROW_HEIGHT = 24;
 const BAR_HEIGHT = 14;
 const HEADER_HEIGHT = 20;
@@ -55,7 +63,7 @@ export function LeagueOverview({
   season: Season;
   teams: { slug: string; data: TeamCapChargesFile }[];
 }) {
-  const { ref, width } = useContainerWidth<HTMLDivElement>(960);
+  const { ref, width, hasMeasured } = useContainerWidth<HTMLDivElement>(960);
   const thresholds = thresholdsForSeason(season)!;
   const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart');
 
@@ -131,6 +139,18 @@ export function LeagueOverview({
           </span>
         ))}
       </div>
+      {!hasMeasured ? (
+        // Real width isn't known yet — see useContainerWidth's comment for
+        // why `next dev` specifically (not the actual static-export build)
+        // can otherwise paint this chart once at the wrong, fallback-width
+        // geometry before correcting. Same height as the real SVG so
+        // nothing below this reflows once it swaps in.
+        <div
+          className="animate-pulse rounded bg-[#f0efe9]"
+          style={{ height: svgHeight }}
+          aria-hidden="true"
+        />
+      ) : (
       <svg
         width={width}
         height={svgHeight}
@@ -163,6 +183,15 @@ export function LeagueOverview({
           {rows.map((row, i) => {
             const y = HEADER_HEIGHT + i * ROW_HEIGHT;
             const barY = y + (ROW_HEIGHT - BAR_HEIGHT) / 2;
+            // One resolved color per team, applied to every segment in its
+            // bar — a fill-color swap only (spec M10 item 3), not a change
+            // to stacking, thresholds, or sort order. labelInk is reused as
+            // the "estimated" dashed-outline stroke below: SECONDARY_INK
+            // (the ink used elsewhere in this chart) doesn't reliably read
+            // against every possible team fill — several teams' resolved
+            // fills are near-black — so the outline needs a per-team,
+            // contrast-checked ink instead of one fixed color.
+            const teamColor = resolveTeamBarColor(row.teamId);
             const overages = bandOverages(row.stack.total, thresholds);
             const taxOverage = overages.find((o) => o.key === 'tax')!.overage;
             const apron1Overage = overages.find((o) => o.key === 'apron1')!.overage;
@@ -208,7 +237,6 @@ export function LeagueOverview({
 
                 {row.stack.segments.map((seg) => {
                   const mechanism = mechanismFor(seg.charge);
-                  const colors = MECHANISM_COLORS[mechanism];
                   const patternId = mechanismPatternId(mechanism);
                   const isEstimated = seg.charge.derivation === 'estimated';
                   const x = xScale(seg.bottom);
@@ -220,8 +248,8 @@ export function LeagueOverview({
                         y={barY}
                         width={segWidth}
                         height={BAR_HEIGHT}
-                        fill={colors.fill}
-                        stroke={isEstimated ? SECONDARY_INK : 'none'}
+                        fill={teamColor.fill}
+                        stroke={isEstimated ? teamColor.labelInk : 'none'}
                         strokeWidth={isEstimated ? 1 : 0}
                         strokeDasharray={isEstimated ? '3,2' : undefined}
                         tabIndex={0}
@@ -275,6 +303,7 @@ export function LeagueOverview({
           })}
         </g>
       </svg>
+      )}
         </>
       )}
     </div>

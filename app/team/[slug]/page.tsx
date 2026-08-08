@@ -60,7 +60,12 @@ export async function generateMetadata({
 }
 
 function PayrollChartFallback() {
-  return <div className="mt-4 h-[520px] w-full animate-pulse rounded bg-[#f0efe9]" aria-hidden="true" />;
+  return (
+    <div
+      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-360px)]"
+      aria-hidden="true"
+    />
+  );
 }
 
 export default async function TeamPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -85,39 +90,63 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
       ) : (
         <>
           <TeamStructuredData teamLabel={result.data.teamLabel} slug={slug} />
-          <h1 className="mt-2 text-xl font-semibold">{result.data.teamLabel}</h1>
-          {(() => {
-            const lastUpdated = lastUpdatedFor(result.data);
-            return lastUpdated ? (
-              <p className="mt-1 text-xs text-[#52514e]">
-                Data last updated {formatRetrievedAt(lastUpdated)}. See{' '}
-                <Link href="/methodology" className="underline">
-                  methodology
-                </Link>{' '}
-                and{' '}
-                <Link href="/sources" className="underline">
-                  sources
-                </Link>
-                .
-              </p>
-            ) : null;
-          })()}
-          {(() => {
-            const seasons = availableSeasonsFor(result.data);
-            return seasons.length === 0 ? (
-              <p className="mt-4 text-sm text-[#52514e]">
-                No season currently has both sourced cap charges and a published threshold table to draw against.
-              </p>
-            ) : (
-              // useSearchParams (read inside TeamPageClient, for the season-range/focus
-              // state in the URL — spec §10) opts the page out of static prerendering
-              // unless wrapped in Suspense; this fallback only ever flashes during
-              // client-side navigation, not on first load.
-              <Suspense fallback={<PayrollChartFallback />}>
-                <TeamPageClient slug={slug} data={result.data} availableSeasons={seasons} />
-              </Suspense>
-            );
-          })()}
+          {/* Responsive header layout: a plain stack (unchanged from before)
+              below the lg breakpoint. At lg+, everything here sits as a
+              plain 320px-wide left-aligned column (`lg:w-[320px]` — a block
+              element's default position is flush-left, no margin trick
+              needed; vertical spacing between these blocks is completely
+              unaffected) while the chart itself (deep inside
+              TeamPageClient/PayrollChart) is `lg:absolute` within this
+              `lg:relative` container, floating into the space on the right
+              (100% - 360px, leaving a 40px gap after this 320px column). A
+              CSS Grid with named rows was tried first and rejected: a grid
+              item spanning multiple rows forces every spanned row to grow
+              to share its height, which ballooned huge gaps between this
+              short header content and the (much taller) chart's row span —
+              this absolute-positioning approach has no such coupling, since
+              the chart is removed from the sidebar's normal flow entirely.
+              `lg:min-h-[980px]` keeps this container (and thus the page
+              content below it) tall enough for the chart even though the
+              chart no longer contributes to normal flow height. */}
+          <div className="lg:relative lg:min-h-[980px]">
+            <div className="min-w-0 lg:w-[320px]">
+              <h1 className="mt-2 text-xl font-semibold">{result.data.teamLabel}</h1>
+              {(() => {
+                const lastUpdated = lastUpdatedFor(result.data);
+                return lastUpdated ? (
+                  <p className="mt-1 text-xs text-[#52514e]">
+                    Data last updated {formatRetrievedAt(lastUpdated)}. See{' '}
+                    <Link href="/methodology" className="underline">
+                      methodology
+                    </Link>{' '}
+                    and{' '}
+                    <Link href="/sources" className="underline">
+                      sources
+                    </Link>
+                    .
+                  </p>
+                ) : null;
+              })()}
+            </div>
+            {(() => {
+              const seasons = availableSeasonsFor(result.data);
+              return seasons.length === 0 ? (
+                <p className="mt-4 text-sm text-[#52514e] lg:w-[320px]">
+                  No season currently has both sourced cap charges and a published threshold table to draw against.
+                </p>
+              ) : (
+                // useSearchParams (read inside TeamPageClient, for the season-range/focus
+                // state in the URL — spec §10) opts the page out of static prerendering
+                // unless wrapped in Suspense; this fallback only ever flashes during
+                // client-side navigation, not on first load. Kept scoped to just the
+                // controls+chart (not the h1/last-updated block above), so the header text
+                // never disappears/flashes during that transition — unchanged from before.
+                <Suspense fallback={<PayrollChartFallback />}>
+                  <TeamPageClient slug={slug} data={result.data} availableSeasons={seasons} />
+                </Suspense>
+              );
+            })()}
+          </div>
         </>
       )}
     </main>

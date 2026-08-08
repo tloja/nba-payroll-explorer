@@ -12,7 +12,12 @@ import { summarizeTeamSeason } from '../../../../lib/seo/teamSummary';
 import { SITE_NAME, SITE_URL } from '../../../../lib/site';
 
 function PayrollChartFallback() {
-  return <div className="mt-4 h-[520px] w-full animate-pulse rounded bg-[#f0efe9]" aria-hidden="true" />;
+  return (
+    <div
+      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-360px)]"
+      aria-hidden="true"
+    />
+  );
 }
 
 export function generateStaticParams() {
@@ -86,37 +91,44 @@ export default async function TeamSeasonPage({
       <Link href={`/team/${slug}`} className="text-sm text-[#52514e] underline">
         &larr; {result.data.teamLabel}, all seasons
       </Link>
-      <h1 className="mt-2 text-xl font-semibold">
-        {result.data.teamLabel} — {season}
-      </h1>
-      {(() => {
-        const lastUpdated = lastUpdatedFor(result.data);
-        return lastUpdated ? (
-          <p className="mt-1 text-xs text-[#52514e]">
-            Data last updated {formatRetrievedAt(lastUpdated)}. See{' '}
-            <Link href="/methodology" className="underline">
-              methodology
-            </Link>{' '}
-            and{' '}
-            <Link href="/sources" className="underline">
-              sources
-            </Link>
-            .
-          </p>
-        ) : null;
-      })()}
-      {/* availableSeasons={[season]} locks TeamPageClient to this one season —
-          its range/focus selector auto-hides (length > 1 is false) while pin
-          + toggle URL handling (M5) still applies, so this deep link stays
-          fully shareable per spec §10 without a second implementation. */}
-      <Suspense fallback={<PayrollChartFallback />}>
-        <TeamPageClient
-          slug={slug}
-          data={result.data}
-          availableSeasons={[season as Season]}
-          basePath={`/team/${slug}/${season}`}
-        />
-      </Suspense>
+      {/* Same responsive header layout as /team/[slug] — see that page.tsx
+          for the full explanation (relative container + absolute chart +
+          margin-reserved sidebar, not a CSS grid). */}
+      <div className="lg:relative lg:min-h-[980px]">
+        <div className="min-w-0 lg:w-[320px]">
+          <h1 className="mt-2 text-xl font-semibold">
+            {result.data.teamLabel} — {season}
+          </h1>
+          {(() => {
+            const lastUpdated = lastUpdatedFor(result.data);
+            return lastUpdated ? (
+              <p className="mt-1 text-xs text-[#52514e]">
+                Data last updated {formatRetrievedAt(lastUpdated)}. See{' '}
+                <Link href="/methodology" className="underline">
+                  methodology
+                </Link>{' '}
+                and{' '}
+                <Link href="/sources" className="underline">
+                  sources
+                </Link>
+                .
+              </p>
+            ) : null;
+          })()}
+        </div>
+        {/* availableSeasons={[season]} locks TeamPageClient to this one season —
+            its range/focus selector auto-hides (length > 1 is false) while pin
+            + toggle URL handling (M5) still applies, so this deep link stays
+            fully shareable per spec §10 without a second implementation. */}
+        <Suspense fallback={<PayrollChartFallback />}>
+          <TeamPageClient
+            slug={slug}
+            data={result.data}
+            availableSeasons={[season as Season]}
+            basePath={`/team/${slug}/${season}`}
+          />
+        </Suspense>
+      </div>
     </main>
   );
 }

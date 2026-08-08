@@ -25,6 +25,24 @@ export const SEASON_THRESHOLDS: SeasonThresholds[] = [
     firstApron: 209_015_000,
     secondApron: 221_686_000,
   },
+  // 2027-28 is a projection (M11, spec §11): no NBA announcement exists yet
+  // for this season, and nothing in lib/cba/ documents a growth-rate
+  // constant to reuse, so this applies the spec's own stated ~10% assumption
+  // to every 2026-27 figure. Computed once via exact integer arithmetic
+  // (×11÷10, which divides evenly since every 2026-27 figure already ends in
+  // '000' — no floats, no rounding) and hardcoded here, same convention as
+  // 2025-26's hand-computed minimumTeamSalary above. isProjected: true is
+  // what drives the chart's dashed threshold lines and "(projected)" labels
+  // — see /methodology for the full explanation.
+  {
+    season: '2027-28',
+    isProjected: true,
+    salaryCap: 181_457_100,
+    minimumTeamSalary: 163_311_390,
+    taxLevel: 220_470_800,
+    firstApron: 229_916_500,
+    secondApron: 243_854_600,
+  },
 ];
 
 export function thresholdsForSeason(season: Season): SeasonThresholds | undefined {

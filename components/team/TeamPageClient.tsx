@@ -97,7 +97,14 @@ export function TeamPageClient({
   }
 
   return (
-    <div>
+    <>
+      {/* Season/basis/toggle controls — reserves the same right margin as
+          the header block above and PayrollChart's legend block below (see
+          app/team/[slug]/page.tsx for why this is a margin reservation +
+          absolute-positioned chart rather than a CSS grid). Below lg, this
+          is a plain div with no effect at all — same stacked layout as
+          before. */}
+      <div className="min-w-0 lg:w-[320px]">
       {availableSeasons.length > 1 && (
         <div className="my-4 flex flex-wrap items-center gap-4 text-sm">
           <label className="flex items-center gap-1.5">
@@ -183,6 +190,7 @@ export function TeamPageClient({
           Guaranteed only
         </label>
       </div>
+      </div>
 
       <PayrollChart
         fixture={payrollData}
@@ -192,6 +200,6 @@ export function TeamPageClient({
         pinnedEntityId={pinnedEntityId}
         onPinChange={(id) => updateParams({ pin: id ?? undefined })}
       />
-    </div>
+    </>
   );
 }

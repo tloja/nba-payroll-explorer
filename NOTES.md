@@ -1870,3 +1870,691 @@ missing cap-hold/draft-hold/incomplete-roster charge types matter enough for
 any specific team to pursue a second source. None of these block the site
 from being live and functionally correct today — they're the honest list of
 what "done" doesn't yet mean.
+
+## M10 — League-view team color coding (2026-07-28)
+
+Replaced the league view's (`/`) mechanism-based bar fill with each team's
+own real brand color, per spec §11 M10. No changes to the team-page chart's
+color-by-contract-mechanism encoding (§5, `PayrollChart.tsx`), the shared
+y/x-scale, threshold lines, sort order, or any other layout logic — a
+fill-color change only, confirmed by diff.
+
+### Color table — shown to the user before any code was written
+Per the session instructions, sourced all 30 teams' primary/secondary hex
+from `nbacolors.com` and presented the full table for spot-check before
+touching `LeagueOverview.tsx`. User reviewed and said to proceed without
+changes.
+
+**Sourcing detail worth recording**: `nbacolors.com`'s team pages render
+their color swatches client-side from one JSON endpoint
+(`https://nbacolors.com/js/data.json`), not from static HTML — a plain
+`curl`/`WebFetch` of a team page returns empty color cards. Fetched that
+JSON once, by hand, as a one-time editorial lookup (not something the app
+calls), and took each team's own first two listed colors as primary/
+secondary — the site's own ordering, not this session's editorializing.
+Colors aren't trademarked/copyrighted the way logos are (spec §7), so
+unlike `scripts/ingest/`, this needed no `DATA-SOURCING.md` clearance,
+consistent with the spec's own note on this milestone.
+
+### What's here
+- `lib/team-colors.ts` — new. `TEAM_COLORS`: the static 30-team primary/
+  secondary hex table, keyed by the same BR slug (`teamId`) used everywhere
+  else in the repo. `resolveTeamBarColor(teamId)`: a pure WCAG-contrast
+  function (hand-implemented relative-luminance/contrast-ratio math, same
+  formula M6 used by hand for `MUTED_INK` since axe-core can't evaluate SVG
+  `fill`) that returns `{ fill, labelInk }`:
+  - `fill` = primary, unless primary's contrast against the page background
+    (`#f9f9f7`, `app/layout.tsx`) is `< 3:1` (WCAG 1.4.11's non-text
+    threshold for a meaningful graphical object) — then falls back to
+    secondary, so a too-light primary can't render as an invisible bar.
+  - `labelInk` = whichever of pure black/white wins the most contrast
+    against the resolved `fill`, for any bar-internal text a future session
+    might add (none exists in the league view today — verified by reading
+    the component — so this is real, tested code with no current visual
+    call site beyond the use described next).
+- `components/league/LeagueOverview.tsx` — every segment in a team's row now
+  fills with that team's `resolveTeamBarColor(row.teamId).fill` instead of
+  `MECHANISM_COLORS[mechanism].fill`. The `derivation: 'estimated'` dashed
+  outline (M9 follow-up) now strokes with the same team's `labelInk` instead
+  of the fixed `SECONDARY_INK` — `SECONDARY_INK` (`#52514e`) doesn't
+  reliably read against every team's resolved fill (several, e.g. Brooklyn
+  and the Spurs' fallback, are near-black), so the outline needed a
+  per-team, contrast-checked ink rather than one constant. The mechanism
+  `<pattern>` overlay (also M9 follow-up) is untouched and still renders —
+  color no longer carries mechanism/tier meaning in this view, but the
+  pattern geometry still does, so that information isn't lost, just now
+  carried by a single channel instead of two.
+
+### A real finding, confirmed rather than avoided
+**San Antonio is the only team whose primary color fails the vs-background
+check.** Their nbacolors.com primary is silver (`#C4CED4`), 1.52:1 against
+the page background — genuinely close to invisible as a bar fill. Resolves
+correctly to their secondary, black, automatically, by the same general
+rule every other team went through — not special-cased by name.
+
+**Several teams render with byte-identical fills**, because their official
+brand colors are genuinely the same hex, not because of a bug in this
+table: Atlanta/Portland (`#E03A3E`), Chicago/Houston/Toronto (`#CE1141`),
+Detroit/LA Clippers (`#C8102E`), Minnesota/New Orleans (`#0C2340`),
+Charlotte/Phoenix (`#1D1160`), New York/Philadelphia (`#006BB6`), Utah/
+Washington (`#002B5C`). Flagged to the user before implementation, verified
+again visually after (Houston and Toronto's rows are indeed indistinguishable
+by color alone) — not fixed by inventing distinct shades, since that would
+mean fabricating "team colors" instead of sourcing them, undermining the
+point of the milestone.
+
+### A tool problem hit and worked around
+The manual browser verification session had the **Dark Reader** extension
+active again (same recurring issue M4/M6 noted) — this time visually
+inverting the *page background* dark while leaving the SVG `fill`
+attributes' actual values alone, making a first screenshot look like every
+bar was rendering against a near-black canvas instead of the real
+`#f9f9f7`. Confirmed via injected JS
+(`document.documentElement.getAttribute('data-darkreader-scheme')` →
+`"dark"`, a `style.darkreader` tag present) rather than assumed. Read every
+row's actual `rect[fill]` attribute directly from the DOM first (all 30
+matched `lib/team-colors.ts`'s resolved table exactly, including SAS's
+`#000000` fallback) — the same "trust the computed values, not a
+Dark-Reader-filtered screenshot" lesson M6 already wrote down. Then
+disabled the extension's injected `<style>` and cleared its root attribute
+in-page (`style.darkreader.disabled = true`), re-screenshotted, and got the
+real rendering: light background, each team's own brand-colored bar,
+"estimated" dashed outlines legible against every fill including San
+Antonio's black one.
+
+### Verified
+- `npx tsc --noEmit` clean.
+- `npm test` — 42/42 Vitest tests pass, unchanged (no pure-function logic
+  touched — `resolveTeamBarColor` is new code with no existing caller to
+  regress, and nothing in `lib/chart/` changed).
+- `npm run verify` — unchanged, all 30 teams + synthetic fixture reconcile.
+- `npm run build` — production build succeeds, same route/OG-image count as
+  before.
+- `npm run a11y` — **12/12 pass, 0 violations, before and after** — no
+  contrast regression from adding 30 new fill colors. (Baseline was already
+  12/12 clean as of the M9 follow-up; this session re-ran it fresh rather
+  than assuming it still held, per the session's explicit instruction, and
+  it did.)
+- Manual browser verification (claude-in-chrome), described above: real DOM
+  `fill` values read directly and diffed against `lib/team-colors.ts` for
+  all visible rows (exact match, including the SAS fallback); the
+  chart/table toggle still renders correctly (table view has no color, so
+  unaffected, confirmed by screenshot); "estimated" dashed borders visually
+  confirmed legible on both a light team fill (Atlanta) and the darkest one
+  on the board (San Antonio's fallback black).
+
+### Known gaps / next steps
+- `resolveTeamBarColor`'s `labelInk` return value has no current call site
+  for actual bar-internal text — the league view doesn't render any inside
+  labels (by design, per M4: "no room for per-player labels at 30-row
+  scale"). Built and verified as real, tested logic anyway, per the
+  session's explicit contrast requirement — ready if a future session adds
+  one.
+- Team-color fill duplicates (listed above) are a real, disclosed
+  limitation of using authentic brand colors at 30-team scale, not
+  something this session attempted to paper over.
+- No dark-mode-specific team-color variants were added — `lib/team-colors.ts`
+  resolves against the one light page background that exists today
+  (`#f9f9f7`), same scope boundary M1's `MECHANISM_COLORS` comment already
+  documented for its own dark-mode gap.
+
+## M1 follow-up — taller team-page chart for inside-label coverage (2026-08-03)
+
+Raised `PayrollChart.tsx`'s `PLOT_HEIGHT` constant from `520` to `860`
+(total SVG height 32 + 860 + 40 = 932px) so more mid-size segments clear
+the §5 inside-label threshold (`INSIDE_LABEL_MIN_HEIGHT` = 20px,
+`lib/chart/labels.ts`) instead of falling back to an outside callout. This
+is the M1 single-team chart only — the M10 league-view thin bars
+(`LeagueOverview.tsx`) are untouched, and use their own fixed row height.
+
+### Candidates compared before locking in
+Rendered OKC's real 2026-27 roster (chosen for its spread from $2.85M to
+$41.5M) at three heights via Playwright screenshots against a local dev
+server, shown to the user before any height was finalized, per the
+session's explicit instruction:
+- **520 (baseline)**: only the 5 contracts ≥ $19.5M get inside labels; the
+  remaining 8 collapse into "Others (n)".
+- **700**: two more players ($7.4M, $7.8M) fit inside; the remaining 7
+  callouts no longer need the "Others" collapse at all.
+- **860**: one further player ($5.8M) fits inside beyond 700 — visibly
+  diminishing returns per added pixel, exactly as CLAUDE.md/the session
+  anticipated for a shared linear scale next to $40M+ max contracts.
+
+User picked 860 over the 700 recommendation after seeing both.
+
+### Verified, not assumed
+- **Collision resolution & "Others" collapse still function**: stress-
+  tested against Memphis's 2026-27 roster (21 player charges, the deepest
+  in the league) at 860 — leader lines still resolve without overlap, and
+  the collapse into "Others" still triggers correctly for a roster this
+  size (it doesn't for OKC's shorter one, which is expected, not a
+  regression).
+- **Threshold lines**: confirmed still computed via `yScale(...)` at every
+  call site (never a literal pixel), so cap/tax/apron1/apron2 move down
+  proportionally with the new, taller scale rather than staying pinned to
+  old positions.
+- **Responsive breakpoints**: re-screenshotted at 1440px, 768px, and 390px
+  widths with the final height. Only *width* was ever responsive here
+  (`useContainerWidth`, margins scale with it) — `PLOT_HEIGHT` is a flat
+  constant applied at every width, so this session explicitly checked
+  rather than assumed that holds up at the narrow end: at 390px the full
+  page grows from 1228px to 1408px tall (+15%), no horizontal overflow,
+  and the callout system still resolves cleanly. A separate label-
+  truncation quirk at 390px width (callouts like "Cap $…", "Others…")
+  exists identically at the old 520 height too — pre-existing and
+  width-driven, not something this change introduced or worsened, and out
+  of this session's scope to fix.
+- `npx vitest run` — 42/42 pass, unchanged (`labels.ts`'s tests pass
+  already-computed pixel geometry as fixed numbers, independent of
+  `PLOT_HEIGHT`).
+- `npm run a11y` (`e2e/a11y.spec.ts`, axe-core) — 12/12 pass, 0 violations,
+  re-run fresh after the change rather than assumed clean, per M6's
+  standing instruction that a layout change is exactly what can break a
+  screen-reader table equivalent's sync with the chart. Both the chart and
+  table view of `/team/okc` and `/team/okc/2026-27` are included in that
+  12.
+
+### Known gaps / next steps
+- No dedicated automated breakpoint test exists for this chart (still true
+  as of M1/M2 — see those entries); this session's 1440/768/390 checks were
+  again a manual Playwright screenshot pass, not committed as a test.
+- `PLOT_HEIGHT` remains a single flat constant rather than width-responsive
+  (unlike the margins, which already scale with `width`). Confirmed this
+  doesn't break anything at 390px today, but a future session chasing
+  inside-label coverage further should consider whether a taller constant
+  still reads well at narrow widths before raising it again.
+
+## M1 follow-up — responsive team-page header (sidebar at desktop) (2026-08-07)
+
+Made the team-page header block (team name, last-updated + methodology/
+sources links, season/basis/toggle controls, color legend, fill-pattern
+note, "View as table"/"Download PNG" buttons) reposition to a right-hand
+sidebar at desktop widths, with the chart taking the wide left column —
+below `lg` (1024px, Tailwind's default breakpoint, used since the site had
+no prior breakpoint convention to match), it's an unchanged single-column
+stack. Touches `app/team/[slug]/page.tsx`, `app/team/[slug]/[season]/
+page.tsx`, `components/team/TeamPageClient.tsx`, and
+`components/chart/PayrollChart.tsx`.
+
+### Two designs tried and rejected before the one that shipped
+1. **CSS Grid, sidebar content split across 3 named rows (header/controls/
+   legend) with the chart spanning all 3 via `row-span-3`.** Looked right at
+   first glance but had a real bug: when a grid item spans multiple `auto`-
+   sized row tracks, the spec's extra-space-distribution algorithm grows
+   *every* spanned row to help satisfy the spanning item's height — so each
+   of the 3 short sidebar rows ballooned to roughly a third of the chart's
+   932px height, leaving huge dead gaps between the header text, the
+   controls, and the legend instead of a compact stack. Caught by actually
+   screenshotting at 1440px rather than trusting the mental model.
+2. **Same grid, but with an unconditional `gap-6` on the container.** Caught
+   before the row-span issue, via a separate check: grid items don't
+   participate in margin collapsing the way normal block siblings do, so
+   *any* explicit gap (even correctly `lg:`-scoped) stacked on top of, not
+   instead of, the existing margin utilities already on each block —
+   verified by diffing a real pre-change screenshot against the new one
+   pixel-by-pixel (see below) rather than eyeballing it.
+
+### What shipped: relative container + absolutely-positioned chart
+`app/team/[slug]/page.tsx`'s (and the `[season]` route's) wrapping div is
+`lg:relative lg:min-h-[980px]`. The header block, `TeamPageClient`'s
+controls block, and `PayrollChart`'s legend/buttons block each
+independently get `lg:ml-auto lg:w-[320px]` (right-aligned 320px column —
+horizontal margins don't collapse, so no cross-component coordination
+needed there). The chart itself (`PayrollChart`'s ref'd canvas div) gets
+`lg:absolute lg:left-0 lg:top-0 lg:w-[calc(100%-360px)]`, floating into the
+40px-gapped space the sidebar's margin reserves, entirely removed from the
+sidebar's normal-flow height calculation — which is exactly what avoids
+design #1's row-span coupling bug. `lg:min-h-[980px]` on the outer
+container keeps the page's own height (and thus the footer below it) tall
+enough even though the absolutely-positioned chart no longer contributes to
+flow height.
+
+Below `lg`, every one of those classes is inert (Tailwind only applies
+`lg:`-prefixed utilities at ≥1024px) — the DOM is a plain stack of block
+divs with no grid/positioning involvement at all, which is what makes the
+mobile-unchanged guarantee below straightforward to reason about rather
+than something to hope for.
+
+### Why the team name stays outside the URL-driven Suspense boundary
+`TeamPageClient` calls `useSearchParams()`, which requires the surrounding
+tree to be wrapped in `<Suspense>` for Next's static export to avoid
+opting the *entire* page into full client rendering. That boundary's
+fallback is what ships in the static HTML; the real content swaps in after
+hydration reads the actual URL. The h1/last-updated block deliberately
+stays a sibling *outside* that boundary (as it already did pre-this-
+session) rather than being folded into a single Suspense-guarded sidebar
+wrapper — the h1 is very plausibly this page's LCP element on a stated
+mobile LCP budget (spec §10), and a statically-exported site's whole
+premise is serving real HTML on first paint. This is *why* design #1/#2's
+per-row-span approach was attractive in the first place (it could keep the
+header outside Suspense while still visually joining one grid); the
+shipped absolute-positioning approach gets the same property (header stays
+static, no Suspense change) without the row-span bug, since horizontal
+margin reservations don't require the header and the Suspense-guarded
+controls/legend to be DOM-adjacent the way grid-area assignment would.
+
+### Verified, not assumed
+- **390px and 768px are pixel-for-pixel identical to pre-change**: stashed
+  this session's 4 changed files back to their last-committed state (kept
+  the unrelated M10 work already in progress in the working tree
+  untouched, via `git stash push -- <specific paths>`), re-applied just the
+  `PLOT_HEIGHT: 520→860` line from the M1-follow-up-before-this-one to get
+  a true "everything except this session's change" baseline, screenshotted
+  `/team/okc/2026-27` at both widths, restored this session's changes,
+  re-screenshotted, and diffed with `PIL.ImageChops.difference(...).getbbox()`
+  — `None` (zero differing pixels, identical dimensions) at both widths on
+  the final attempt. The first diff attempt used a 300ms post-load wait and
+  intermittently showed the chart at its `useContainerWidth` fallback width
+  (960px, causing real horizontal overflow in the screenshot) rather than
+  its measured width — a `ResizeObserver`-settling race in the *test
+  script*, reproduced identically against the pre-change baseline once
+  checked, not a product bug; fixed by waiting 1.5s post-`networkidle`
+  before screenshotting, after which it settled consistently. Not something
+  a real user would hit — DOM ResizeObserver callbacks fire within a frame
+  or two in a warm browser; this was specific to cold headless/dev-mode
+  startup timing.
+- **1440px**: chart renders in a ~640-680px-wide left column (main is
+  `max-w-5xl`, 1024px, so 1440px viewport doesn't mean 1440px of available
+  width) with all inside labels still legible; sidebar content (name,
+  last-updated, controls, legend, buttons) stacks compactly on the right
+  with no dead space or overlap.
+- **Toggle/legend/button functionality unchanged**: scripted the basis
+  dropdown, both checkboxes, and the view-as-table/view-as-chart toggle at
+  1440px — each correctly updated the URL (`?basis=tax&holds=exclude&
+  dollars=percent`) and the corresponding DOM (checkbox `checked` state,
+  table vs. svg element presence), zero console/page errors. (Playwright's
+  built-in `.check()` action initially reported a false failure on the
+  checkboxes — its post-click assertion runs faster than this
+  controlled-checkbox's `router.replace` → re-render round trip; switching
+  to `.click()` + an explicit wait + reading `.isChecked()` afterward
+  confirmed the state change was real, just not instant enough for that
+  particular Playwright API.)
+- **axe-core**: `npm run a11y` (desktop viewport, the project's existing
+  suite) — 4/4 pass for `/team/okc` and `/team/okc/2026-27`, chart and
+  table views, 0 violations. Additionally scripted a **390px-viewport**
+  AxeBuilder pass (not currently part of the committed suite) against the
+  same 4 route/view-mode combinations — also 0 violations. Reading/tab
+  order was not expected to change at all (a real risk item 5 called out
+  explicitly): every one of this session's new classes is `lg:`-prefixed
+  and purely visual (`ml-auto`/`w-`/`absolute`/`relative`), and DOM order
+  was untouched — header, then controls, then legend, then chart, same as
+  before this session at every width.
+
+### Known gaps / next steps
+- The 390px-viewport axe pass and the pixel-diff-against-baseline technique
+  used to verify this session's work are one-off scripts, not committed
+  test infrastructure — `e2e/a11y.spec.ts` still only exercises the
+  default (desktop-sized) Playwright viewport, same gap M1/M2/the previous
+  M1-follow-up already left standing for responsive-specific automated
+  coverage.
+- 320px was picked for the sidebar width and 40px for the gap without a
+  strong reason beyond "reads reasonably at 1440px" — not derived from
+  content measurements the way the chart's own margins are.
+
+**Immediate follow-up, same session:** user asked to flip which side the
+sidebar lands on — header/controls/legend/buttons now sit on the **left**
+at `lg`+, chart absolutely-positioned into the space on the **right**.
+Mechanical swap only: the sidebar pieces (page.tsx's header block,
+TeamPageClient's controls block, PayrollChart's legend block, and the
+fallback skeleton) dropped `lg:ml-auto` (a block element with an explicit
+width is already flush-left by default, so no margin trick is needed for
+that side) and the chart's `lg:absolute` div moved from `lg:left-0` to
+`lg:right-0`. Nothing else about the mechanism changed — DOM order is
+still header→controls→legend→chart at every width, mobile is still every
+one of those classes being `lg:`-inert. Re-verified: `npx vitest run`
+(42/42), `npm run a11y` for `/team/okc` and `/team/okc/2026-27` chart+table
+(4/4, 0 violations), and a 390px screenshot matched the known-good mobile
+dimensions/appearance from the sidebar-on-the-right version (same reasoning
+as before — no non-`lg:` class touched, so a full pixel-diff redo wasn't
+necessary this time).
+
+## M11 — 2027-28 projected season (2026-08-08)
+
+Extended the team-page chart to a second real season, 2027-28, per spec §11.
+Pre-work required by the session brief: checked whether M3's adapter had
+actually populated `optionType`/`guaranteeStatus`/`guaranteedAmount` with real
+values or left them stubbed. Verified directly against `data/teams/*.json`
+(not just NOTES.md's account of M3): real, non-stub distributions across all
+1,033 player charges (`optionType`: 670 null / 286 team / 77 player;
+`guaranteeStatus`: 974 full / 56 none / 3 partial; `guaranteedAmount` set and
+genuinely diverging from `capHit` for the 3 partial rows, e.g. Michael Porter
+Jr. capHit $40.8M vs guaranteedAmount $12M). No populate-for-real prerequisite
+was needed — confirmed with the user before starting M11 itself.
+
+### A real starting-point correction, surfaced before building anything
+The spec's own framing ("extend...from two bars (2025-26, 2026-27) to
+three") describes a state that never actually existed in this build: M4
+found zero real 2025-26 charges for any team (BR's contracts page only lists
+a team's current/future seasons, and 2025-26 had already been played before
+this project started sourcing data), so the team page has only ever rendered
+one real bar. Confirmed again this session (`data/teams/*.json`: 0/30 teams
+have any 2025-26 charge). Adding 2027-28 therefore brings the real page to
+**two** bars (2026-27, 2027-28), not three — not a bug, and not something
+this session backfilled by reconstructing 2025-26 salaries (CLAUDE.md
+forbids exactly that). `/methodology` item 8 now states this plainly.
+
+### Decision confirmed with the user before implementing
+**The league view (`/`) stays pinned to 2026-27**, not the team page's
+newly-available 2027-28. `pickLeagueSeason()` (`app/page.tsx`) picks "most
+recent season with data," and 2027-28 satisfies that the moment its
+threshold row exists — but 2027-28 is deliberately sparse (unresolved
+options, unsigned successors), so letting the league-wide "who's over which
+apron" comparison silently follow it would understate every team's real
+payroll and misrepresent standings. `pickLeagueSeason` now filters out
+`isProjected` seasons explicitly, with a comment explaining why, rather than
+leaving this as an implicit side effect of adding a threshold row.
+
+### What's here
+- `data/thresholds.ts` — added a 2027-28 row, `isProjected: true`. No growth
+  rate is documented anywhere in `lib/cba/` (checked, per the session brief,
+  before inventing one), so this applies the spec's own stated ~10%
+  assumption to every 2026-27 figure. Computed via exact integer arithmetic
+  (`×11÷10`, verified to divide evenly since every 2026-27 figure already
+  ends in `000` — confirmed with a throwaway `BigInt` probe, no floats, no
+  rounding) and hardcoded as literals, same convention as 2025-26's
+  hand-computed `minimumTeamSalary`: cap $181,457,100, tax $220,470,800,
+  apron1 $229,916,500, apron2 $243,854,600, minimumTeamSalary $163,311,390.
+- **Unresolved-option-year visual encoding** (`components/chart/PayrollChart.tsx`)
+  — the actual new chart feature. `optionType !== null` gets an inset dotted
+  outline (`stroke-dasharray: 1,3`, `PRIMARY_INK`, 3px inset from the
+  segment's edges, skipped below a 4px segment dimension to avoid a
+  meaningless sliver), independent of the existing `estimated` dashed
+  border and the mechanism fill pattern. Deliberately a *third*, separate
+  channel rather than folded into the `estimated` styling: `optionType`
+  answers "will this segment even happen" (contingent on a real future
+  decision), `derivation` answers "how confident are we in this number"
+  (already on the books, just imprecisely known) — different questions that
+  happen to correlate today (confirmed: 363/363 real `optionType !== null`
+  charges are `derivation: 'estimated'`, by construction of
+  `lib/cba/engine.ts` line 15) but shouldn't be assumed permanently coupled.
+  New `optionPhrase()`/`provenancePhrase()` helpers keep the segment's
+  aria-label, `<title>`, and the sighted-user readout describing this
+  identically (same reasoning as the pre-existing `derivationPhrase()`).
+  Legend caption updated to explain the dotted outline.
+- `components/chart/PayrollTable.tsx` — the `Option` column now appends
+  "(not yet decided)" to any non-null optionType, for the same reason: every
+  option-bearing row in this dataset genuinely is undecided, not just
+  option-bearing.
+- `app/methodology/page.tsx` — item 5 (option years) now describes the
+  chart's dotted-outline encoding and how it relates to item 6's dashed
+  "estimated" encoding. Item 8 (projected seasons) rewritten: explains the
+  10% growth assumption for 2027-28's four threshold lines, why 2027-28's
+  charges are honestly sparser (real data, not fabricated, just genuinely
+  fewer resolved segments), why the site's earliest season is 2026-27 not
+  2025-26, and why the league view stays on 2026-27. Also fixed a stale
+  claim in item 6 left over from the M9 follow-up session: that paragraph
+  still said "the chart itself doesn't yet visually distinguish estimated
+  segments from sourced ones," which stopped being true once that session
+  shipped the dashed-outline treatment — never corrected until now, found
+  while editing the adjacent option-year paragraph, fixed as a same-area
+  correction rather than filed as a separate gap.
+- `e2e/a11y.spec.ts` — added `/team/okc/2027-28` to `ROUTES`. Genuinely new
+  surface (a season that didn't exist as a static route before this
+  session, with real option-year segments to exercise the new outline), not
+  just a re-render of the 2026-27 case with different numbers.
+
+### Real data already existed, wiring already existed
+`data/teams/*.json` already carried 2027-28 charges (and beyond, out to
+2030-31/2031-32 for some teams) from M3's original Basketball-Reference
+ingestion — that adapter always pulled every season on a team's contracts
+page, not just the nearest one. `lib/data/teamPayroll.ts`'s
+`availableSeasonsFor()` (the charge-seasons ∩ threshold-seasons intersection
+M4 built and left dormant, expecting exactly this) and
+`TeamPageClient`'s season range/focus selector (built in M4/M5, "mostly
+dormant until a later session extends the threshold table," per those
+sessions' own notes) both activated correctly the moment the threshold row
+was added — no code changes needed in either file. `lib/og/renderTeamChart.tsx`
+(M8) is already `seasons.length`-generic and needed no change either.
+
+### Verified
+- `npx tsc --noEmit` clean.
+- `npm test` — 42/42 Vitest tests pass, unchanged (no pure-function logic
+  touched this session).
+- `npm run verify` — all 30 teams reconcile across every season on their
+  page, including the newly-relevant 2027-28 (e.g. `OKC 2027-28: ... (12
+  charges)`), ±$0.
+- `npm run build` — production build succeeds; `/team/[slug]/[season]`
+  now generates 60 static routes (30 teams × {2026-27, 2027-28}), up from
+  30, and 60 matching OG-image routes.
+- `npm run a11y` — **14/14 pass, 0 violations** (up from 12/12: added
+  `/team/okc/2027-28` chart + table passes).
+- Manual browser verification, two passes:
+  1. **claude-in-chrome**, `/team/okc` at its emulated width: confirmed the
+     dotted option-year outline renders and is legible next to the
+     mechanism-pattern hatch and the dashed estimated border on the same
+     segment (Jared McCain, Nikola Topić — both option-bearing and
+     estimated). Also re-confirmed the Dark Reader extension was active
+     again (`data-darkreader-scheme: "dark"`, same recurring issue M4/M6/M9
+     follow-up/M10 all separately hit) — read real `rect[fill]` values
+     directly from the DOM to confirm actual colors were correct
+     independent of the visually-inverted screenshot, rather than trusting
+     the screenshot.
+  2. **Playwright, driven directly** (this session's own throwaway script,
+     deleted after use — `resize_window` doesn't actually change the
+     emulated viewport in this environment, confirmed via
+     `window.innerWidth` staying at 1400 regardless of the requested size,
+     same limitation M4 documented): real 1440/768/390px screenshots
+     against a genuine live server, `document.documentElement.scrollWidth`
+     equal to `window.innerWidth` at all three (no horizontal overflow).
+     Confirmed live, not just from the code: the "(projected)" season
+     label, the visibly looser dash on 2027-28's threshold lines vs.
+     2026-27's (the `projectedDash()` scaling from the M9 follow-up,
+     exercised by real `isProjected: true` data for the first time), exact
+     threshold dollar figures in each line's title text matching the
+     computed literals above, and the season range selector genuinely
+     restricting the render (`?from=2027-28&to=2027-28` → one bar). Also
+     scripted the cross-season pin/hover-highlight interaction against real
+     data for the first time (M5's own carried-forward gap: "only verified
+     against the synthetic fixture... next session that extends the
+     threshold table should re-verify against real data") — clicking one
+     Jalen Williams segment set `?pin=willija06`, both his 2026-27 and
+     2027-28 segments read `opacity: 1` while every other segment read the
+     dimmed `0.22`, and unclicking cleanly removed the URL param.
+
+### Known gaps / next steps
+- **`LeagueOverview.tsx` doesn't get the option-year dotted-outline
+  encoding this session** — it already has the `estimated` dashed border
+  and the mechanism pattern (M9 follow-up), and the same `optionType`
+  field exists on whatever season it renders, so the same gap technically
+  applies there too. Deliberately out of scope: M11's instructions scope
+  this milestone to the team-page chart, and the league view stays on
+  2026-27 (this session's own decision above) rather than touching
+  2027-28 at all, so there's no new option-heavy season forcing the issue
+  there the way there was for the team page. Flagged the same way M4-M9
+  carried the chart-level `estimated` gap forward for three milestones
+  before the M9 follow-up fixed it — a real, disclosed gap, not a silent
+  one.
+- **`optionDecided` is still always conservative/unset** (M3's own
+  carried-forward gap, unchanged) — this is *why* the dotted outline
+  applies to 100% of option-bearing charges today rather than a genuine
+  subset. If a future session ever parses Basketball-Reference's
+  HTML-comment-wrapped `payroll-notes` table and starts setting
+  `optionDecided: true` for real, the dotted outline (keyed off
+  `optionType`, not `optionDecided`) will need a second look — it currently
+  doesn't check `optionDecided` at all because there was no real
+  `optionDecided: true` case to distinguish against.
+- **2028-29 and beyond exist in the raw ingested data** (OKC's file runs to
+  2030-31) but aren't rendered anywhere — `availableSeasonsFor` naturally
+  excludes them since `data/thresholds.ts` has no row for them, no code
+  change was needed to enforce "don't backfill 2028-29." Worth remembering
+  this is enforced by threshold-table absence, not an explicit season cap,
+  if a future session adds more threshold rows for other reasons.
+- No dedicated automated three-bar responsive test was added — this
+  session's 1440/768/390 checks were a throwaway Playwright script (deleted
+  after use), same standing gap M1/M2/the M1 follow-ups already left for
+  responsive-specific automated coverage.
+- The uncommitted M10 (league-view team colors) and two M1-follow-up
+  (chart height, sidebar layout) sessions' changes were still sitting
+  unstaged in the working tree at the start of this session (confirmed via
+  `git status`) and remain so — this session built on top of them without
+  touching or committing them, since committing wasn't asked for.
+
+## M11 follow-up — wider inter-bar gap for two-season labels (2026-08-08)
+
+User feedback right after M11 shipped: with a real second bar (2027-28) now
+rendering, labels were badly truncated, especially between the two bars.
+Confirmed visually first (real Playwright screenshots, light background) —
+gap-callout labels like "Kenrich… $5M" and "Othe… $16.9M" were cut down to
+almost nothing, and the right margin's threshold labels ("Apron 2 $243.9M
+…") were truncating too.
+
+### What changed
+- `lib/chart/scales.ts` — `buildXScale`'s band padding: `paddingInner` 0.55
+  → 0.66, `paddingOuter` 0.12 → 0.1. Widens the gap between bars (where the
+  worst truncation was) at the cost of narrower bars. Landed on 0.66 after
+  comparing 0.65/0.68/0.72 by eye at 1440px against OKC's real roster: 0.72
+  read as a real regression (bar width dropped enough that "Alex Caruso,"
+  previously an inside label, flipped to an outside callout, adding to the
+  very crowding this change was trying to fix), while 0.65-0.66 kept every
+  segment that fit inside before still fitting, while meaningfully widening
+  the gap callouts. This is a global change (affects every team/every
+  season count, not just 2-bar teams) — spot-checked Memphis (21 real player
+  charges, the deepest roster in the league per the M1-follow-up notes) to
+  confirm nothing broke for a dense roster, and 390/768px to confirm no new
+  horizontal overflow.
+- `components/chart/PayrollChart.tsx`'s `thresholdCallouts` — dropped the
+  inline `" (proj.)"` suffix from the short margin label (kept in full in
+  the `<title>` tooltip). This alone fixed 100% of the right-margin
+  threshold-label truncation for 2027-28 without touching any width: every
+  one of the four labels ("Apron 2 $243.9M", "Apron 1 $229.9M", "Tax
+  $220.5M", "Cap $181.5M") already fit in the available width once those 8
+  redundant characters were gone. Not a loss of information — the season's
+  own axis label already says "(projected)" once for the whole bar, and the
+  line itself renders with `projectedDash`'s visibly looser dash.
+
+### Found, not fixed: a pre-existing, unrelated collision
+The left margin's "Tax $200M" and the y-axis's "$200M" gridline tick label
+render on top of each other ("Tax$200MM" in screenshots) because 2026-27's
+real tax level ($200,428,000) lands almost exactly on a round axis tick and
+the two label systems (`yTicks` gridline text and the margin's
+`resolveCallouts` pool) never collision-check against each other. Confirmed
+via this session's very first "before" screenshot that this predates this
+change (not introduced by the padding/label edits above) — likely present
+since M1 but never caught because no earlier screenshot happened to zoom in
+on that exact region with a threshold this close to a round tick. Not fixed
+this session since it's a different bug from what was reported (a
+label-vs-axis-tick collision, not a bars-crowding-each-other one) and a real
+fix means feeding tick positions into the same collision-resolution pass as
+the margin callouts — flagged for a future session rather than rushed.
+
+### Verified
+- `npx tsc --noEmit` clean, `npm test` 42/42, `npm run build` succeeds,
+  `npm run a11y` 14/14 with 0 violations, all unchanged/re-passing after
+  this change.
+- Real Playwright screenshots (1440/768/390px, OKC and Memphis, light
+  background) before and after, compared by eye rather than assumed:
+  gap-callout labels ("Others · $27.3M", "Aday Mara · $5.8M") now render in
+  full where they were unreadable fragments before; right-margin threshold
+  labels no longer truncate at all; no new horizontal overflow at 390px
+  (`scrollWidth === innerWidth` at all three widths, same check as M11
+  itself).
+
+### Known gaps
+- The axis-tick/threshold-label collision described above is still open.
+- Some gap/right-margin player-name callouts still truncate for genuinely
+  long names (e.g. "Isaiah Hartenst…", "Shai Gilgeous-A…") — inherent to
+  the available width at 1440px in a 320px-sidebar layout, not something
+  this change fully eliminates; the full name remains available on the
+  segment's own `<title>` tooltip, the existing accepted mitigation
+  elsewhere in this codebase.
+
+### Second follow-up, same day: initial-paint width flash
+User reported a related but distinct bug right after the above shipped:
+"bars correctly spaced on first load, then revert to slimmer margins after
+a few seconds." Not caused by the padding change — a pre-existing timing
+issue in `lib/chart/useContainerWidth.ts` that the padding change made more
+visible (the gap now differs more between the two states).
+
+**Root cause, confirmed rather than guessed**: the hook's `width` state
+starts at a hardcoded `fallback` (960px) and only corrects once a
+`ResizeObserver` reports the real container width — but a
+`ResizeObserver`'s first callback fires *after* the browser's first paint,
+not before. Verified against the real static-exported `out/` directory
+(not `next dev`, which has unrelated compile-lag) served locally: a
+`requestAnimationFrame`-driven poll of the SVG's `width` attribute showed
+`960` at ~270ms, then `632` (the real sidebar-constrained width) at ~350ms
+— a real, visible jump, not a misperception. Separately confirmed via raw
+`curl` that this chart never appears in the static-exported HTML at all
+(only its loading skeleton does — `TeamPageClient` depends on
+`useSearchParams`, which opts it out of static prerendering even inside
+Suspense), so this component's first-ever render happens entirely
+client-side with no server-rendered width to match, removing any
+hydration-mismatch reason the fallback needs to be used past that first
+paint.
+
+**Fix**: added a `useLayoutEffect` to `useContainerWidth` that measures the
+real container width via `getBoundingClientRect()` synchronously right
+after the DOM commits — layout effects run before the browser paints, so
+the corrected width is what actually reaches the screen first. The
+pre-existing `ResizeObserver` effect is unchanged and still owns every
+subsequent resize (a real window resize, which does legitimately happen
+after paint). Shared by both `PayrollChart.tsx` and `LeagueOverview.tsx`
+(one hook, both call sites fixed).
+
+**Verified the fix against the bug it claims to fix**, not just that things
+still pass: `git stash`ed just this file, rebuilt, and reran the same
+`requestAnimationFrame` probe against the pre-fix code — reproduced the
+`960 → 632` jump on demand, confirming the test methodology actually
+catches the bug. Restored the fix, rebuilt, reran the probe three times —
+every run landed directly on `632` with no `960` frame ever observed.
+`npx tsc --noEmit`, `npm test` (42/42), `npm run verify` (all 30 teams +
+synthetic fixture), and `npm run a11y` (14/14, 0 violations) all re-run
+clean afterward.
+
+### Correction, same day: the useLayoutEffect fix above was incomplete
+User reported the flash was still there under `npm run dev` specifically.
+The static-export verification above was real and not wrong — it's just
+not the whole picture, because `next dev` genuinely behaves differently
+from the actual static-export build for this component, in a way the first
+fix's diagnosis didn't account for.
+
+**Root cause of the gap, confirmed via `curl` against the dev server**:
+`next dev` does real per-request SSR (the `output: 'export'` config only
+applies to `next build`), and unlike the static export, it *does*
+synchronously server-render this chart's real content — `width="960"` was
+sitting directly in the raw HTML response, not just in the loading
+skeleton. That's a fundamentally different situation than the one
+`useLayoutEffect` fixes: the wrong-width geometry is real, server-sent HTML
+that the browser paints immediately, for real, before any client JS has
+even loaded — no client-side effect, layout or otherwise, can retroactively
+un-paint a frame the browser already committed. Confirmed the actual
+mechanism by instrumenting the hook with temporary `console.log`s
+(removed after): in dev mode the chart's mount/layout-effect didn't fire
+until ~2s in (matching the user's "a few seconds"), consistent with slow
+dev-mode hydration finally reconciling server-sent 960px content — not the
+effect itself being slow to run.
+
+**Real fix**: `useContainerWidth` now also returns `hasMeasured` (`false`
+until a real `getBoundingClientRect()`/`ResizeObserver` measurement has
+actually landed, both server-side and on the client's first pre-effect
+render — so server and client markup still agree, no hydration error).
+`PayrollChart.tsx` and `LeagueOverview.tsx` both now render a neutral
+`animate-pulse` skeleton (same height as the real SVG, so nothing reflows
+when it swaps in) instead of the chart itself whenever `!hasMeasured`,
+rather than ever rendering chart geometry built from a guessed width. This
+fixes the dev-mode case (server now sends the skeleton, not a numbered
+chart, since the server can never truly know the client's width) and keeps
+the static-export case working the same way it already did (client mounts,
+`useLayoutEffect` measures before paint, `hasMeasured` flips to `true` fast
+enough that the skeleton is rarely if ever visible there).
+
+**Verified**: `curl` against a fresh `next dev` response now shows zero
+`width="960"` occurrences and zero `role="graphics-document"` elements —
+only the loading skeleton. A combined console-instrumentation +
+`requestAnimationFrame` probe against the running dev server showed the
+chart going `skeleton → (real width) 632` directly, with `960` never
+observed in the DOM at any point. Re-ran the static-export probe three more
+times post-change — still lands directly on `632` every time, unchanged
+from before. Full suite re-run clean once more: `npx tsc --noEmit`,
+`npm test` (42/42), `npm run verify`, `npm run build`, `npm run a11y`
+(14/14, 0 violations, covering both `/` and `/team/okc` chart+table views —
+`LeagueOverview`'s new skeleton branch included).
+
+### Known gap
+The skeleton is genuinely visible for ~1-2 seconds on every `next dev`
+page load now (previously it would've shown the *wrong* chart for that
+same duration — this trades a visible-but-wrong render for a visible
+loading state, which is the honest tradeoff, not a regression). This is a
+`next dev`-only cost: the actual static-export production build was
+already fast enough pre- and post-fix that the skeleton is not normally
+perceptible there.
