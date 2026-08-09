@@ -2,14 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
+/* M12 design tokens. Six named surfaces/inks per theme plus one accent —
+   the chart already carries the site's color complexity (six-category
+   mechanism ramp, 30 team colors), so the chrome around it stays quiet by
+   comparison (CLAUDE.md / M12 brief), one restrained indigo accent, nothing
+   else. Layered greys, not pure black, for dark mode's page/card/interactive
+   elevation steps.
+
+   Robust theme-token pattern (frontend-design skill): :root holds the light
+   defaults; prefers-color-scheme redefines them for an unset OS preference;
+   [data-theme] then overrides in *both* directions once ThemeToggle.tsx has
+   set an explicit user choice, so a light-OS visitor who opts into dark (or
+   the reverse) always wins over the media query. Every consumer reads these
+   variables (via tailwind.config.ts's color tokens) — never a literal hex —
+   so nothing needs a `dark:` variant to repaint on theme change.
+
+   Explicitly NOT themed: the chart's own <svg> (PayrollChart.tsx,
+   LeagueOverview.tsx) and lib/chart/colors.ts's mechanism ramp / lib/team-
+   colors.ts's per-team fills. Those were validated (dataviz-skill contrast
+   checks, M6's hand-computed WCAG audit) against one fixed light canvas and
+   are out of scope for this milestone (CLAUDE.md: chart color/layout logic
+   is settled) — rather than guess dark-mode variants for encodings nobody
+   asked to touch, the chart renders on its own fixed light surface in both
+   themes, like a printed report sitting on the page. */
+:root {
+  --paper: #f6f6f9;
+  --surface: #ffffff;
+  --surface-raised: #ececf2;
+  --ink: #14151b;
+  --ink-muted: #5b5c68;
+  --line: #dcdce4;
+  --accent: #4f46e5;
+  --accent-strong: #4338ca;
+  --accent-ink: #ffffff;
+  --accent-soft: #edebfc;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f1016;
+    --surface: #171820;
+    --surface-raised: #20212c;
+    --ink: #eceef3;
+    --ink-muted: #9799a6;
+    --line: #2a2b37;
+    --accent: #9b8ffb;
+    --accent-strong: #b3a8ff;
+    --accent-ink: #14151b;
+    --accent-soft: #211d38;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --paper: #0f1016;
+  --surface: #171820;
+  --surface-raised: #20212c;
+  --ink: #eceef3;
+  --ink-muted: #9799a6;
+  --line: #2a2b37;
+  --accent: #9b8ffb;
+  --accent-strong: #b3a8ff;
+  --accent-ink: #14151b;
+  --accent-soft: #211d38;
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --paper: #f6f6f9;
+  --surface: #ffffff;
+  --surface-raised: #ececf2;
+  --ink: #14151b;
+  --ink-muted: #5b5c68;
+  --line: #dcdce4;
+  --accent: #4f46e5;
+  --accent-strong: #4338ca;
+  --accent-ink: #ffffff;
+  --accent-soft: #edebfc;
+  color-scheme: light;
+}
+
 body {
   font-variant-numeric: tabular-nums;
 }
 
-/* The only animation in the app is Tailwind's animate-pulse, used on the two
-   chart loading skeletons (app/team/[slug]/page.tsx, [season]/page.tsx).
-   Nothing else transitions — hover/focus/pin highlighting swaps SVG
-   attributes (opacity, stroke) instantly, with no CSS transition applied. */
+/* Subtle glassmorphism (M12 brief item 5), used sparingly: a translucent
+   surface over real content behind it, not a heavy blur that costs
+   legibility. Applied only to the team-page controls cluster today. */
+.glass-surface {
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* Restrained motion (M12 brief item 6): hover/toggle/theme-switch transitions
+   only when the visitor hasn't asked to reduce motion — opt-in, so
+   prefers-reduced-motion never needs an override rule of its own. Scoped to
+   the elements that actually repaint on a theme swap or interactive state
+   change, not a blanket `*` (cheap, and avoids transitioning layout-affecting
+   properties by accident). */
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  header,
+  footer,
+  main,
+  .card,
+  button,
+  a,
+  table,
+  th,
+  td,
+  input,
+  select,
+  label {
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+}
+
+/* The only *animation* (as opposed to the transitions above) in the app is
+   Tailwind's animate-pulse, used on chart loading skeletons. */
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse {
     animation: none;

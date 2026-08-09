@@ -2963,3 +2963,220 @@ series: 0.5170, against the real new plotWidth (568px = 928 − 170 − 190).
   labels and stopped needing a callout at all); the overlap scan still
   found zero collisions across all 30 teams.
 - 768px/390px re-checked: no horizontal overflow at either width.
+
+## M12 — UI modernization + dark mode (2026-08-09)
+
+Design pass across the site's chrome (page backgrounds, typography, controls, cards, navigation)
+per spec §11 M12. Did not touch: the team-page chart's color-by-contract-mechanism encoding,
+threshold line styling, per-team colors (M10), or any chart layout/scale/sizing logic.
+
+### Mockup sign-off (per the session's explicit instruction)
+Before writing any site-wide code, built the team page (header, toggles, legend, chart) in both
+light and dark mode and got explicit sign-off before touching any other page. The deliberate
+call-out made at that checkpoint (revisited in the same-day follow-up below): **the chart's own
+`<svg>` (bars, ink colors, gridlines, mechanism/team colors — `PayrollChart.tsx`,
+`LeagueOverview.tsx`, `lib/chart/colors.ts`, `lib/team-colors.ts`) renders on a fixed light
+"paper" surface in both themes, never tokenized.** Those colors were validated only against one
+light background (dataviz-skill checks in M1, M6's hand-computed WCAG audit, M10's team-color
+contrast pass) and are explicitly out of scope for this milestone — rather than guess dark-mode
+variants for a settled encoding nobody asked to touch, the chart (and its table-equivalent view,
+and its loading skeleton) stays a literal fixed surface in both themes, like a printed report
+sitting on the page. The chart's *chrome* (legend text, buttons, controls) is fully tokenized and
+themes normally.
+
+### Token system
+Six named tokens per theme (`app/globals.css`, following the frontend-design skill's `:root` →
+`prefers-color-scheme` → `[data-theme]`-override pattern so an explicit user choice always wins
+over the OS preference in both directions): `--paper`/`--surface`/`--surface-raised` (layered
+greys, not pure black in dark), `--ink`/`--ink-muted`, `--line`, plus one accent
+(`--accent`/`--accent-strong`/`--accent-ink`/`--accent-soft`). Picked indigo
+(`#4f46e5` light / `#9b8ffb` dark) specifically because it's the one hue not already used by the
+chart (blue mechanism ramp, dead-money orange, hold green, 30 team colors) — the accent never
+competes with or blends into the legend when both are on screen. Every pair hand-checked against
+WCAG contrast before building (light accent vs. white: 6.28:1; dark accent vs. dark bg: 6.97:1;
+both ink-muted pairs: 6.1–6.7:1) — axe-core is the real gate (below), but this caught the
+right-foreground-per-theme issue up front: the dark accent is light-toned, so it needs *dark*
+text on an accent-filled surface, not white, which light mode's accent needs the reverse of.
+Tailwind (`tailwind.config.ts`) maps color utilities straight to these CSS variables, so almost
+nothing needed a `dark:` variant — swapping `data-theme` repaints every token consumer for free.
+
+### Fonts
+IBM Plex Sans + IBM Plex Mono via `next/font/google` (self-hosted at build time, no runtime
+font-CDN request — works under `output: 'export'`, and the CSP never needs a `font-src`
+exception). Picked over system-ui and over Inter/Space Grotesk (flagged by the frontend-design
+skill as the genre's own "safe defaults") because Plex was designed for dense technical/financial
+UI, and Plex Mono gives every dollar figure real tabular digits instead of the generic
+`ui-monospace` fallback stack the site used before.
+
+### Dark mode mechanism
+`ThemeScript.tsx` — a blocking inline `<script>`, first child of `<body>`, restores a stored
+`localStorage` override before first paint (a no-op, by design, when none exists — the
+`prefers-color-scheme` CSS media query already renders the right theme for an unset preference
+with zero JS). `ThemeToggle.tsx` — a manual override button (sun/moon icon), persists to
+`localStorage`, updates `data-theme` directly. `SiteHeader.tsx` — new site-wide nav bar (text
+wordmark only, never a logo, per spec §7) hosting the toggle on every route.
+
+### Controls
+`components/ui/Toggles.tsx` — `SegmentedControl` (Basis: cap/tax/apron) and `TogglePill`
+(the three checkboxes), both real native `<input type="radio"|"checkbox">` visually hidden via
+`sr-only`, restyled via `has-[:checked]`/`has-[:focus-visible]` on the label — keyboard/
+screen-reader behavior comes from the browser for free; only appearance is custom. Wired into
+`TeamPageClient.tsx`, grouped into one `.glass-surface` card (subtle glassmorphism — a translucent
+layer over real page content behind it, not a heavy blur) with the season-range selects.
+
+### Content pages: card/bento layout
+`components/ui/PageShell.tsx` + `components/ui/Section.tsx` — one shared header treatment and one
+bounded-card-per-topic pattern, applied to methodology, glossary, corrections, and about (as the
+brief named) and, as a scope extension made and disclosed rather than silently skipped, to sources
+and privacy too: leaving two of eight pages on the old plain-hex styling once dark mode is global
+would have been a real, visible inconsistency (and a real contrast bug — see below), not a neutral
+omission. Methodology's 9 sections stay one column with real ordinal numbers (a genuine sequence —
+other pages reference methodology "item 5", "item 6" by number) rather than a decorative
+01/02/03 marker. Glossary's 17 terms — genuinely comparable-size, order-independent chunks — are
+a true responsive bento grid (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`), the one page where a
+multi-column grid was actually the right call rather than a stacked list of cards.
+
+### A real bug this session's own token change introduced, caught before rollout
+Enabling dark mode globally in `app/layout.tsx` (before the site-wide restyle pass) immediately
+made `/` (league view, not yet touched) fail a dark-mode axe scan — 1 `color-contrast` violation,
+5 nodes — because that page's text still used hardcoded light-mode-only hex (`text-[#52514e]`)
+against a now-dark page background. Disclosed to the user at the mockup-sign-off checkpoint as an
+expected, temporary gap rather than left unmentioned; fixed as part of the site-wide pass (below).
+
+### axe-core: before / after, both themes
+**Before this session** (per the M11 follow-up entries above, last run before M12): 14/14
+routes/views passing, 0 violations — but only ever run in light mode; dark mode didn't exist.
+
+**After this session**, full sweep — all 14 route/view combinations (`/`, `/team/okc`,
+`/team/okc/2026-27`, `/team/okc/2027-28` × chart + table view where applicable, plus the six
+static pages) × both themes, 28 checks total via a scripted `@axe-core/playwright` pass with
+`colorScheme: 'light'|'dark'` context emulation (the committed `e2e/a11y.spec.ts` suite itself
+only runs light/default — see "known gaps" below):
+
+| | Light | Dark |
+|---|---|---|
+| Before M12 | 14/14 pass, 0 violations | not applicable — no dark theme existed |
+| After M12 | 14/14 pass, 0 violations | 14/14 pass, 0 violations |
+
+The one violation found mid-session (`/`, dark, `color-contrast`, 5 nodes — see above) was fixed
+by the site-wide pass and reconfirmed clean in the final sweep. `npm run a11y` (the committed
+suite, light/default only) also re-run clean: 14/14, 0 violations.
+
+### Verified
+- `npx tsc --noEmit` clean.
+- `npm run build` — production static export succeeds, same route count as before M12 (no new
+  pages, per the brief).
+- `npm run a11y` — 14/14 pass, 0 violations.
+- Scripted dark-mode axe sweep (all 14 route/view combinations) — 0 violations.
+- Real Playwright screenshots, both themes, of `/team/okc`, `/`, `/methodology`, `/glossary`,
+  `/about`, plus a 390px dark-mode pass on `/team/okc` — no horizontal overflow
+  (`scrollWidth === innerWidth`), fixed-light chart card reads clearly against a dark page in
+  every case, glassmorphism/segmented controls/bento grid all render as designed.
+- Grepped for stray hardcoded hex outside the intentionally-fixed chart surfaces
+  (`PayrollChart.tsx`, `PayrollTable.tsx`, `LeagueOverview.tsx`, `LeagueTable.tsx`, and the two
+  team-page route files' chart-card/skeleton classes) — none found.
+
+### Known gaps / next steps (as of this entry — see same-day follow-up immediately below)
+- `e2e/a11y.spec.ts` (the committed CI suite) still only runs against the default/light color
+  scheme — the dark-mode sweep this session ran was a one-off script, not committed test
+  infrastructure. Worth adding a `colorScheme: 'dark'` parameterization to the real suite so dark
+  mode gets CI coverage going forward, not just this session's manual confirmation.
+- The fixed-light chart-canvas decision means the chart itself has no dark-mode variant at all —
+  a deliberate, disclosed scope boundary (see above), not an oversight, but superseded same-day —
+  see the follow-up entry below.
+- Team-color/mechanism-color dark-mode variants (flagged as out of scope back in M1 and M10) are
+  still unbuilt — unchanged, consistent with this session's own scope boundary (and still true
+  after the follow-up below, which themes the *canvas*, not the fill encoding).
+- No visual regression test (Playwright screenshot diffing) was added for either theme — this
+  session's screenshots were manual verification, same standing gap prior sessions have already
+  noted for the chart's responsive behavior.
+
+## M12 follow-up — theme the chart canvas too (2026-08-09)
+
+User asked, right after M12 shipped, to make the charts "match the UI" too — i.e. reverse the
+fixed-light-canvas decision above. Confirmed scope first via `AskUserQuestion` rather than
+guessing how far that should go, since it touches CLAUDE.md/spec-§5-protected chart internals:
+user picked **dark canvas, same encoding colors** — the chart's background, gridlines, axis text,
+threshold-line ink, and leader lines become theme-aware; the mechanism-tier ramp and per-team
+colors (the actual informational encoding) stay exactly as validated, untouched.
+
+### The rule this session actually implemented
+Not "furniture vs. data," quite — the real split that survived contact with the code is **"does
+this ink get drawn directly on top of a mechanism/team fill, or does it only ever touch the
+canvas."** Per-segment ink that interprets *one specific segment* together with its own
+(theme-independent) fill — the active/pinned outline, the "estimated" dashed border, the
+option-year dotted outline, and the over-threshold shading tint (a plain black tint that
+reliably darkens any hue underneath it the same way in both themes) — stays fixed, on the
+reasoning that re-theming it while the fill it sits on stays fixed would risk a contrast
+regression against a palette already validated for exactly these values, for no real benefit.
+Everything else — canvas background, gridlines, axis ticks, threshold reference lines (even
+`LeagueOverview`'s, which literally cross every team's bar; most of their length still falls
+across empty canvas since each bar only extends to its own dollar total) and their labels, leader
+lines, the season/axis text, the team-name link text — is genuinely chart furniture, never
+anchored to one segment's fill, and does adapt.
+
+### What's here
+- `lib/theme.ts` — new `useColorScheme()` hook, the single source of truth both chart components
+  and `ThemeToggle.tsx` now read from (the toggle was refactored to use it instead of its own
+  duplicate `resolvedTheme()` logic). Deliberately returns literal resolved hex, never a
+  `var(--x)` reference for use inside an SVG presentation attribute — that distinction matters
+  specifically for `PayrollChart`'s download-PNG feature, which clones and serializes the live
+  `<svg>` into a *standalone* document with no access to the page's `:root` custom properties; a
+  `var()`-based fill/stroke would render correctly on screen but silently fail to resolve once
+  exported. Reading already-resolved hex means the exported PNG always matches what's on screen,
+  in either theme, verified directly (see below), not assumed.
+- `PayrollChart.tsx` — the outer chart-card `<div>` now uses `bg-surface`/`border-line` (plain
+  Tailwind tokens — this element isn't an SVG presentation attribute, so the `var()` concern
+  above doesn't apply to it) instead of literal fixed hex; its loading skeleton uses
+  `bg-surface-raised`. Inside the `<svg>` itself, a new `canvas` object (`{ gridline, muted,
+  secondary, primary }`, computed from `useColorScheme()`) replaces every *furniture* use of the
+  old `GRIDLINE`/`MUTED_INK`/`SECONDARY_INK`/`PRIMARY_INK` module constants — y-axis gridlines and
+  tick text, both margins' threshold lines and labels, gap-callout leader lines and labels, the
+  season/axis text. `MarginLabel` gained a `textFill` prop (previously hardcoded internally) so
+  its three call sites can each pass `canvas.secondary`. The module constants themselves are
+  unchanged and still used directly for the fixed, on-fill roles (active-outline stroke,
+  estimated-border stroke, option-outline stroke, shading-tint fill) — per this session's rule
+  above. `downloadChartAsPng` gained a `theme: { background, watermark }` parameter instead of
+  hardcoding a light background and `MUTED_INK` for the watermark, so an export taken in dark mode
+  actually looks like the dark chart the visitor was looking at, not always-light regardless.
+- `LeagueOverview.tsx` — same treatment: card `<div>` and its "View as table" button now use
+  tokens; the threshold-legend swatch line, the full-height threshold reference lines, the row
+  gridlines, the team-name link text, and the per-row dollar-total label all read from a local
+  `canvas` object (`LIGHT_CANVAS`/`DARK_CANVAS`, same shape as PayrollChart's) instead of the old
+  fixed constants. The "estimated" dashed outline keeps using each team's own pre-computed
+  `teamColor.labelInk` (M10, unrelated to this refactor — already correctly adaptive to the
+  *fill*, not the theme) and the shading tint stays `PRIMARY_INK`, fixed, same reasoning as
+  PayrollChart.
+- `PayrollTable.tsx` / `LeagueTable.tsx` — straightforward token swaps (`text-ink`, `text-ink-muted`,
+  `border-line`, and the source/team-name links recolored to `text-accent`). These aren't SVG, so
+  no literal-hex constraint applies; they needed fixing regardless, since they now render inside a
+  card whose background is no longer fixed-light.
+- Both `PayrollChartFallback` skeleton components (`app/team/[slug]/page.tsx`,
+  `.../[season]/page.tsx`) switched from fixed hex to `border-line`/`bg-surface-raised`, matching
+  the real chart's now-themed card.
+
+### Verified
+- `npx tsc --noEmit`, `npm test` (42/42), `npm run build` all clean.
+- Full axe-core sweep re-run after this change, same method as M12's own (light + dark ×
+  all 14 route/view combinations, 28 checks) — **0 violations in both themes**, unchanged from
+  the M12 entry above. `npm run a11y` (the committed suite) — 14/14, 0 violations.
+- Real Playwright screenshots, both themes, `/team/okc` and `/`: dark mode now shows a genuinely
+  dark chart card with light gridlines/axis/threshold text, identical mechanism-fill colors
+  (light blue "minimum" tier, team brand colors) to light mode, dashed/dotted per-segment outlines
+  still legible; light mode screenshotted side-by-side and confirmed pixel-equivalent to before
+  this follow-up (no regression from the refactor).
+- **Download-PNG, specifically in dark mode** — scripted a real click via Playwright
+  (`acceptDownloads`), saved the resulting file, and opened it: dark background, light ink,
+  watermark legible, matching the on-screen dark chart exactly. This was the one real risk this
+  session's own `useColorScheme` doc comment called out in advance (a `var()`-based approach would
+  have silently broken exactly this path) — confirmed the literal-hex approach avoids it, not just
+  assumed.
+- Grepped both chart files and their table/skeleton dependents for stray literal hex afterward —
+  only the intentional `LIGHT_CANVAS`/`DARK_CANVAS`/module-constant definitions remain.
+
+### Known gaps / next steps
+- `e2e/a11y.spec.ts` still only runs light/default in CI — unchanged gap from the M12 entry above,
+  now also covering the chart's new dark-canvas path without dedicated CI coverage.
+- No visual-regression test exists for either theme — same standing gap, unchanged.
+- The mechanism-tier ramp and per-team colors still have no dark-mode *variant* — correct and
+  unchanged, since that's the encoding this session was explicitly asked not to touch.

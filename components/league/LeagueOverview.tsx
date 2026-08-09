@@ -14,6 +14,7 @@ import { resolveTeamBarColor } from '../../lib/team-colors';
 import { formatAbbreviated, formatExact } from '../../lib/format';
 import { thresholdsForSeason } from '../../data/thresholds';
 import { useContainerWidth } from '../../lib/chart/useContainerWidth';
+import { useColorScheme } from '../../lib/theme';
 import { LeagueTable } from './LeagueTable';
 
 // All 30 teams as thin horizontal bars against shared threshold lines (spec
@@ -36,10 +37,18 @@ const BAR_HEIGHT = 14;
 const HEADER_HEIGHT = 20;
 const NAME_COLUMN = { max: 64, min: 44 };
 const RIGHT_MARGIN = { max: 90, min: 56 };
-const MUTED_INK = '#898781';
-const SECONDARY_INK = '#52514e';
+
+// PRIMARY_INK's only remaining use here is the over-threshold shading tint
+// (a semantic overlay on top of each team's own fill — see PayrollChart.tsx's
+// module-level comment for why that stays fixed regardless of theme rather
+// than adapting). Every other role that used to be one of these four
+// constants (row gridlines, the threshold reference lines, the team-name
+// link text, the per-row total label) is chart *furniture* — never
+// anchored to interpreting one segment's own fill — and now reads from
+// `canvas` (computed from `useColorScheme()` inside the component) instead.
 const PRIMARY_INK = '#0b0b0b';
-const GRIDLINE = '#e1e0d9';
+const LIGHT_CANVAS = { gridline: '#e1e0d9', secondary: '#52514e', primary: '#0b0b0b' };
+const DARK_CANVAS = { gridline: '#2a2b37', secondary: '#9799a6', primary: '#eceef3' };
 
 // Same four-way dash distinction as PayrollChart.tsx (M6) — cap/tax used to
 // both be plain solid lines differing only by 0.5px width, too subtle to
@@ -64,6 +73,8 @@ export function LeagueOverview({
   teams: { slug: string; data: TeamCapChargesFile }[];
 }) {
   const { ref, width, hasMeasured } = useContainerWidth<HTMLDivElement>(960);
+  const scheme = useColorScheme();
+  const canvas = scheme === 'dark' ? DARK_CANVAS : LIGHT_CANVAS;
   const thresholds = thresholdsForSeason(season)!;
   const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart');
 
@@ -95,12 +106,24 @@ export function LeagueOverview({
   const plotBottom = HEADER_HEIGHT + rows.length * ROW_HEIGHT;
 
   return (
+    // M12 follow-up: card bg/border use the site's own tokens now, same as
+    // any other card. What stays fixed regardless of theme is the per-team
+    // fill encoding itself (lib/team-colors.ts, M10) and the ink drawn
+    // directly on top of it (the "estimated" outline already uses each
+    // team's own contrast-checked labelInk; the over-threshold shading tint
+    // stays PRIMARY_INK — see the module-level comment above). Everything
+    // else — gridlines, threshold reference lines, team-name/total-label
+    // text — reads from `canvas` and adapts. The card styling lives on this
+    // outer wrapper, not the `ref`'d div below, so `useContainerWidth`'s
+    // measurement keeps reading the already-padding-adjusted content width
+    // for free, via normal box layout — no chart-geometry math needed.
+    <div className="rounded-2xl border border-line bg-surface p-4">
     <div ref={ref} className="w-full">
       <button
         type="button"
         aria-pressed={viewMode === 'table'}
         onClick={() => setViewMode((m) => (m === 'chart' ? 'table' : 'chart'))}
-        className="mb-3 rounded border border-[#d8d6cf] bg-white px-2.5 py-1 text-xs text-[#0b0b0b] hover:bg-[#f0efe9]"
+        className="mb-3 rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-ink outline-none transition-colors hover:bg-surface-raised focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         {viewMode === 'chart' ? 'View as table' : 'View as chart'}
       </button>
@@ -120,7 +143,7 @@ export function LeagueOverview({
           regardless of width — same reasoning as PayrollChart's per-season header
           (NOTES.md), just one row instead of one per season since this view has a
           single shared season for every team. */}
-      <div className="mb-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#52514e]">
+      <div className="mb-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-muted">
         {THRESHOLD_KEYS.map((key) => (
           <span key={key} className="flex items-center gap-1.5">
             <svg width="14" height="2" aria-hidden="true">
@@ -129,7 +152,7 @@ export function LeagueOverview({
                 x2={14}
                 y1={1}
                 y2={1}
-                stroke={SECONDARY_INK}
+                stroke={canvas.secondary}
                 strokeWidth={THRESHOLD_STYLE[key].width}
                 strokeDasharray={projectedDash(THRESHOLD_STYLE[key].dash, thresholds.isProjected)}
               />
@@ -146,7 +169,7 @@ export function LeagueOverview({
         // geometry before correcting. Same height as the real SVG so
         // nothing below this reflows once it swaps in.
         <div
-          className="animate-pulse rounded bg-[#f0efe9]"
+          className="animate-pulse rounded bg-surface-raised"
           style={{ height: svgHeight }}
           aria-hidden="true"
         />
@@ -173,7 +196,7 @@ export function LeagueOverview({
                 x2={x}
                 y1={HEADER_HEIGHT - 4}
                 y2={plotBottom}
-                stroke={SECONDARY_INK}
+                stroke={canvas.secondary}
                 strokeWidth={style.width}
                 strokeDasharray={projectedDash(style.dash, thresholds.isProjected)}
               />
@@ -218,7 +241,7 @@ export function LeagueOverview({
 
             return (
               <g key={row.slug}>
-                <line x1={0} x2={plotWidth} y1={y} y2={y} stroke={GRIDLINE} strokeWidth={1} />
+                <line x1={0} x2={plotWidth} y1={y} y2={y} stroke={canvas.gridline} strokeWidth={1} />
 
                 <a href={`/team/${row.slug}`}>
                   <text
@@ -227,7 +250,7 @@ export function LeagueOverview({
                     textAnchor="end"
                     dominantBaseline="middle"
                     fontSize={11}
-                    fill={PRIMARY_INK}
+                    fill={canvas.primary}
                     style={{ textDecoration: 'underline', cursor: 'pointer' }}
                   >
                     <title>{`${row.teamLabel} — view team page`}</title>
@@ -294,7 +317,7 @@ export function LeagueOverview({
                   y={y + ROW_HEIGHT / 2}
                   dominantBaseline="middle"
                   fontSize={10}
-                  fill={SECONDARY_INK}
+                  fill={canvas.secondary}
                 >
                   {formatAbbreviated(row.stack.total)}
                 </text>
@@ -306,6 +329,7 @@ export function LeagueOverview({
       )}
         </>
       )}
+    </div>
     </div>
   );
 }

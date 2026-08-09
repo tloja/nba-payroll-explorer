@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { PageShell } from '../../components/ui/PageShell';
 
 export const metadata: Metadata = {
   title: 'Glossary — NBA Payroll Explorer',
@@ -98,28 +99,34 @@ const TERMS: Term[] = [
 
 export default function GlossaryPage() {
   return (
-    <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-4 py-8">
-      <Link href="/" className="text-sm text-[#52514e] underline">
-        &larr; Home
-      </Link>
-      <h1 className="mt-2 text-xl font-semibold">Glossary</h1>
-      <p className="mt-2 text-sm leading-relaxed text-[#52514e]">
-        Plain-language definitions for terms used across this site. For how these rules are actually applied to
-        compute the figures you see, see{' '}
-        <Link href="/methodology" className="underline">
-          methodology
-        </Link>
-        .
-      </p>
-
-      <dl className="mt-6 space-y-6">
+    <PageShell
+      backHref="/"
+      backLabel="Home"
+      title="Glossary"
+      maxWidth="max-w-5xl"
+      intro={
+        <>
+          Plain-language definitions for terms used across this site. For how these rules are actually applied to
+          compute the figures you see, see{' '}
+          <Link href="/methodology" className="text-accent underline underline-offset-2 hover:text-accent-strong">
+            methodology
+          </Link>
+          .
+        </>
+      }
+    >
+      {/* 17 self-contained, comparably-sized entries with no inherent
+          order — a genuine bento grid (unlike methodology's numbered,
+          variable-length sections, which stay a single column) rather than
+          a plain stacked <dl>. */}
+      <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {TERMS.map(({ term, definition }) => (
-          <div key={term}>
-            <dt className="text-sm font-semibold">{term}</dt>
-            <dd className="mt-1 text-sm leading-relaxed text-[#1c1b19]">{definition}</dd>
+          <div key={term} className="rounded-2xl border border-line bg-surface p-4">
+            <dt className="text-sm font-semibold text-ink">{term}</dt>
+            <dd className="mt-1.5 text-sm leading-relaxed text-ink-muted">{definition}</dd>
           </div>
         ))}
       </dl>
-    </main>
+    </PageShell>
   );
 }

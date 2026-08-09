@@ -13,8 +13,9 @@ import { SITE_NAME, SITE_URL } from '../../../../lib/site';
 
 function PayrollChartFallback() {
   return (
+    // Same themed card treatment as the real chart — see PayrollChart.tsx.
     <div
-      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-330px)]"
+      className="mt-4 h-[932px] w-full animate-pulse rounded-2xl border border-line bg-surface-raised lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-330px)]"
       aria-hidden="true"
     />
   );
@@ -72,10 +73,13 @@ export default async function TeamSeasonPage({
   if (!result.ok) {
     return (
       <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1290px] px-4 py-8">
-        <Link href="/" className="text-sm text-[#52514e] underline">
+        <Link
+          href="/"
+          className="text-sm text-ink-muted underline underline-offset-2 outline-none hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
           &larr; All teams
         </Link>
-        <p className="mt-4 text-sm text-[#52514e]">
+        <p className="mt-4 text-sm text-ink-muted">
           This team&apos;s data could not be loaded ({result.error}).
         </p>
       </main>
@@ -88,7 +92,10 @@ export default async function TeamSeasonPage({
   return (
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1290px] px-4 py-8">
       <TeamStructuredData teamLabel={result.data.teamLabel} slug={slug} />
-      <Link href={`/team/${slug}`} className="text-sm text-[#52514e] underline">
+      <Link
+        href={`/team/${slug}`}
+        className="text-sm text-ink-muted underline underline-offset-2 outline-none hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
         &larr; {result.data.teamLabel}, all seasons
       </Link>
       {/* Same responsive header layout as /team/[slug] — see that page.tsx
@@ -96,19 +103,25 @@ export default async function TeamSeasonPage({
           margin-reserved sidebar, not a CSS grid). */}
       <div className="lg:relative lg:min-h-[980px]">
         <div className="min-w-0 lg:w-[290px]">
-          <h1 className="mt-2 text-xl font-semibold">
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-ink [text-wrap:balance]">
             {result.data.teamLabel} — {season}
           </h1>
           {(() => {
             const lastUpdated = lastUpdatedFor(result.data);
             return lastUpdated ? (
-              <p className="mt-1 text-xs text-[#52514e]">
+              <p className="mt-1 text-xs text-ink-muted">
                 Data last updated {formatRetrievedAt(lastUpdated)}. See{' '}
-                <Link href="/methodology" className="underline">
+                <Link
+                  href="/methodology"
+                  className="text-accent underline underline-offset-2 outline-none hover:text-accent-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
                   methodology
                 </Link>{' '}
                 and{' '}
-                <Link href="/sources" className="underline">
+                <Link
+                  href="/sources"
+                  className="text-accent underline underline-offset-2 outline-none hover:text-accent-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
                   sources
                 </Link>
                 .

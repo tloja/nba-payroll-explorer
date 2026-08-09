@@ -7,6 +7,13 @@ import { toPayrollData } from '../../lib/data/teamPayroll';
 import type { TeamCapChargesFile } from '../../lib/verify/teamFile';
 import type { Season } from '../../lib/types';
 import { DEFAULT_TOGGLES, type ChartToggles, type DollarMode, type PayrollBasis } from '../../lib/chart/toggles';
+import { SegmentedControl, TogglePill } from '../ui/Toggles';
+
+const BASIS_OPTIONS: { value: PayrollBasis; label: string }[] = [
+  { value: 'cap', label: 'Cap' },
+  { value: 'tax', label: 'Tax' },
+  { value: 'apron', label: 'Apron' },
+];
 
 const BASIS_VALUES: PayrollBasis[] = ['cap', 'tax', 'apron'];
 const DOLLAR_MODE_VALUES: DollarMode[] = ['absolute', 'percent'];
@@ -108,76 +115,72 @@ export function TeamPageClient({
           is a plain div with no effect at all — same stacked layout as
           before. */}
       <div className="min-w-0 lg:w-[290px]">
-      {availableSeasons.length > 1 && (
-        <div className="my-4 flex flex-wrap items-center gap-4 text-sm">
-          <label className="flex items-center gap-1.5">
-            From
-            <select
-              value={from}
-              onChange={(e) => updateParams({ from: e.target.value })}
-              className="rounded border border-[#d8d6cf] bg-white px-1.5 py-0.5"
-            >
-              {availableSeasons.map((s) => (
-                <option key={s} value={s} disabled={s > to}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex items-center gap-1.5">
-            To
-            <select
-              value={to}
-              onChange={(e) => updateParams({ to: e.target.value })}
-              className="rounded border border-[#d8d6cf] bg-white px-1.5 py-0.5"
-            >
-              {availableSeasons.map((s) => (
-                <option key={s} value={s} disabled={s < from}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      )}
+      {/* Glassmorphism used sparingly (M12 brief item 5): a translucent card
+          over the page background, not a heavy blur — grouping every chart
+          control into one visually cohesive cluster instead of two loose
+          rows of plain selects/checkboxes. */}
+      <div className="glass-surface my-4 rounded-2xl border border-line p-3">
+        {availableSeasons.length > 1 && (
+          <fieldset className="mb-3 flex flex-wrap items-center gap-3 border-b border-line pb-3 text-sm">
+            <legend className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">Season range</legend>
+            <label className="flex items-center gap-1.5 text-ink">
+              From
+              <select
+                value={from}
+                onChange={(e) => updateParams({ from: e.target.value })}
+                className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
+              >
+                {availableSeasons.map((s) => (
+                  <option key={s} value={s} disabled={s > to}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="flex items-center gap-1.5 text-ink">
+              To
+              <select
+                value={to}
+                onChange={(e) => updateParams({ to: e.target.value })}
+                className="rounded-md border border-line bg-surface px-1.5 py-0.5 text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent"
+              >
+                {availableSeasons.map((s) => (
+                  <option key={s} value={s} disabled={s < from}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </fieldset>
+        )}
 
-      <div className="mb-2 flex flex-wrap items-center gap-4 text-sm">
-        <label className="flex items-center gap-1.5">
-          Basis
-          <select
+        <div className="flex flex-col gap-3">
+          <SegmentedControl
+            legend="Basis"
+            name="basis"
             value={toggles.basis}
-            onChange={(e) => updateParams({ basis: e.target.value === DEFAULT_TOGGLES.basis ? undefined : e.target.value })}
-            className="rounded border border-[#d8d6cf] bg-white px-1.5 py-0.5"
-          >
-            <option value="cap">Cap payroll</option>
-            <option value="tax">Tax payroll</option>
-            <option value="apron">Apron payroll</option>
-          </select>
-        </label>
-        <label className="flex items-center gap-1.5">
-          <input
-            type="checkbox"
-            checked={!toggles.includeDeadMoneyAndHolds}
-            onChange={(e) => updateParams({ holds: e.target.checked ? 'exclude' : undefined })}
+            options={BASIS_OPTIONS}
+            onChange={(v) => updateParams({ basis: v === DEFAULT_TOGGLES.basis ? undefined : v })}
           />
-          Exclude dead money &amp; holds
-        </label>
-        <label className="flex items-center gap-1.5">
-          <input
-            type="checkbox"
-            checked={toggles.dollarMode === 'percent'}
-            onChange={(e) => updateParams({ dollars: e.target.checked ? 'percent' : undefined })}
-          />
-          % of season cap
-        </label>
-        <label className="flex items-center gap-1.5">
-          <input
-            type="checkbox"
-            checked={toggles.guaranteedOnly}
-            onChange={(e) => updateParams({ guarantee: e.target.checked ? 'guaranteed' : undefined })}
-          />
-          Guaranteed only
-        </label>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-muted">Filters</span>
+            <TogglePill
+              label="Exclude dead money & holds"
+              checked={!toggles.includeDeadMoneyAndHolds}
+              onChange={(checked) => updateParams({ holds: checked ? 'exclude' : undefined })}
+            />
+            <TogglePill
+              label="% of season cap"
+              checked={toggles.dollarMode === 'percent'}
+              onChange={(checked) => updateParams({ dollars: checked ? 'percent' : undefined })}
+            />
+            <TogglePill
+              label="Guaranteed only"
+              checked={toggles.guaranteedOnly}
+              onChange={(checked) => updateParams({ guarantee: checked ? 'guaranteed' : undefined })}
+            />
+          </div>
+        </div>
       </div>
       </div>
 

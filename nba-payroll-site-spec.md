@@ -297,6 +297,29 @@ Before doing anything else in this milestone: check whether the M3 ingestion ada
 
 Compute 2027-28 threshold projections using the ~10% cap growth assumption (or whatever growth rate is already documented in `lib/cba/` — check before inventing a new one) applied to 2026-27's known figures, marked `isProjected: true` and rendered dashed. Include only guaranteed 2027-28 salary already on the books — never project likely re-signings or assume an option will be exercised. Mark every 2027-28 record's `derivation` honestly (`'sourced'` only for genuinely known guaranteed years, `'computed'` for CBA-engine-derived figures, never `'sourced'` for anything requiring a future decision). Render unresolved option years as a visually distinct segment style (hatched/outlined per the guarantee-status encoding in §5), not as normal segments and not omitted. Extend the shared y-scale and fixed stack order to three seasons, confirm the season selector/hover-highlight/URL state from M5 handle three seasons correctly, recheck responsive layout at 1440/768/390px with a real plan for three bars on narrow screens, and update `/methodology` to explain the projection method and why 2027-28 looks sparser than the other two seasons. Do not backfill 2028-29. Do not fabricate any contract detail to make a bar look more complete — a sparse, honest 2027-28 bar is correct.
 
+**M12 — UI modernization + dark mode.** The site is functionally complete but visually basic. This milestone is a design pass across existing pages — no new features, no new data, no chart logic changes. The chart component itself (color-by-mechanism encoding, threshold lines, callouts) is intentionally out of scope here; this is about the chrome around it: page backgrounds, typography, controls, cards, navigation.
+
+**Dark mode is the primary requirement**, built to 2026 conventions rather than a naive "invert the colors" pass:
+- Use layered dark greys (not pure black) with subtle elevation differences to establish hierarchy between page background, cards, and interactive surfaces — a true `#000` background with no depth reads as unfinished, not modern.
+- Pick one restrained accent color for interactive elements (buttons, active toggle states, links) and hold contrast strict against it, rather than introducing several new colors — the chart already carries the site's color complexity (contract-mechanism legend, team colors from M10), so the surrounding UI should stay quiet by comparison, not compete with it.
+- Respect `prefers-color-scheme` on first load, with a manual toggle to override — don't force dark mode on visitors who've set a light preference at the OS level.
+- Confirm every accessibility requirement from M6 (4.5:1 contrast, focus rings, table-equivalent legibility) holds in both light and dark themes — rerun axe-core in both modes, not just the default.
+
+**Broader modernization**, scoped to what's proportionate for a one-chart utility site rather than importing a full dashboard-template aesthetic:
+1. Replace default/basic typography with an intentional type scale and a real font pairing (per the frontend-design skill's guidance, not framework defaults).
+2. Restructure supporting content (methodology, glossary, corrections, about) into a cleaner card/section layout rather than plain stacked text — a light bento-style grouping is reasonable for these pages specifically, since they hold genuinely modular chunks of content; don't force the same treatment onto the chart page, which has its own layout logic already.
+3. Modernize the toggle controls (Basis, Exclude dead money, % of cap, Guaranteed only) into a cohesive, clearly-grouped control cluster — current UI trends favor pill/segmented toggles over plain checkboxes/dropdowns for this kind of small option set.
+4. Subtle glassmorphism is acceptable in small doses for card surfaces or the sidebar (per current dark-mode conventions) — translucent layers with real contrast behind them, not heavy blur that reduces legibility. Use sparingly; this is a data site, not a marketing page.
+5. Add restrained motion (hover states, toggle transitions, theme-switch transition) — respect `prefers-reduced-motion` throughout, consistent with M6.
+
+**Explicitly out of scope:**
+- Any change to chart colors, the contract-mechanism legend, or team colors from M10 — those encode real information and are governed by §5, not this milestone.
+- Chart layout, scale, or sizing logic — that's settled from M1 and later fixes.
+- New pages, new data, or new toggles beyond restyling what exists.
+
+Before writing code, show me a static mockup or a single representative page (the team payroll page is the best test case, since it has the most UI surface area — header, toggles, legend, chart) in both light and dark mode, so the direction can be confirmed before it's applied site-wide.
+
+When done, rerun axe-core in both themes and append a summary to NOTES.md, including the before/after violation count for each.
 ---
 
 ## 8. CLAUDE.md for the repo

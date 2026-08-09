@@ -26,14 +26,14 @@ export function LeagueTable({
   rows: { slug: string; teamId: string; teamLabel: string; total: number }[];
 }) {
   return (
-    <div className="mt-4 overflow-x-auto">
-      <table className="w-full min-w-[600px] border-collapse text-left text-sm">
-        <caption className="mb-2 text-left text-sm text-[#52514e]">
+    <div className="overflow-x-auto p-4">
+      <table className="w-full min-w-[600px] border-collapse text-left text-sm text-ink">
+        <caption className="mb-2 text-left text-sm text-ink-muted">
           All 30 teams, {season}, sorted by total payroll (cap hit), with distance to each threshold.
           {thresholds.isProjected ? ' Thresholds projected.' : ''}
         </caption>
         <thead>
-          <tr className="border-b border-[#d8d6cf]">
+          <tr className="border-b border-line">
             <th scope="col" className="py-1.5 pr-3 font-semibold">
               Team
             </th>
@@ -56,9 +56,9 @@ export function LeagueTable({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.slug} className="border-b border-[#eeeee7]">
+            <tr key={row.slug} className="border-b border-line">
               <th scope="row" className="py-1 pr-3 align-top font-normal">
-                <a href={`/team/${row.slug}`} className="underline">
+                <a href={`/team/${row.slug}`} className="text-accent underline underline-offset-2 hover:text-accent-strong">
                   {row.teamLabel}
                 </a>
               </th>

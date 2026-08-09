@@ -39,8 +39,8 @@ export default function HomePage() {
 
   return (
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8">
-      <h1 className="text-xl font-semibold">NBA Payroll Explorer</h1>
-      <p className="mb-6 text-sm text-[#52514e]">
+      <h1 className="text-2xl font-semibold tracking-tight text-ink [text-wrap:balance]">NBA Payroll Explorer</h1>
+      <p className="mb-6 mt-1 text-sm text-ink-muted">
         All 30 teams{leagueSeason ? `, ${leagueSeason}` : ''}, sorted by total payroll, against the salary cap, tax
         line, and both apron thresholds.
       </p>
@@ -48,13 +48,13 @@ export default function HomePage() {
       {leagueSeason ? (
         <LeagueOverview season={leagueSeason} teams={loaded} />
       ) : (
-        <p className="text-sm text-[#52514e]">
+        <p className="text-sm text-ink-muted">
           No season currently has both sourced cap charges and a published threshold table to measure it against.
         </p>
       )}
 
       {failedSlugs.length > 0 && (
-        <p className="mt-6 text-xs text-[#52514e]">
+        <p className="mt-6 text-xs text-ink-muted">
           {failedSlugs.length} team{failedSlugs.length === 1 ? '' : 's'} could not be loaded and{' '}
           {failedSlugs.length === 1 ? 'is' : 'are'} omitted above: {failedSlugs.join(', ')}.
         </p>

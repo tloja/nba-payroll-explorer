@@ -61,8 +61,12 @@ export async function generateMetadata({
 
 function PayrollChartFallback() {
   return (
+    // Same themed card treatment as the real chart (PayrollChart.tsx) — this
+    // skeleton only ever flashes during client-side navigation, but it
+    // should still look like "the chart is loading," not "the theme is
+    // broken," while it's up.
     <div
-      className="mt-4 h-[932px] w-full animate-pulse rounded bg-[#f0efe9] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-330px)]"
+      className="mt-4 h-[932px] w-full animate-pulse rounded-2xl border border-line bg-surface-raised lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[calc(100%-330px)]"
       aria-hidden="true"
     />
   );
@@ -76,14 +80,19 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
 
   return (
     <main id="main-content" tabIndex={-1} className="mx-auto max-w-[1290px] px-4 py-8">
-      <Link href="/" className="text-sm text-[#52514e] underline">
+      <Link
+        href="/"
+        className="text-sm text-ink-muted underline underline-offset-2 outline-none hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
         &larr; All teams
       </Link>
 
       {!result.ok ? (
         <>
-          <h1 className="mt-2 text-xl font-semibold">{slug.toUpperCase()}</h1>
-          <p className="mt-4 text-sm text-[#52514e]">
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-ink [text-wrap:balance]">
+            {slug.toUpperCase()}
+          </h1>
+          <p className="mt-4 text-sm text-ink-muted">
             This team&apos;s data could not be loaded ({result.error}). The other teams are unaffected.
           </p>
         </>
@@ -110,17 +119,25 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
               chart no longer contributes to normal flow height. */}
           <div className="lg:relative lg:min-h-[980px]">
             <div className="min-w-0 lg:w-[290px]">
-              <h1 className="mt-2 text-xl font-semibold">{result.data.teamLabel}</h1>
+              <h1 className="mt-2 text-2xl font-semibold tracking-tight text-ink [text-wrap:balance]">
+                {result.data.teamLabel}
+              </h1>
               {(() => {
                 const lastUpdated = lastUpdatedFor(result.data);
                 return lastUpdated ? (
-                  <p className="mt-1 text-xs text-[#52514e]">
+                  <p className="mt-1 text-xs text-ink-muted">
                     Data last updated {formatRetrievedAt(lastUpdated)}. See{' '}
-                    <Link href="/methodology" className="underline">
+                    <Link
+                      href="/methodology"
+                      className="text-accent underline underline-offset-2 outline-none hover:text-accent-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    >
                       methodology
                     </Link>{' '}
                     and{' '}
-                    <Link href="/sources" className="underline">
+                    <Link
+                      href="/sources"
+                      className="text-accent underline underline-offset-2 outline-none hover:text-accent-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    >
                       sources
                     </Link>
                     .
@@ -131,7 +148,7 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
             {(() => {
               const seasons = availableSeasonsFor(result.data);
               return seasons.length === 0 ? (
-                <p className="mt-4 text-sm text-[#52514e] lg:w-[290px]">
+                <p className="mt-4 text-sm text-ink-muted lg:w-[290px]">
                   No season currently has both sourced cap charges and a published threshold table to draw against.
                 </p>
               ) : (

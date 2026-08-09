@@ -20,6 +20,7 @@ import { MECHANISM_COLORS, MECHANISM_LEGEND_ORDER, mechanismPatternId } from '..
 import { MechanismPatternDefs } from './MechanismPatternDefs';
 import { formatAbbreviated, formatExact, formatPercent, formatRetrievedAt } from '../../lib/format';
 import { useContainerWidth } from '../../lib/chart/useContainerWidth';
+import { useColorScheme } from '../../lib/theme';
 import { SITE_HOST } from '../../lib/site';
 import { PayrollTable } from './PayrollTable';
 import {
@@ -48,15 +49,41 @@ const SEGMENT_GAP = 2;
 // whole payoff (spec §6 item 1).
 const DIMMED_OPACITY = 0.22;
 
+// These four are the *fixed*, theme-independent roles only: every use below
+// draws directly on top of (or as a semantic tint over) a mechanism-color
+// segment fill, which itself never changes with theme (lib/chart/colors.ts
+// is out of scope — see this file's card-background comment). Changing
+// per-segment ink with the theme while the fill underneath it stays fixed
+// would just risk a contrast regression against a palette already validated
+// for these exact values, for no benefit. Specifically: the active/pinned
+// outline (PRIMARY_INK), the "estimated" dashed border (SECONDARY_INK), the
+// option-year dotted outline (PRIMARY_INK), and the over-threshold shading
+// tint (PRIMARY_INK) — a plain black tint reliably darkens any hue
+// underneath it the same way in either theme, which a theme-swapped tint
+// wouldn't.
+//
+// Everything else in this chart — canvas background, gridlines, axis ticks,
+// threshold/callout leader lines and their labels, the season axis text —
+// never touches a segment fill, so it *does* adapt to theme (see `canvas`,
+// computed from `useColorScheme()` inside the component below).
 const GRIDLINE = '#e1e0d9';
 const MUTED_INK = '#898781';
 const SECONDARY_INK = '#52514e';
 const PRIMARY_INK = '#0b0b0b';
 
+// Dark-theme equivalents of the four "furniture" roles above, applied via
+// `canvas` (component-scope, keyed off the live theme) — never referenced
+// directly by name outside of that lookup.
+const DARK_GRIDLINE = '#2a2b37';
+const DARK_MUTED_INK = '#6e707c';
+const DARK_SECONDARY_INK = '#9799a6';
+const DARK_PRIMARY_INK = '#eceef3';
+
 // Four distinct dash patterns (not just two "solid"s at different widths) so
 // cap/tax/apron1/apron2 are told apart by line style alone, never by color —
-// every threshold line uses the same ink (SECONDARY_INK). A width-only
-// difference (the pre-M6 cap/tax pair) is too subtle to read at a glance.
+// every threshold line uses the same ink (SECONDARY_INK/canvas.secondary). A
+// width-only difference (the pre-M6 cap/tax pair) is too subtle to read at
+// a glance.
 const THRESHOLD_STYLE: Record<
   'salaryCap' | 'taxLevel' | 'firstApron' | 'secondApron',
   { name: string; dash: string; width: number }
@@ -142,7 +169,11 @@ const MONO_FONT_STACK = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 
  * unobtrusive, but present on every export, so a screenshot that circulates
  * still carries attribution (spec's stated reason for this feature).
  */
-function downloadChartAsPng(svgEl: SVGSVGElement, filename: string) {
+function downloadChartAsPng(
+  svgEl: SVGSVGElement,
+  filename: string,
+  theme: { background: string; watermark: string },
+) {
   const width = Number(svgEl.getAttribute('width')) || svgEl.clientWidth;
   const height = Number(svgEl.getAttribute('height')) || svgEl.clientHeight;
   if (!width || !height) return;
@@ -161,7 +192,7 @@ function downloadChartAsPng(svgEl: SVGSVGElement, filename: string) {
   watermark.setAttribute('y', String(height - 10));
   watermark.setAttribute('text-anchor', 'end');
   watermark.setAttribute('font-size', '11');
-  watermark.setAttribute('fill', '#898781');
+  watermark.setAttribute('fill', theme.watermark);
   watermark.textContent = SITE_HOST;
   clone.appendChild(watermark);
 
@@ -178,7 +209,11 @@ function downloadChartAsPng(svgEl: SVGSVGElement, filename: string) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     ctx.scale(scale, scale);
-    ctx.fillStyle = '#f9f9f7';
+    // Matches whatever the live chart card's own background currently is
+    // (bg-surface, light or dark) — the exported PNG should look like a
+    // screenshot of what was on screen, not always-light regardless of
+    // the viewer's theme.
+    ctx.fillStyle = theme.background;
     ctx.fillRect(0, 0, width, height);
     ctx.drawImage(img, 0, 0, width, height);
     canvas.toBlob((blob) => {
@@ -242,6 +277,18 @@ export function PayrollChart({
   onPinChange?: (entityId: string | null) => void;
 }) {
   const { ref, width, hasMeasured } = useContainerWidth<HTMLDivElement>(960);
+  // Theme-aware "furniture" ink (see the module-level comment above
+  // GRIDLINE/MUTED_INK/SECONDARY_INK/PRIMARY_INK for the fixed-vs-adaptive
+  // split) — literal resolved hex, not CSS var(), so the download-PNG
+  // export (which clones this SVG into a standalone document) always
+  // matches what's on screen. bg/border are plain Tailwind tokens on the
+  // wrapping <div> below, not part of this object, since those aren't SVG
+  // presentation attributes and can just use the CSS variables directly.
+  const scheme = useColorScheme();
+  const canvas =
+    scheme === 'dark'
+      ? { gridline: DARK_GRIDLINE, muted: DARK_MUTED_INK, secondary: DARK_SECONDARY_INK, primary: DARK_PRIMARY_INK }
+      : { gridline: GRIDLINE, muted: MUTED_INK, secondary: SECONDARY_INK, primary: PRIMARY_INK };
   // The chart's non-visual equivalent (spec §9 / CLAUDE.md: "every chart
   // ships with a table equivalent"): a visible toggle that swaps the whole
   // SVG for an accessible <table> of the same (toggle-filtered) data, rather
@@ -554,15 +601,21 @@ export function PayrollChart({
             type="button"
             aria-pressed={viewMode === 'table'}
             onClick={() => setViewMode((m) => (m === 'chart' ? 'table' : 'chart'))}
-            className="rounded border border-[#d8d6cf] bg-white px-2.5 py-1 text-xs text-[#0b0b0b] hover:bg-[#f0efe9]"
+            className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-ink outline-none transition-colors hover:bg-surface-raised focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {viewMode === 'chart' ? 'View as table' : 'View as chart'}
           </button>
           {viewMode === 'chart' && (
             <button
               type="button"
-              onClick={() => svgRef.current && downloadChartAsPng(svgRef.current, `${fixture.teamId}-payroll-${seasons.join('-')}.png`)}
-              className="rounded border border-[#d8d6cf] bg-white px-2.5 py-1 text-xs text-[#0b0b0b] hover:bg-[#f0efe9]"
+              onClick={() =>
+                svgRef.current &&
+                downloadChartAsPng(svgRef.current, `${fixture.teamId}-payroll-${seasons.join('-')}.png`, {
+                  background: scheme === 'dark' ? '#171820' : '#ffffff',
+                  watermark: canvas.muted,
+                })
+              }
+              className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-ink outline-none transition-colors hover:bg-surface-raised focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               Download PNG
             </button>
@@ -577,8 +630,27 @@ export function PayrollChart({
           320px column (a 40px gap between them) — see
           app/team/[slug]/page.tsx for the full rationale. At mobile (no
           lg: styles apply) this is just a plain block div, identical to
-          before. */}
-      <div ref={ref} className="min-w-0 lg:absolute lg:right-0 lg:top-0 lg:w-[calc(100%-330px)]">
+          before.
+
+          M12 follow-up: the card background/border now use the site's own
+          `bg-surface`/`border-line` tokens, same as any other card — a
+          visitor's chosen theme is reflected here too. What's still fixed,
+          deliberately, is the mechanism/team-color *fill* encoding itself
+          (lib/chart/colors.ts, lib/team-colors.ts) and every per-segment
+          ink drawn on top of it (active/estimated/option outlines, the
+          over-threshold shading tint — see the module-level comment above
+          GRIDLINE/MUTED_INK/SECONDARY_INK/PRIMARY_INK). Everything else —
+          gridlines, axis ticks, threshold/callout leader lines and labels,
+          the season axis text — reads from `canvas` (computed from
+          `useColorScheme()` above) and does adapt. No padding here: this
+          element's width is what `useContainerWidth` measures for the SVG's
+          own layout math, so adding one would shift chart geometry — the
+          chart's own margins (MARGIN.leftMin/rightMin, always ≥56px)
+          already provide breathing room from this card's edge. */}
+      <div
+        ref={ref}
+        className="min-w-0 rounded-2xl border border-line bg-surface lg:absolute lg:right-0 lg:top-0 lg:w-[calc(100%-330px)]"
+      >
       {viewMode === 'table' ? (
         <PayrollTable
           teamLabel={fixture.teamLabel}
@@ -597,7 +669,7 @@ export function PayrollChart({
         // height as the real SVG so nothing below this reflows once it
         // swaps in.
         <div
-          className="animate-pulse rounded bg-[#f0efe9]"
+          className="animate-pulse rounded bg-surface-raised"
           style={{ height: svgHeight }}
           aria-hidden="true"
         />
@@ -622,7 +694,7 @@ export function PayrollChart({
         <g transform={`translate(${marginLeft},${MARGIN.top})`}>
           {yTicks.map((tick) => (
             <g key={tick}>
-              <line x1={0} x2={plotWidth} y1={yScale(tick)} y2={yScale(tick)} stroke={GRIDLINE} strokeWidth={1} />
+              <line x1={0} x2={plotWidth} y1={yScale(tick)} y2={yScale(tick)} stroke={canvas.gridline} strokeWidth={1} />
               {!tickCollidesWithThreshold(tick) && (
               <text
                 x={-10}
@@ -630,7 +702,7 @@ export function PayrollChart({
                 textAnchor="end"
                 dominantBaseline="middle"
                 fontSize={10}
-                fill={SECONDARY_INK}
+                fill={canvas.secondary}
               >
                 {formatValue(tick)}
               </text>
@@ -794,7 +866,8 @@ export function PayrollChart({
                 direction="left"
                 text={truncateToWidth(resolved.label, marginLeftAvailableWidth)}
                 title={`${firstSeason} ${style.name}: ${formatExact(firstRender.thresholds[key])}${firstRender.thresholds.isProjected ? ' (projected)' : ''}`}
-                stroke={SECONDARY_INK}
+                stroke={canvas.secondary}
+                textFill={canvas.secondary}
                 strokeWidth={style.width}
                 dash={projectedDash(style.dash === 'none' ? undefined : style.dash, firstRender.thresholds.isProjected)}
               />
@@ -825,7 +898,8 @@ export function PayrollChart({
                     ? `${lastSeason} ${style!.name}: ${formatExact(lastRender.thresholds[key!])}${lastRender.thresholds.isProjected ? ' (projected)' : ''}`
                     : item.label
                 }
-                stroke={isThreshold ? SECONDARY_INK : MUTED_INK}
+                stroke={isThreshold ? canvas.secondary : canvas.muted}
+                textFill={canvas.secondary}
                 strokeWidth={isThreshold ? style!.width : 1}
                 dash={
                   isThreshold
@@ -870,7 +944,7 @@ export function PayrollChart({
                 y={PLOT_HEIGHT + 20}
                 textAnchor="middle"
                 fontSize={13}
-                fill={PRIMARY_INK}
+                fill={canvas.primary}
               >
                 {r.season}
                 {r.thresholds.isProjected ? ' (projected)' : ''}
@@ -893,7 +967,8 @@ export function PayrollChart({
                     direction="right"
                     text={calloutText(callout.label, callout.capHit, r.calloutMaxWidth, formatValue)}
                     title={callout.label}
-                    stroke={MUTED_INK}
+                    stroke={canvas.muted}
+                    textFill={canvas.secondary}
                     strokeWidth={1}
                     onActivate={
                       isOthers ? () => setExpandedOthers((s) => ({ ...s, [r.season]: true })) : undefined
@@ -938,7 +1013,7 @@ function segmentInfoFor(
 // is a visual affordance, not a second announcement.
 function ActiveSegmentReadout({ info }: { info: ActiveSegmentInfo | null }) {
   return (
-    <div className="mb-2 min-h-[1.25rem] text-sm text-[#0b0b0b]" aria-hidden="true">
+    <div className="mb-2 min-h-[1.25rem] text-sm text-ink" aria-hidden="true">
       {info
         ? `${info.label} — ${formatExact(info.amount)} (${info.season}) · ${provenancePhrase(info)} · retrieved ${formatRetrievedAt(info.retrievedAt)}`
         : ' '}
@@ -960,6 +1035,7 @@ function MarginLabel({
   text,
   title,
   stroke,
+  textFill,
   strokeWidth,
   dash,
   onActivate,
@@ -972,6 +1048,10 @@ function MarginLabel({
   text: string;
   title: string;
   stroke: string;
+  /** Theme-aware — every caller passes `canvas.secondary` (see this file's
+   * furniture-vs-fixed-ink comment); a margin label never sits on a
+   * mechanism/team fill, so it's always safe to theme. */
+  textFill: string;
   strokeWidth: number;
   dash?: string;
   onActivate?: () => void;
@@ -997,7 +1077,7 @@ function MarginLabel({
         textAnchor={direction === 'left' ? 'end' : 'start'}
         dominantBaseline="middle"
         fontSize={onActivate ? 10 : 9}
-        fill={SECONDARY_INK}
+        fill={textFill}
         onClick={onActivate}
         style={onActivate ? { cursor: 'pointer', textDecoration: 'underline' } : undefined}
         tabIndex={onActivate ? 0 : undefined}
@@ -1078,8 +1158,9 @@ function calloutText(label: string, amount: number, maxWidth: number, formatValu
 
 function Legend() {
   return (
-    <>
-      <ul className="mb-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#52514e]" aria-label="Contract mechanism legend">
+    <div className="glass-surface mb-3 rounded-2xl border border-line p-3">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink-muted">Contract mechanism</p>
+      <ul className="mb-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-muted" aria-label="Contract mechanism legend">
         {MECHANISM_LEGEND_ORDER.map((mechanism) => {
           const patternId = mechanismPatternId(mechanism);
           return (
@@ -1093,16 +1174,19 @@ function Legend() {
           );
         })}
       </ul>
-      <p className="mb-3 text-xs text-[#52514e]">
+      <p className="text-xs text-ink-muted">
         Fill pattern also marks each segment&apos;s tier (not color alone). A dashed border
         marks a figure that&apos;s <em>estimated</em> rather than sourced, and a dotted inner
         outline marks a season that depends on a player/team option that hasn&apos;t been
         decided yet — see{' '}
-        <a href="/methodology" className="underline">
+        <a
+          href="/methodology"
+          className="text-accent underline underline-offset-2 outline-none hover:text-accent-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
           methodology
         </a>
         .
       </p>
-    </>
+    </div>
   );
 }

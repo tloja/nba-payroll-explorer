@@ -54,16 +54,16 @@ export function PayrollTable({
   const showSeasonColumn = seasons.length > 1;
 
   return (
-    <div className="mt-4 overflow-x-auto">
-      <table className="w-full min-w-[920px] border-collapse text-left text-sm">
-        <caption className="mb-2 text-left text-sm text-[#52514e]">
+    <div className="overflow-x-auto p-4">
+      <table className="w-full min-w-[920px] border-collapse text-left text-sm text-ink">
+        <caption className="mb-2 text-left text-sm text-ink-muted">
           {teamLabel} payroll, {seasons.join(', ')} — {basisLabel.toLowerCase()}
           {toggles.guaranteedOnly ? ', guaranteed amounts only' : ''}
           {!toggles.includeDeadMoneyAndHolds ? ', excluding dead money and cap holds' : ''}. One row per cap charge,
           in the same fixed stack order as the chart.
         </caption>
         <thead>
-          <tr className="border-b border-[#d8d6cf]">
+          <tr className="border-b border-line">
             {showSeasonColumn && (
               <th scope="col" className="py-1.5 pr-3 font-semibold">
                 Season
@@ -105,7 +105,7 @@ export function PayrollTable({
               const mechanism = mechanismFor(seg.charge);
               const amount = seg.top - seg.bottom;
               return (
-                <tr key={`${stack.season}-${seg.entityId}`} className="border-b border-[#eeeee7]">
+                <tr key={`${stack.season}-${seg.entityId}`} className="border-b border-line">
                   {showSeasonColumn && <td className="py-1 pr-3 align-top">{stack.season}</td>}
                   <td className="py-1 pr-3 align-top">{seg.charge.label}</td>
                   <td className="py-1 pr-3 align-top">
@@ -123,7 +123,12 @@ export function PayrollTable({
                   </td>
                   <td className="py-1 pr-3 align-top capitalize">{seg.charge.derivation}</td>
                   <td className="py-1 pr-3 align-top">
-                    <a href={seg.charge.sourceUrl} className="underline" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={seg.charge.sourceUrl}
+                      className="text-accent underline underline-offset-2 hover:text-accent-strong"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {seg.charge.sourceId}
                     </a>
                   </td>
@@ -133,7 +138,7 @@ export function PayrollTable({
             });
 
             const totalRow = (
-              <tr key={`${stack.season}-total`} className="border-b-2 border-[#0b0b0b] font-semibold">
+              <tr key={`${stack.season}-total`} className="border-b-2 border-ink font-semibold">
                 {showSeasonColumn && <td className="py-1.5 pr-3 align-top">{stack.season}</td>}
                 <td className="py-1.5 pr-3 align-top" colSpan={3}>
                   Total ({basisLabel.toLowerCase()})
