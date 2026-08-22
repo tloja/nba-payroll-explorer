@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +71,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -89,7 +89,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -107,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +143,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +161,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -179,8 +179,44 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
+    },
+    {
+      "id": "player:CHO-schrode01:2026-27",
+      "teamId": "CHO",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Dennis Schröder",
+      "playerId": "schrode01",
+      "capHit": 14809200,
+      "taxHit": 14809200,
+      "apronHit": 14809200,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 14809200,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CHO-schrode01:2027-28",
+      "teamId": "CHO",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Dennis Schröder",
+      "playerId": "schrode01",
+      "capHit": 15514400,
+      "taxHit": 15514400,
+      "apronHit": 15514400,
+      "guaranteeStatus": "none",
+      "guaranteedAmount": 0,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
+      "derivation": "sourced"
     },
     {
       "id": "player:CHO-willigr01:2026-27",
@@ -197,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +287,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -269,7 +305,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -287,7 +323,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -305,7 +341,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -323,7 +359,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -341,7 +377,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -359,7 +395,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -377,43 +413,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
-      "derivation": "estimated"
-    },
-    {
-      "id": "player:CHO-manntr01:2026-27",
-      "teamId": "CHO",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Tre Mann",
-      "playerId": "manntr01",
-      "capHit": 8000000,
-      "taxHit": 8000000,
-      "apronHit": 8000000,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 8000000,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CHO-manntr01:2027-28",
-      "teamId": "CHO",
-      "season": "2027-28",
-      "chargeType": "player",
-      "label": "Tre Mann",
-      "playerId": "manntr01",
-      "capHit": 8000000,
-      "taxHit": 8000000,
-      "apronHit": 8000000,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 8000000,
-      "optionType": "team",
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -431,7 +431,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -449,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +467,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -485,7 +485,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -503,7 +503,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -521,7 +521,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -539,7 +539,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -557,7 +557,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -575,7 +575,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -593,7 +593,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -611,7 +611,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -629,7 +629,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -647,7 +647,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -665,7 +665,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -683,7 +683,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -701,7 +701,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     },
     {
@@ -719,7 +719,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -737,7 +737,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "sourced"
     },
     {
@@ -755,18 +755,18 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CHO.html",
-      "retrievedAt": "2026-08-21T09:17:31.377Z",
+      "retrievedAt": "2026-08-22T09:00:12.516Z",
       "derivation": "estimated"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 168061447
+      "total": 174870647
     },
     {
       "season": "2027-28",
-      "total": 141515542
+      "total": 149029942
     },
     {
       "season": "2028-29",
