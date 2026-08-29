@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +89,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -107,7 +107,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -125,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +143,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -161,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +215,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +251,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -269,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -287,8 +287,44 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
+    },
+    {
+      "id": "player:MIA-thompkl01:2026-27",
+      "teamId": "MIA",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Klay Thompson",
+      "playerId": "thompkl01",
+      "capHit": 5600000,
+      "taxHit": 5600000,
+      "apronHit": 5600000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 5600000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:MIA-thompkl01:2027-28",
+      "teamId": "MIA",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Klay Thompson",
+      "playerId": "thompkl01",
+      "capHit": 5880000,
+      "taxHit": 5880000,
+      "apronHit": 5880000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 5880000,
+      "optionType": "player",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
+      "derivation": "estimated"
     },
     {
       "id": "player:MIA-smithdr01:2026-27",
@@ -305,7 +341,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -323,7 +359,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -341,7 +377,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -359,7 +395,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -377,7 +413,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -395,7 +431,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     },
     {
@@ -413,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -431,7 +467,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "sourced"
     },
     {
@@ -449,18 +485,18 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIA.html",
-      "retrievedAt": "2026-08-28T20:21:36.186Z",
+      "retrievedAt": "2026-08-29T13:59:57.761Z",
       "derivation": "estimated"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 198886535
+      "total": 204486535
     },
     {
       "season": "2027-28",
-      "total": 171172923
+      "total": 177052923
     },
     {
       "season": "2028-29",
