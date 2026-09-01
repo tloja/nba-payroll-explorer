@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +89,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -107,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +143,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "estimated"
     },
     {
@@ -161,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +215,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -269,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -287,26 +287,8 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "estimated"
-    },
-    {
-      "id": "player:MIN-greenjo02:2026-27",
-      "teamId": "MIN",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Josh Green",
-      "playerId": "greenjo02",
-      "capHit": 14679012,
-      "taxHit": 14679012,
-      "apronHit": 14679012,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 14679012,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
-      "derivation": "sourced"
     },
     {
       "id": "player:MIN-divindo01:2026-27",
@@ -323,8 +305,44 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
+    },
+    {
+      "id": "player:MIN-willico04:2026-27",
+      "teamId": "MIN",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Cody Williams",
+      "playerId": "willico04",
+      "capHit": 6015600,
+      "taxHit": 6015600,
+      "apronHit": 6015600,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 6015600,
+      "optionType": "team",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
+      "derivation": "estimated"
+    },
+    {
+      "id": "player:MIN-willico04:2027-28",
+      "teamId": "MIN",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Cody Williams",
+      "playerId": "willico04",
+      "capHit": 7669890,
+      "taxHit": 7669890,
+      "apronHit": 7669890,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 7669890,
+      "optionType": "team",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
+      "derivation": "estimated"
     },
     {
       "id": "player:MIN-berinjo01:2026-27",
@@ -341,7 +359,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -359,7 +377,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "estimated"
     },
     {
@@ -377,7 +395,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "estimated"
     },
     {
@@ -395,7 +413,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -413,7 +431,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -431,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -449,7 +467,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +485,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "estimated"
     },
     {
@@ -485,7 +503,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "estimated"
     },
     {
@@ -503,7 +521,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -521,7 +539,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -539,7 +557,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -557,7 +575,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "sourced"
     },
     {
@@ -575,22 +593,76 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
-      "retrievedAt": "2026-08-31T16:21:59.746Z",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
       "derivation": "estimated"
+    },
+    {
+      "id": "player:MIN-konchjo01:2026-27",
+      "teamId": "MIN",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "John Konchar",
+      "playerId": "konchjo01",
+      "capHit": 2055000,
+      "taxHit": 2055000,
+      "apronHit": 2055000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2055000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:MIN-konchjo01:2027-28",
+      "teamId": "MIN",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "John Konchar",
+      "playerId": "konchjo01",
+      "capHit": 2055000,
+      "taxHit": 2055000,
+      "apronHit": 2055000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2055000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:MIN-konchjo01:2028-29",
+      "teamId": "MIN",
+      "season": "2028-29",
+      "chargeType": "player",
+      "label": "John Konchar",
+      "playerId": "konchjo01",
+      "capHit": 2055000,
+      "taxHit": 2055000,
+      "apronHit": 2055000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2055000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/MIN.html",
+      "retrievedAt": "2026-09-01T13:40:42.116Z",
+      "derivation": "sourced"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 215871829
+      "total": 209263417
     },
     {
       "season": "2027-28",
-      "total": 198046150
+      "total": 207771040
     },
     {
       "season": "2028-29",
-      "total": 167653451
+      "total": 169708451
     },
     {
       "season": "2029-30",
