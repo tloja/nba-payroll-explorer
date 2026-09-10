@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +89,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -107,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +143,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -171,15 +171,51 @@
       "chargeType": "player",
       "label": "James Harden",
       "playerId": "hardeja01",
-      "capHit": 42317307,
-      "taxHit": 42317307,
-      "apronHit": 42317307,
+      "capHit": 30647619,
+      "taxHit": 30647619,
+      "apronHit": 30647619,
       "guaranteeStatus": "full",
-      "guaranteedAmount": 42317307,
+      "guaranteedAmount": 30647619,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-hardeja01:2027-28",
+      "teamId": "CLE",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "James Harden",
+      "playerId": "hardeja01",
+      "capHit": 32180000,
+      "taxHit": 32180000,
+      "apronHit": 32180000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 32180000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-hardeja01:2028-29",
+      "teamId": "CLE",
+      "season": "2028-29",
+      "chargeType": "player",
+      "label": "James Harden",
+      "playerId": "hardeja01",
+      "capHit": 33712381,
+      "taxHit": 33712381,
+      "apronHit": 33712381,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 33712381,
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -197,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +287,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -269,7 +305,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -287,7 +323,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -305,7 +341,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -323,7 +359,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -341,7 +377,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -359,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +413,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -395,7 +431,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -413,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -431,7 +467,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -449,7 +485,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +503,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -485,7 +521,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -503,7 +539,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -521,7 +557,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -539,7 +575,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -557,7 +593,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -575,7 +611,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     },
     {
@@ -593,7 +629,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -611,7 +647,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -629,7 +665,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -647,7 +683,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -665,7 +701,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -683,7 +719,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -701,7 +737,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -719,7 +755,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "estimated"
     },
     {
@@ -737,22 +773,22 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-08T13:02:55.717Z",
+      "retrievedAt": "2026-09-10T13:05:57.418Z",
       "derivation": "sourced"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 220639643
+      "total": 208969955
     },
     {
       "season": "2027-28",
-      "total": 190872291
+      "total": 223052291
     },
     {
       "season": "2028-29",
-      "total": 198766881
+      "total": 232479262
     },
     {
       "season": "2029-30",
