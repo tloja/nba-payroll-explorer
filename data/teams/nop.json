@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +89,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -107,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +143,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +215,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -233,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +251,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -269,7 +269,43 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
+      "derivation": "estimated"
+    },
+    {
+      "id": "player:NOP-mathube01:2026-27",
+      "teamId": "NOP",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Bennedict Mathurin",
+      "playerId": "mathube01",
+      "capHit": 7804878,
+      "taxHit": 7804878,
+      "apronHit": 7804878,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 7804878,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:NOP-mathube01:2027-28",
+      "teamId": "NOP",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Bennedict Mathurin",
+      "playerId": "mathube01",
+      "capHit": 8195122,
+      "taxHit": 8195122,
+      "apronHit": 8195122,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 8195122,
+      "optionType": "player",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -287,7 +323,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -305,7 +341,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -323,7 +359,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -341,7 +377,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -359,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +413,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -395,7 +431,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -413,7 +449,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -431,7 +467,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -449,26 +485,8 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
-    },
-    {
-      "id": "player:NOP-houstca01:2026-27",
-      "teamId": "NOP",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Caleb Houstan",
-      "playerId": "houstca01",
-      "capHit": 2625627,
-      "taxHit": 2625627,
-      "apronHit": 2625627,
-      "guaranteeStatus": "none",
-      "guaranteedAmount": 0,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
-      "derivation": "sourced"
     },
     {
       "id": "player:NOP-kolokch01:2026-27",
@@ -485,7 +503,25 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:NOP-houstca01:2026-27",
+      "teamId": "NOP",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Caleb Houstan",
+      "playerId": "houstca01",
+      "capHit": 2625627,
+      "taxHit": 2625627,
+      "apronHit": 2625627,
+      "guaranteeStatus": "none",
+      "guaranteedAmount": 0,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -503,7 +539,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -521,26 +557,8 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
-    },
-    {
-      "id": "player:NOP-bufkiko01:2026-27",
-      "teamId": "NOP",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Kobe Bufkin",
-      "playerId": "bufkiko01",
-      "capHit": 2449421,
-      "taxHit": 2449421,
-      "apronHit": 2449421,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 2449421,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
-      "derivation": "sourced"
     },
     {
       "id": "player:NOP-watfotr01:2026-27",
@@ -557,7 +575,25 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:NOP-bufkiko01:2026-27",
+      "teamId": "NOP",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Kobe Bufkin",
+      "playerId": "bufkiko01",
+      "capHit": 2449421,
+      "taxHit": 2449421,
+      "apronHit": 2449421,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2449421,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     },
     {
@@ -575,7 +611,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "estimated"
     },
     {
@@ -593,18 +629,18 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/NOP.html",
-      "retrievedAt": "2026-09-14T15:13:51.485Z",
+      "retrievedAt": "2026-09-15T13:51:27.523Z",
       "derivation": "sourced"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 196454150
+      "total": 204259028
     },
     {
       "season": "2027-28",
-      "total": 157536852
+      "total": 165731974
     },
     {
       "season": "2028-29",
