@@ -3,24 +3,6 @@
   "teamLabel": "LA Clippers",
   "capCharges": [
     {
-      "id": "player:LAC-leonaka01:2026-27",
-      "teamId": "LAC",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Kawhi Leonard",
-      "playerId": "leonaka01",
-      "capHit": 50300000,
-      "taxHit": 50300000,
-      "apronHit": 50300000,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 50300000,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
-      "derivation": "sourced"
-    },
-    {
       "id": "player:LAC-garlada01:2026-27",
       "teamId": "LAC",
       "season": "2026-27",
@@ -35,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -53,8 +35,44 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
+    },
+    {
+      "id": "player:LAC-ingrabr01:2026-27",
+      "teamId": "LAC",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Brandon Ingram",
+      "playerId": "ingrabr01",
+      "capHit": 40000000,
+      "taxHit": 40000000,
+      "apronHit": 40000000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 40000000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:LAC-ingrabr01:2027-28",
+      "teamId": "LAC",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Brandon Ingram",
+      "playerId": "ingrabr01",
+      "capHit": 41904762,
+      "taxHit": 41904762,
+      "apronHit": 41904762,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 41904762,
+      "optionType": "player",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
+      "derivation": "estimated"
     },
     {
       "id": "player:LAC-strusma01:2026-27",
@@ -71,7 +89,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -107,7 +125,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -125,7 +143,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +197,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -197,7 +215,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -215,7 +233,25 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
+      "derivation": "estimated"
+    },
+    {
+      "id": "player:LAC-dickgr01:2026-27",
+      "teamId": "LAC",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Gradey Dick",
+      "playerId": "dickgr01",
+      "capHit": 7131511,
+      "taxHit": 7131511,
+      "apronHit": 7131511,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 7131511,
+      "optionType": "team",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -233,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +287,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -269,7 +305,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -287,7 +323,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -305,7 +341,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -323,7 +359,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -341,7 +377,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -359,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +413,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -395,7 +431,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -413,7 +449,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -431,7 +467,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -449,7 +485,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +503,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -485,7 +521,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -503,7 +539,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -521,7 +557,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -539,7 +575,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -557,7 +593,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -575,7 +611,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -593,7 +629,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -611,7 +647,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     },
     {
@@ -629,7 +665,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -647,7 +683,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -665,7 +701,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "sourced"
     },
     {
@@ -683,18 +719,18 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/LAC.html",
-      "retrievedAt": "2026-09-15T13:51:09.150Z",
+      "retrievedAt": "2026-09-16T13:42:48.136Z",
       "derivation": "estimated"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 196862414
+      "total": 193693925
     },
     {
       "season": "2027-28",
-      "total": 100270202
+      "total": 142174964
     },
     {
       "season": "2028-29",

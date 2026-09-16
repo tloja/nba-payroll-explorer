@@ -3,6 +3,24 @@
   "teamLabel": "Toronto Raptors",
   "capCharges": [
     {
+      "id": "player:TOR-leonaka01:2026-27",
+      "teamId": "TOR",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Kawhi Leonard",
+      "playerId": "leonaka01",
+      "capHit": 50300000,
+      "taxHit": 50300000,
+      "apronHit": 50300000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 50300000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
+      "derivation": "sourced"
+    },
+    {
       "id": "player:TOR-barnesc01:2026-27",
       "teamId": "TOR",
       "season": "2026-27",
@@ -17,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -71,44 +89,8 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
-    },
-    {
-      "id": "player:TOR-ingrabr01:2026-27",
-      "teamId": "TOR",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Brandon Ingram",
-      "playerId": "ingrabr01",
-      "capHit": 40000000,
-      "taxHit": 40000000,
-      "apronHit": 40000000,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 40000000,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:TOR-ingrabr01:2027-28",
-      "teamId": "TOR",
-      "season": "2027-28",
-      "chargeType": "player",
-      "label": "Brandon Ingram",
-      "playerId": "ingrabr01",
-      "capHit": 41904762,
-      "taxHit": 41904762,
-      "apronHit": 41904762,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 41904762,
-      "optionType": "player",
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
-      "derivation": "estimated"
     },
     {
       "id": "player:TOR-quickim01:2026-27",
@@ -125,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +125,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +143,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +179,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -215,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +215,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -251,26 +233,8 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
-    },
-    {
-      "id": "player:TOR-dickgr01:2026-27",
-      "teamId": "TOR",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Gradey Dick",
-      "playerId": "dickgr01",
-      "capHit": 7131511,
-      "taxHit": 7131511,
-      "apronHit": 7131511,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 7131511,
-      "optionType": "team",
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
-      "derivation": "estimated"
     },
     {
       "id": "player:TOR-murraco01:2026-27",
@@ -287,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -305,7 +269,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -323,7 +287,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -341,7 +305,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -359,7 +323,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +341,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -395,7 +359,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -413,7 +377,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -431,7 +395,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -449,7 +413,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +431,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -485,7 +449,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -503,7 +467,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -521,7 +485,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -539,7 +503,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -557,7 +521,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "estimated"
     },
     {
@@ -575,7 +539,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     },
     {
@@ -593,18 +557,18 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/TOR.html",
-      "retrievedAt": "2026-09-15T13:51:55.059Z",
+      "retrievedAt": "2026-09-16T13:43:34.433Z",
       "derivation": "sourced"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 202743041
+      "total": 205911530
     },
     {
       "season": "2027-28",
-      "total": 166229339
+      "total": 124324577
     },
     {
       "season": "2028-29",
