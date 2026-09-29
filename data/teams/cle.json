@@ -3,96 +3,6 @@
   "teamLabel": "Cleveland Cavaliers",
   "capCharges": [
     {
-      "id": "player:CLE-mitchdo01:2026-27",
-      "teamId": "CLE",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Donovan Mitchell",
-      "playerId": "mitchdo01",
-      "capHit": 50105628,
-      "taxHit": 50105628,
-      "apronHit": 50105628,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 50105628,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CLE-mitchdo01:2027-28",
-      "teamId": "CLE",
-      "season": "2027-28",
-      "chargeType": "player",
-      "label": "Donovan Mitchell",
-      "playerId": "mitchdo01",
-      "capHit": 60911900,
-      "taxHit": 60911900,
-      "apronHit": 60911900,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 60911900,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CLE-mitchdo01:2028-29",
-      "teamId": "CLE",
-      "season": "2028-29",
-      "chargeType": "player",
-      "label": "Donovan Mitchell",
-      "playerId": "mitchdo01",
-      "capHit": 65784852,
-      "taxHit": 65784852,
-      "apronHit": 65784852,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 65784852,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CLE-mitchdo01:2029-30",
-      "teamId": "CLE",
-      "season": "2029-30",
-      "chargeType": "player",
-      "label": "Donovan Mitchell",
-      "playerId": "mitchdo01",
-      "capHit": 70657804,
-      "taxHit": 70657804,
-      "apronHit": 70657804,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 70657804,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CLE-mitchdo01:2030-31",
-      "teamId": "CLE",
-      "season": "2030-31",
-      "chargeType": "player",
-      "label": "Donovan Mitchell",
-      "playerId": "mitchdo01",
-      "capHit": 75530756,
-      "taxHit": 75530756,
-      "apronHit": 75530756,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 75530756,
-      "optionType": "player",
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "estimated"
-    },
-    {
       "id": "player:CLE-mobleev01:2026-27",
       "teamId": "CLE",
       "season": "2026-27",
@@ -107,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -143,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -161,8 +71,98 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-mitchdo01:2026-27",
+      "teamId": "CLE",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Donovan Mitchell",
+      "playerId": "mitchdo01",
+      "capHit": 50105628,
+      "taxHit": 50105628,
+      "apronHit": 50105628,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 50105628,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-mitchdo01:2027-28",
+      "teamId": "CLE",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Donovan Mitchell",
+      "playerId": "mitchdo01",
+      "capHit": 60911900,
+      "taxHit": 60911900,
+      "apronHit": 60911900,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 60911900,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-mitchdo01:2028-29",
+      "teamId": "CLE",
+      "season": "2028-29",
+      "chargeType": "player",
+      "label": "Donovan Mitchell",
+      "playerId": "mitchdo01",
+      "capHit": 65784852,
+      "taxHit": 65784852,
+      "apronHit": 65784852,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 65784852,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-mitchdo01:2029-30",
+      "teamId": "CLE",
+      "season": "2029-30",
+      "chargeType": "player",
+      "label": "Donovan Mitchell",
+      "playerId": "mitchdo01",
+      "capHit": 70657804,
+      "taxHit": 70657804,
+      "apronHit": 70657804,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 70657804,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-mitchdo01:2030-31",
+      "teamId": "CLE",
+      "season": "2030-31",
+      "chargeType": "player",
+      "label": "Donovan Mitchell",
+      "playerId": "mitchdo01",
+      "capHit": 75530756,
+      "taxHit": 75530756,
+      "apronHit": 75530756,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 75530756,
+      "optionType": "player",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "estimated"
     },
     {
       "id": "player:CLE-hardeja01:2026-27",
@@ -179,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +215,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -233,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -269,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -287,7 +287,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -305,7 +305,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -323,7 +323,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -341,7 +341,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -359,7 +359,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +377,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -395,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -413,7 +413,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -431,7 +431,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -449,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +467,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -485,7 +485,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -503,7 +503,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -521,7 +521,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -539,7 +539,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     },
     {
@@ -557,79 +557,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "estimated"
-    },
-    {
-      "id": "player:CLE-thomame01:2026-27",
-      "teamId": "CLE",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Meleek Thomas",
-      "playerId": "thomame01",
-      "capHit": 1357763,
-      "taxHit": 1357763,
-      "apronHit": 1357763,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 1357763,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CLE-thomame01:2027-28",
-      "teamId": "CLE",
-      "season": "2027-28",
-      "chargeType": "player",
-      "label": "Meleek Thomas",
-      "playerId": "thomame01",
-      "capHit": 2294370,
-      "taxHit": 2294370,
-      "apronHit": 2294370,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 2294370,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CLE-thomame01:2028-29",
-      "teamId": "CLE",
-      "season": "2028-29",
-      "chargeType": "player",
-      "label": "Meleek Thomas",
-      "playerId": "thomame01",
-      "capHit": 2694363,
-      "taxHit": 2694363,
-      "apronHit": 2694363,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 2694363,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:CLE-thomame01:2029-30",
-      "teamId": "CLE",
-      "season": "2029-30",
-      "chargeType": "player",
-      "label": "Meleek Thomas",
-      "playerId": "thomame01",
-      "capHit": 2918152,
-      "taxHit": 2918152,
-      "apronHit": 2918152,
-      "guaranteeStatus": "full",
-      "guaranteedAmount": 2918152,
-      "optionType": "team",
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -647,7 +575,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -665,7 +593,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -683,7 +611,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -701,7 +629,79 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "estimated"
+    },
+    {
+      "id": "player:CLE-thomame01:2026-27",
+      "teamId": "CLE",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Meleek Thomas",
+      "playerId": "thomame01",
+      "capHit": 1357763,
+      "taxHit": 1357763,
+      "apronHit": 1357763,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 1357763,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-thomame01:2027-28",
+      "teamId": "CLE",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Meleek Thomas",
+      "playerId": "thomame01",
+      "capHit": 2294370,
+      "taxHit": 2294370,
+      "apronHit": 2294370,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2294370,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-thomame01:2028-29",
+      "teamId": "CLE",
+      "season": "2028-29",
+      "chargeType": "player",
+      "label": "Meleek Thomas",
+      "playerId": "thomame01",
+      "capHit": 2694363,
+      "taxHit": 2694363,
+      "apronHit": 2694363,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2694363,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:CLE-thomame01:2029-30",
+      "teamId": "CLE",
+      "season": "2029-30",
+      "chargeType": "player",
+      "label": "Meleek Thomas",
+      "playerId": "thomame01",
+      "capHit": 2918152,
+      "taxHit": 2918152,
+      "apronHit": 2918152,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 2918152,
+      "optionType": "team",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -719,7 +719,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -737,7 +737,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -755,7 +755,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "estimated"
     },
     {
@@ -773,7 +773,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/CLE.html",
-      "retrievedAt": "2026-09-28T16:58:54.789Z",
+      "retrievedAt": "2026-09-29T15:03:13.173Z",
       "derivation": "sourced"
     }
   ],
