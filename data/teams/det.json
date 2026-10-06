@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -71,7 +71,97 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:DET-durenja01:2026-27",
+      "teamId": "DET",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Jalen Duren",
+      "playerId": "durenja01",
+      "capHit": 40160643,
+      "taxHit": 40160643,
+      "apronHit": 40160643,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 40160643,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:DET-durenja01:2027-28",
+      "teamId": "DET",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Jalen Duren",
+      "playerId": "durenja01",
+      "capHit": 36947792,
+      "taxHit": 36947792,
+      "apronHit": 36947792,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 36947792,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:DET-durenja01:2028-29",
+      "teamId": "DET",
+      "season": "2028-29",
+      "chargeType": "player",
+      "label": "Jalen Duren",
+      "playerId": "durenja01",
+      "capHit": 38955824,
+      "taxHit": 38955824,
+      "apronHit": 38955824,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 38955824,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:DET-durenja01:2029-30",
+      "teamId": "DET",
+      "season": "2029-30",
+      "chargeType": "player",
+      "label": "Jalen Duren",
+      "playerId": "durenja01",
+      "capHit": 40963856,
+      "taxHit": 40963856,
+      "apronHit": 40963856,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 40963856,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:DET-durenja01:2030-31",
+      "teamId": "DET",
+      "season": "2030-31",
+      "chargeType": "player",
+      "label": "Jalen Duren",
+      "playerId": "durenja01",
+      "capHit": 42971885,
+      "taxHit": 42971885,
+      "apronHit": 42971885,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 42971885,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -107,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -125,7 +215,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -143,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -161,7 +251,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -179,7 +269,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +287,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -215,7 +305,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -233,7 +323,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +341,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -269,7 +359,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -287,7 +377,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -305,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -323,7 +413,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -341,7 +431,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -359,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -377,7 +467,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -395,7 +485,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -413,7 +503,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -431,7 +521,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -449,7 +539,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +557,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -485,7 +575,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -503,7 +593,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -521,7 +611,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -539,7 +629,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -557,7 +647,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -575,7 +665,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -593,7 +683,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "sourced"
     },
     {
@@ -611,7 +701,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     },
     {
@@ -629,30 +719,30 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/DET.html",
-      "retrievedAt": "2026-10-05T17:22:22.080Z",
+      "retrievedAt": "2026-10-06T15:25:39.221Z",
       "derivation": "estimated"
     }
   ],
   "reportedTotals": [
     {
       "season": "2026-27",
-      "total": 153163826
+      "total": 193324469
     },
     {
       "season": "2027-28",
-      "total": 151738046
+      "total": 188685838
     },
     {
       "season": "2028-29",
-      "total": 120722478
+      "total": 159678302
     },
     {
       "season": "2029-30",
-      "total": 99811709
+      "total": 140775565
     },
     {
       "season": "2030-31",
-      "total": 33137931
+      "total": 76109816
     },
     {
       "season": "2031-32",
