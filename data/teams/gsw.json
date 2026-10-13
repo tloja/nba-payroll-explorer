@@ -17,7 +17,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -35,7 +35,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -53,7 +53,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
     },
     {
@@ -71,7 +71,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -89,7 +89,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -107,7 +107,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -125,7 +125,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
     },
     {
@@ -143,7 +143,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -161,7 +161,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -179,7 +179,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -197,7 +197,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -215,7 +215,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -233,7 +233,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -251,7 +251,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
     },
     {
@@ -269,7 +269,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
     },
     {
@@ -287,7 +287,97 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
+      "derivation": "estimated"
+    },
+    {
+      "id": "player:GSW-podzibr01:2027-28",
+      "teamId": "GSW",
+      "season": "2027-28",
+      "chargeType": "player",
+      "label": "Brandin Podziemski",
+      "playerId": "podzibr01",
+      "capHit": 18965517,
+      "taxHit": 18965517,
+      "apronHit": 18965517,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 18965517,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:GSW-podzibr01:2028-29",
+      "teamId": "GSW",
+      "season": "2028-29",
+      "chargeType": "player",
+      "label": "Brandin Podziemski",
+      "playerId": "podzibr01",
+      "capHit": 20482759,
+      "taxHit": 20482759,
+      "apronHit": 20482759,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 20482759,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:GSW-podzibr01:2029-30",
+      "teamId": "GSW",
+      "season": "2029-30",
+      "chargeType": "player",
+      "label": "Brandin Podziemski",
+      "playerId": "podzibr01",
+      "capHit": 22000000,
+      "taxHit": 22000000,
+      "apronHit": 22000000,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 22000000,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:GSW-podzibr01:2030-31",
+      "teamId": "GSW",
+      "season": "2030-31",
+      "chargeType": "player",
+      "label": "Brandin Podziemski",
+      "playerId": "podzibr01",
+      "capHit": 23517241,
+      "taxHit": 23517241,
+      "apronHit": 23517241,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 23517241,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
+      "derivation": "sourced"
+    },
+    {
+      "id": "player:GSW-podzibr01:2031-32",
+      "teamId": "GSW",
+      "season": "2031-32",
+      "chargeType": "player",
+      "label": "Brandin Podziemski",
+      "playerId": "podzibr01",
+      "capHit": 25034483,
+      "taxHit": 25034483,
+      "apronHit": 25034483,
+      "guaranteeStatus": "full",
+      "guaranteedAmount": 25034483,
+      "optionType": "player",
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
     },
     {
@@ -305,7 +395,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -323,7 +413,7 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
     },
     {
@@ -341,7 +431,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -359,7 +449,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -377,8 +467,26 @@
       "optionType": "player",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
+    },
+    {
+      "id": "player:GSW-willibr03:2026-27",
+      "teamId": "GSW",
+      "season": "2026-27",
+      "chargeType": "player",
+      "label": "Brandon Williams",
+      "playerId": "willibr03",
+      "capHit": 2449421,
+      "taxHit": 2449421,
+      "apronHit": 2449421,
+      "guaranteeStatus": "none",
+      "guaranteedAmount": 0,
+      "optionType": null,
+      "sourceId": "basketball-reference",
+      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
+      "derivation": "sourced"
     },
     {
       "id": "player:GSW-bassech01:2026-27",
@@ -395,25 +503,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
-      "derivation": "sourced"
-    },
-    {
-      "id": "player:GSW-niangge01:2026-27",
-      "teamId": "GSW",
-      "season": "2026-27",
-      "chargeType": "player",
-      "label": "Georges Niang",
-      "playerId": "niangge01",
-      "capHit": 2449421,
-      "taxHit": 2449421,
-      "apronHit": 2449421,
-      "guaranteeStatus": "none",
-      "guaranteedAmount": 0,
-      "optionType": null,
-      "sourceId": "basketball-reference",
-      "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -431,16 +521,16 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
-      "id": "player:GSW-willibr03:2026-27",
+      "id": "player:GSW-niangge01:2026-27",
       "teamId": "GSW",
       "season": "2026-27",
       "chargeType": "player",
-      "label": "Brandon Williams",
-      "playerId": "willibr03",
+      "label": "Georges Niang",
+      "playerId": "niangge01",
       "capHit": 2449421,
       "taxHit": 2449421,
       "apronHit": 2449421,
@@ -449,7 +539,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -467,7 +557,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -485,7 +575,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -503,7 +593,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     },
     {
@@ -521,7 +611,7 @@
       "optionType": "team",
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "estimated"
     },
     {
@@ -539,7 +629,7 @@
       "optionType": null,
       "sourceId": "basketball-reference",
       "sourceUrl": "https://www.basketball-reference.com/contracts/GSW.html",
-      "retrievedAt": "2026-10-12T18:10:45.229Z",
+      "retrievedAt": "2026-10-13T16:22:59.025Z",
       "derivation": "sourced"
     }
   ],
@@ -550,15 +640,23 @@
     },
     {
       "season": "2027-28",
-      "total": 116454861
+      "total": 135420378
     },
     {
       "season": "2028-29",
-      "total": 74968268
+      "total": 95451027
     },
     {
       "season": "2029-30",
-      "total": 8899128
+      "total": 30899128
+    },
+    {
+      "season": "2030-31",
+      "total": 23517241
+    },
+    {
+      "season": "2031-32",
+      "total": 25034483
     }
   ]
 }
